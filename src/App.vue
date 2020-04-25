@@ -1,6 +1,7 @@
 <template>
     <div id="app">
         <Header />
+        <div style="font-size: 20px">Test</div>
         <van-button type="default">默认按钮</van-button>
         <van-button plain  type="primary">细边框按钮</van-button>
         <van-button loading type="info" loading-text="加载中..." />
