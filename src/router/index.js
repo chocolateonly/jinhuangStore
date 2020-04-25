@@ -4,13 +4,22 @@ import Home from '../views/Home.vue'
 Vue.use(VueRouter)
 
   const routes = [
+    {
+      path:'/',
+      redirect:'/welcome'
+    },
   {
-    path: '/',
+    path: '/home',
     name: 'Home',
     component: Home
   },
+    {
+      path: '/welcome',
+      name: 'Welcome',
+      component: () => import(/* webpackChunkName: "about" */ '../views/Welcome.vue')
+    },
   {
-    path: '/News',
+    path: '/news',
     name: 'News',
     component: () => import(/* webpackChunkName: "about" */ '../views/News.vue')
   }
