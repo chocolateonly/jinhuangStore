@@ -49,5 +49,25 @@ const router = new VueRouter({
     return { x: 0, y: 0}
   }
 })
-
+router.beforeEach(async (to, from, next) => {
+  //验证是否登录
+  if (to.matched.some(record => record.meta.requiresAuth)) {
+    const res=await localStorage.getItem('BS_JH_USERINFO')
+    console.log(res)
+    console.log(to)
+    console.log(from)
+    // this route requires auth, check if logged in
+    // if not, redirect to login page.
+/*    if (!auth.loggedIn()) {
+      next({
+        path: '/login',
+        query: { redirect: to.fullPath }
+      })
+    } else {*/
+      next()
+   /* }*/
+  } else {
+    next() // make sure to always call next()!
+  }
+})
 export default router
