@@ -16,7 +16,7 @@
 
         created() {
             this.timer=setTimeout(()=>{
-              this.$router.push('Home')
+              this.$router.push('/tab/home')
             },2000)
         },
         destroyed() {

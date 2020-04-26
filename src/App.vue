@@ -1,7 +1,6 @@
 <template>
     <div id="app">
         <router-view/>
-        <TabView />
     </div>
 </template>
 
@@ -18,8 +17,7 @@
 </style>
 <script>
 
-    import TabView from "./views/TabView";
     export default {
-        components: {TabView}
+        components: {}
     }
 </script>
