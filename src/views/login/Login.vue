@@ -2,7 +2,7 @@
     <div class="login">
 
         <div class="logo">
-            <van-image class="logo_img" :src="require('../assets/logo.png')"/>
+            <van-image class="logo_img" :src="require('../../assets/logo.png')"/>
         </div>
 
         <div class="container">
@@ -11,7 +11,7 @@
                     class="input"
                     autosize
                     v-model="username"
-                    :left-icon="require('../assets/login/icon_user.png')"
+                    :left-icon="require('../../assets/login/icon_user.png')"
                     placeholder="请输入账号"
             />
 
@@ -19,25 +19,23 @@
                     class="input"
                     autosize
                     v-model="password"
-                    :left-icon="require('../assets/login/icon_lock.png')"
+                    :left-icon="require('../../assets/login/icon_lock.png')"
                     placeholder="请输入密码"
             />
             </div>
-            <button class="login_btn" @click="onLogin">
-                登 录
-            </button>
+            <FullButton title="登 录" :onClick="onLogin"  />
+            <FullButton title="注 册" :onClick="onRegister" _className="register_btn" />
 
-            <button class="login_btn register_btn" @click="onRegister">
-                注 册
-            </button>
             <a class="forgot"  @click="onForgot">忘记密码？</a>
         </div>
     </div>
 </template>
 
 <script>
+    import FullButton from "../../components/FullButton";
     export default {
         name: "Login",
+        components: {FullButton},
         data() {
             return {
                 username: '',
@@ -49,7 +47,7 @@
                 console.log(this.username)
             },
             onRegister(){
-
+               this.$router.push('Register')
             },
             onForgot(){
                 console.log(this.username)
@@ -62,7 +60,7 @@
     .login {
         width: 100%;
         height: 100%;
-        background: url("../assets/login/login_bg.png") no-repeat;
+        background: url("../../assets/login/login_bg.png") no-repeat;
         background-size: cover;
 
         .logo {
@@ -88,24 +86,12 @@
             width: auto;
         }
 
-        .login_btn {
-            width: 100%;
-            height: 89px;
-            background: url("../assets/login/login_btn.png") no-repeat;
-            background-size: contain;
-            color: #fff;
-            font-size: 32px;
-            margin-bottom: 32px;
-            &:hover{
-                opacity: 0.8;
-            }
-        }
-
         .register_btn {
-            background: url("../assets/login/register_btn.png") no-repeat;
+            background: url("../../assets/login/register_btn.png") no-repeat;
             background-size: contain;
             color: #666;
         }
+
         .forgot{
             font-size: 24px;
         }

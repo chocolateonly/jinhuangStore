@@ -15,7 +15,17 @@ Vue.use(VueRouter)
     {
       path: '/login',
       name: 'Login',
-      component: () => import(/* webpackChunkName: "login" */ '../views/Login.vue')
+      component: () => import(/* webpackChunkName: "login" */ '../views/login/Login.vue')
+    },
+    {
+      path: '/register',
+      name: 'Register',
+      component: () => import(/* webpackChunkName: "Register" */ '../views/login/Register.vue')
+    },
+    {
+      path: '/forgot',
+      name: 'Forgot',
+      component: () => import(/* webpackChunkName: "login" */ '../views/login/Forgot.vue')
     },
     {
       path: '/tab',
