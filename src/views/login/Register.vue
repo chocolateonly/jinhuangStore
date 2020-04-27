@@ -1,7 +1,8 @@
 <template>
     <div class="register flexCol1">
-        <Header _className="header flexCol0" title="用户注册" :on-press-left="goBack"/>
-        <div class="flexCol1 overflowY">
+
+        <img class="logo" :src="require('../../assets/common/login_title.png')" alt="">
+
         <div class="container">
             <div class="input_from">
                 <van-field
@@ -21,7 +22,7 @@
                 >
                     <!--获取验证码-->
                     <template #button>
-                        <CodeView :mobile="mobile" />
+                        <CodeView :mobile="mobile"/>
                     </template>
 
                 </van-field>
@@ -66,43 +67,42 @@
 
             <FullButton title="注 册" :onClick="onRegister"/>
         </div>
-        </div>
+
     </div>
 </template>
 
 <script>
-    import FullButton from "../../components/FullButton";
-    import Header from "../../components/Header";
-    import CodeView from '../../components/CodeView'
+  import FullButton from "../../components/FullButton";
+  import CodeView from '../../components/CodeView'
 
-    export default {
-        name: "Register",
-        components: {Header, FullButton, CodeView},
-        data() {
-            return {
-                username: '',
-                mobile: '13476260156',
-                code: '',
-                password: '',
-                confirmPassword: '',
-                recommendCode: '',
-                hasRead: false
-            }
-        },
-        methods: {
-            goBack() {
-                this.$router.go(-1)
-            },
-            showContract(){
-              this.$router.push('Contract')
-            },
-            async onRegister() {
-                if (!this.username) {
-                    return this.$toast('信息未填写完');
-                }
-            }
+  export default {
+    name: "Register",
+    components: {FullButton, CodeView},
+    data() {
+      return {
+        username: '',
+        mobile: '13476260156',
+        code: '',
+        password: '',
+        confirmPassword: '',
+        recommendCode: '',
+        hasRead: false
+      }
+    },
+    methods: {
+      goBack() {
+        this.$router.go(-1)
+      },
+      showContract() {
+        this.$router.push('Contract')
+      },
+      async onRegister() {
+        if (!this.username) {
+          return this.$toast('信息未填写完');
         }
+      }
     }
+  }
 </script>
 
 <style lang="less">
@@ -110,9 +110,14 @@
     .register {
         width: 100%;
         height: 100%;
-        background: url("../../assets/common/bg.png") no-repeat;
+        background: url("../../assets/common/login_bg.png") no-repeat;
         background-size: cover;
-
+        .logo {
+            height: 64px;
+            width: 400px;
+            padding: 120px 0 50px 0;
+            margin: 0 auto;
+        }
         .container {
             width: 610px;
             margin: 0 auto;
