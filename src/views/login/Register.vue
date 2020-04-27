@@ -1,6 +1,7 @@
 <template>
-    <div class="register">
-        <Header _className="header" title="用户注册" :on-press-left="goBack"/>
+    <div class="register flexCol1">
+        <Header _className="header flexCol0" title="用户注册" :on-press-left="goBack"/>
+        <div class="flexCol1 overflowY">
         <div class="container">
             <div class="input_from">
                 <van-field
@@ -65,6 +66,7 @@
 
             <FullButton title="注 册" :onClick="onRegister"/>
         </div>
+        </div>
     </div>
 </template>
 
@@ -104,20 +106,6 @@
 </script>
 
 <style lang="less">
-    .header {
-        height: 128px;
-        background: transparent;
-
-        .van-nav-bar__title {
-            color: #fff;
-            line-height: 128px;
-        }
-
-        .van-icon-arrow-left {
-            color: #fff;
-            font-size: 44px;
-        }
-    }
 
     .register {
         width: 100%;

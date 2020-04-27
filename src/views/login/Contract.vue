@@ -8,7 +8,6 @@
                     <p class="content">
                         1、市场性质不同
                         外汇期货合约是在集中市场 (交易所) 交易，而外汇远期合约的交易则是在店头市场 (银行柜台) 进行。
-
                     </p>
 
                     <van-checkbox class="read-content" v-model="hasRead" icon-size="18px" checked-color="#BC0203">
@@ -56,27 +55,11 @@
 </script>
 
 <style lang="less">
-    .header {
-        width:100%;
-        height: 128px;
-        background: url("../../assets/common/header_bg.png") no-repeat;
-        background-size: contain;
-
-        .van-nav-bar__title {
-            color: #fff;
-            line-height: 128px;
-        }
-
-        .van-icon-arrow-left {
-            color: #fff;
-            font-size: 44px;
-        }
-    }
 
     .register {
         width: 100%;
         height: 100%;
-        background: url("../../assets/common/_bg.png") no-repeat;
+        background: url("../../assets/common/bg.png") no-repeat;
         background-size: cover;
 
         .container {
