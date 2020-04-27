@@ -23,6 +23,11 @@ Vue.use(VueRouter)
       component: () => import(/* webpackChunkName: "Register" */ '../views/login/Register.vue')
     },
     {
+      path: '/contract',
+      name: 'Contract',
+      component: () => import(/* webpackChunkName: "Contract" */ '../views/login/Contract.vue')
+    },
+    {
       path: '/forgot',
       name: 'Forgot',
       component: () => import(/* webpackChunkName: "login" */ '../views/login/Forgot.vue')

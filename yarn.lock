@@ -9476,6 +9476,11 @@ validate-npm-package-license@^3.0.1:
     spdx-correct "^3.0.0"
     spdx-expression-parse "^3.0.0"
 
+validator@^13.0.0:
+  version "13.0.0"
+  resolved "https://registry.npm.taobao.org/validator/download/validator-13.0.0.tgz#0fb6c6bb5218ea23d368a8347e6d0f5a70e3bcab"
+  integrity sha1-D7bGu1IY6iPTaKg0fm0PWnDjvKs=
+
 vant@^2.6.3:
   version "2.6.3"
   resolved "https://registry.npm.taobao.org/vant/download/vant-2.6.3.tgz?cache=0&sync_timestamp=1587384758116&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fvant%2Fdownload%2Fvant-2.6.3.tgz#3728325fe08fa3b6ab9fa2cb35b018221907bbae"

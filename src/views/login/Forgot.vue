@@ -1,113 +1,122 @@
 <template>
-    <div class="login">
-
-        <div class="logo">
-            <van-image class="logo_img" :src="require('../../assets/logo.png')"/>
-        </div>
-
+    <div class="register">
+        <Header _className="header" title="忘记密码" :on-press-left="goBack"/>
         <div class="container">
             <div class="input_from">
-            <van-field
-                    class="input"
-                    autosize
-                    v-model="username"
-                    :left-icon="require('../../assets/login/icon_user.png')"
-                    placeholder="请输入账号"
-            />
+                <van-field
+                        class="input"
+                        autosize
+                        type="tel"
+                        v-model="mobile"
+                        :left-icon="require('../../assets/login/icon_mobile.png')"
+                        placeholder="请输入手机号码"
+                >
+                    <!--获取验证码-->
+                    <template #button>
+                        <CodeView :mobile="mobile" />
+                    </template>
 
-            <van-field
-                    class="input"
-                    autosize
-                    v-model="password"
-                    :left-icon="require('../../assets/login/icon_lock.png')"
-                    placeholder="请输入密码"
-            />
+                </van-field>
+                <van-field
+                        class="input"
+                        autosize
+                        type="number"
+                        v-model="code"
+                        :left-icon="require('../../assets/login/icon_email.png')"
+                        placeholder="请输入短信验证码"
+                />
+                <van-field
+                        class="input"
+                        autosize
+                        type="password"
+                        v-model="password"
+                        :left-icon="require('../../assets/login/icon_lock.png')"
+                        placeholder="请输入登录密码"
+                />
+                <van-field
+                        class="input"
+                        autosize
+                        type="password"
+                        v-model="confirmPassword"
+                        :left-icon="require('../../assets/login/icon_lock.png')"
+                        placeholder="请确认登录密码"
+                />
+
             </div>
-            <button class="login_btn" @click="onLogin">
-                登 录
-            </button>
 
-            <button class="login_btn register_btn" @click="onRegister">
-                注 册
-            </button>
-            <a class="forgot"  @click="onForgot">忘记密码？</a>
+            <FullButton title="提 交" :onClick="onForgot"/>
         </div>
     </div>
 </template>
 
 <script>
+    import FullButton from "../../components/FullButton";
+    import Header from "../../components/Header";
+    import CodeView from '../../components/CodeView'
+
     export default {
-        name: "Login",
+        name: "Forgot",
+        components: {Header, FullButton, CodeView},
         data() {
             return {
-                username: '',
-                password: ''
+                mobile: '13476260156',
+                code: '',
+                password: '',
+                confirmPassword: '',
             }
         },
-        methods:{
-            onLogin(){
-                console.log(this.username)
+        methods: {
+            goBack() {
+                this.$router.go(-1)
             },
-            onRegister(){
-
-            },
-            onForgot(){
-                console.log(this.username)
+            async onForgot() {
+                if (!this.mobile) {
+                    return this.$toast('信息未填写完');
+                }
             }
         }
     }
 </script>
 
 <style lang="less">
-    .login {
+    .header {
+        height: 128px;
+        background: transparent;
+
+        .van-nav-bar__title {
+            color: #fff;
+            line-height: 128px;
+        }
+
+        .van-icon-arrow-left {
+            color: #fff;
+            font-size: 44px;
+        }
+    }
+
+    .register {
         width: 100%;
         height: 100%;
-        background: url("../../assets/login/login_bg.png") no-repeat;
+        background: url("../../assets/common/bg.png") no-repeat;
         background-size: cover;
-
-        .logo {
-            padding-top: 212px;
-            .logo_img{
-                width:182px;
-                height:182px;
-            }
-        }
 
         .container {
             width: 610px;
             margin: 0 auto;
         }
-        .input_from{
-            margin:100px 0 50px 0;
+
+        .input_from {
+            margin: 0px 0 50px 0;
         }
+
         .input {
             background: transparent;
             border-bottom: 1px solid #333;
             padding-right: 0;
             padding-left: 0;
             width: auto;
+            margin-top: 10PX;
         }
 
-        .login_btn {
-            width: 100%;
-            height: 89px;
-            background: url("../../assets/common/full_btn.png") no-repeat;
-            background-size: contain;
-            color: #fff;
-            font-size: 32px;
-            margin-bottom: 32px;
-            &:hover{
-                opacity: 0.8;
-            }
-        }
-
-        .register_btn {
-            background: url("../../assets/login/register_btn.png") no-repeat;
-            background-size: contain;
-            color: #666;
-        }
-        .forgot{
-            font-size: 24px;
-        }
     }
 </style>

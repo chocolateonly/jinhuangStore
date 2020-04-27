@@ -1,5 +1,5 @@
 import Vue from 'vue';
-import { Lazyload,Tabbar,TabbarItem,Button,Swipe,SwipeItem,Image as VanImage, Field,NavBar,Radio,RadioGroup,Checkbox,Toast} from 'vant';
+import { Lazyload,Tabbar,TabbarItem,Button,Swipe,SwipeItem,Image as VanImage, Field,NavBar,Radio,RadioGroup,Checkbox,Toast,Dialog} from 'vant';
 Vue.use(Lazyload);
 Vue.use(Tabbar);
 Vue.use(TabbarItem);
@@ -13,3 +13,4 @@ Vue.use(Radio);
 Vue.use(RadioGroup);
 Vue.use(Checkbox);
 Vue.use(Toast);
+Vue.use(Dialog)

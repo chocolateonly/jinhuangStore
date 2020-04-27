@@ -45,12 +45,13 @@
         methods:{
             onLogin(){
                 console.log(this.username)
+                this.$router.push('/tab/home')
             },
             onRegister(){
                this.$router.push('Register')
             },
             onForgot(){
-                console.log(this.username)
+                this.$router.push('Forgot')
             }
         }
     }
