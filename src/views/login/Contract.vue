@@ -1,22 +1,26 @@
 <template>
-    <div class="register">
-        <Header _className="header" title="电子合约签署" :on-press-left="goBack"/>
-        <div class="container">
-            <div class="input_from">
+    <div class="register flexCol1">
+        <Header _className="header flexCol0" title="电子合约签署" :on-press-left="goBack"/>
+        <div class="flexCol1 overflowY">
+            <div class="container ">
+                <div class="input_from">
 
-                <p class="content">
-                    1、市场性质不同
-                    外汇期货合约是在集中市场 (交易所) 交易，而外汇远期合约的交易则是在店头市场 (银行柜台) 进行。
-                </p>
+                    <p class="content">
+                        1、市场性质不同
+                        外汇期货合约是在集中市场 (交易所) 交易，而外汇远期合约的交易则是在店头市场 (银行柜台) 进行。
 
-                <van-checkbox class="read-content" v-model="hasRead" icon-size="18px" checked-color="#BC0203">
-                    已阅读并同意签署<a class="xieyi">《电子合约》</a>
-                </van-checkbox>
+                    </p>
 
+                    <van-checkbox class="read-content" v-model="hasRead" icon-size="18px" checked-color="#BC0203">
+                        已阅读并同意签署<a class="xieyi">《电子合约》</a>
+                    </van-checkbox>
+
+                </div>
+
+                <FullButton title="签署合同" :onClick="onRegister" _className="btn"/>
             </div>
-
-            <FullButton title="签 署" :onClick="onRegister"/>
         </div>
+
     </div>
 </template>
 
@@ -53,8 +57,10 @@
 
 <style lang="less">
     .header {
+        width:100%;
         height: 128px;
-        background: transparent;
+        background: url("../../assets/common/header_bg.png") no-repeat;
+        background-size: contain;
 
         .van-nav-bar__title {
             color: #fff;
@@ -70,7 +76,7 @@
     .register {
         width: 100%;
         height: 100%;
-        background: url("../../assets/common/bg.png") no-repeat;
+        background: url("../../assets/common/_bg.png") no-repeat;
         background-size: cover;
 
         .container {
@@ -96,6 +102,10 @@
 
         .xieyi {
             color: #BC0203
+        }
+        .btn{
+            background: url("../../assets/common/sq_full_btn.png") no-repeat;
+            background-size: cover;
         }
     }
 </style>

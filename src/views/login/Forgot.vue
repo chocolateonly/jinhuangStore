@@ -1,5 +1,5 @@
 <template>
-    <div class="register">
+    <div class="register ">
         <Header _className="header" title="忘记密码" :on-press-left="goBack"/>
         <div class="container">
             <div class="input_from">
@@ -80,8 +80,10 @@
 
 <style lang="less">
     .header {
+        width:100%;
         height: 128px;
-        background: transparent;
+        background: url("../../assets/common/header_bg.png") no-repeat;
+        background-size: contain;
 
         .van-nav-bar__title {
             color: #fff;
@@ -97,7 +99,7 @@
     .register {
         width: 100%;
         height: 100%;
-        background: url("../../assets/common/bg.png") no-repeat;
+        background: url("../../assets/common/_bg.png") no-repeat;
         background-size: cover;
 
         .container {
