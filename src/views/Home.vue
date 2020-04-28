@@ -75,23 +75,23 @@
                 </div>
 
                 <!-- productions-->
-                <div class="productions">
+                <div class="productions flexRow1">
+                    <div class="production-wrapper" v-for="(v,i) in hotProductions" :key="i">
+                        <div class="production" :class="i%2===0?'mr':'ml'">
+                            <img class="p-img" :src="v.img" alt="">
 
-                    <div class="production " v-for="(v,i) in hotProductions" :key="i">
-                        <img :src="v.img" alt="">
+                            <div class="content text-line-2">
+                                {{v.title}}
+                            </div>
 
-                        <div class="content">
-                            {{v.content}}
-                        </div>
-
-                        <div class="p-bottom flexRow1 jc-sb">
-                            <div class="money">￥ {{v.money}}</div>
-                            <div class="shoppingCart">
-                                <img src="../assets/home/icon_buycar.png" alt="">
+                            <div class="p-bottom flexRow1 jc-sb ai-center">
+                                <div class="money">￥ {{v.money}}</div>
+                                <div class="shoppingCart">
+                                    <img src="../assets/home/icon_buycar.png" alt="">
+                                </div>
                             </div>
                         </div>
                     </div>
-
 
                 </div>
 
@@ -107,11 +107,11 @@
         name: 'Home',
         data() {
             return {
-                hotProductions:[
-                    {title:'周大福十二生肖黄金红绳款 手链甄品',money:'2343',img:require('../assets/home/home_mock1.png')},
-                    {title:'2周大福十二生肖黄金红绳款 手链甄品',money:'2343',img:require('../assets/home/home_mock1.png')},
-/*                    {title:'3周大福十二生肖黄金红绳款 手链甄品',money:'2343',img:require('../assets/home/home_mock1.png')},
-                    {title:'4周大福十二生肖黄金红绳款 手链甄品',money:'2343',img:require('../assets/home/home_mock1.png')},*/
+                hotProductions: [
+                    {title: '周大福十二生肖黄金红绳款 手链甄品', money: '2343', img: require('../assets/home/home_mock1.png')},
+                    {title: '2周大福十二生肖黄金红绳款 手链甄品', money: '2343', img: require('../assets/home/home_mock1.png')},
+                    {title: '3周大福十二生肖黄金红绳款 手链甄品', money: '2343', img: require('../assets/home/home_mock1.png')},
+                    {title: '4周大福十二生肖黄金红绳款 手链甄品', money: '2343', img: require('../assets/home/home_mock1.png')},
                 ]
             }
         },
@@ -173,6 +173,10 @@
             }
 
             .hot-productions {
+                .hot-header {
+                    margin: 20px 0;
+                }
+
                 .header-left {
                     border-left: 3px solid #bc0203;
                     padding-left: 10px;
@@ -185,20 +189,58 @@
                     font-size: 24px;
                 }
 
-.productions{
-    flex:2;
-    flex-direction: row;
+                .productions {
+                    flex: 2;
+                    flex-direction: row;
+                    flex-wrap: wrap;
+                }
 
-    flex-wrap: wrap;
-}
-                .production{
-                   flex:1;
-                    height:507px;
+                .production-wrapper {
+                    width: 50%;
+                }
+
+                .production {
+                    margin-bottom: 20px;
                     overflow: hidden;
-                    background:rgba(255,255,255,1);
-                    border:4px solid;
-                    border-image:linear-gradient(-45deg, rgba(163,93,9,1), rgba(251,216,173,1), rgba(140,78,3,1), rgba(251,220,179,1)) 4 4;
-                    border-radius:8px 10px 10px 10px;
+                    background: rgba(255, 255, 255, 1);
+                    border: 4px solid;
+                    border-image: linear-gradient(-45deg, rgba(163, 93, 9, 1), rgba(251, 216, 173, 1), rgba(140, 78, 3, 1), rgba(251, 220, 179, 1)) 4 4;
+                    border-radius: 8px 10px 10px 10px;
+
+                    &.ml {
+                        margin-left: 10px;
+                    }
+
+                    &.mr {
+                        margin-right: 10px;
+                    }
+
+                    .content {
+                        font-size: 14px;
+                        text-align: left;
+                        margin: 6px;
+                        font-weight: 400;
+                        height: 1rem;
+                        line-height: 0.5rem;
+                    }
+
+                    .p-bottom {
+                        font-size: 28px;
+                        padding: 6px;
+                        .money {
+                            color: #FF204A;
+                        }
+                    }
+
+                }
+
+                .p-img {
+                    height: 331px;
+                }
+
+                .shoppingCart img {
+                    width: 50px;
+                    height: 50px;
                 }
             }
         }
