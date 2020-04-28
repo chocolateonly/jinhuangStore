@@ -7,8 +7,9 @@
             这里是商城平台公告通知
         </van-notice-bar>
 
-        <!--国内金价-->
+
         <div class="container">
+            <!--国内金价 info-->
             <div class="info flexCol1">
 
                 <div class="flexRow1 jc-sb">
@@ -17,8 +18,8 @@
                         <div class="gnjj text-line-1">国内金价</div>
                         <div class="top-left theme-color">
                             <span>￥</span>
-                            <span class="font50">330.</span>
-                            <span>07</span>
+                            <span class="font50">{{int()}}</span>
+                            <span>{{dec()}}</span>
                         </div>
 
                     </div>
@@ -35,8 +36,8 @@
                         <div class="gnjj text-line-1">今日交易量</div>
                         <div class="top-left color3 text-line-1">
                             <span>￥</span>
-                            <span class="font50">330.</span>
-                            <span>07</span>
+                            <span class="font50">{{int()}}</span>
+                            <span>{{dec()}}</span>
 
                         </div>
 
@@ -49,16 +50,55 @@
                         <div class="gnjj text-line-1">历史交易量</div>
                         <div class="top-left color3 text-line-1">
                             <span>￥</span>
-                            <span class="font50">330.</span>
-                            <span>07</span>
+                            <span class="font50">{{int()}}</span>
+                            <span>{{dec()}}</span>
                         </div>
 
                     </div>
                 </div>
 
             </div>
+            <!--banner-->
+            <div class="banner">
+                <img src="../assets/home/banner.png" class="banner">
+            </div>
 
+            <!--hot productions-->
+            <div class="hot-productions">
+                <div class="hot-header flexRow0 jc-sb ai-center">
+                    <div class="header-left">
+                        热门产品
+                    </div>
+                    <div class="header-right">
+                        更多
+                    </div>
+                </div>
+
+                <!-- productions-->
+                <div class="productions">
+
+                    <div class="production " v-for="(v,i) in hotProductions" :key="i">
+                        <img :src="v.img" alt="">
+
+                        <div class="content">
+                            {{v.content}}
+                        </div>
+
+                        <div class="p-bottom flexRow1 jc-sb">
+                            <div class="money">￥ {{v.money}}</div>
+                            <div class="shoppingCart">
+                                <img src="../assets/home/icon_buycar.png" alt="">
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+
+            </div>
         </div>
+
+
     </div>
 </template>
 
@@ -67,12 +107,22 @@
         name: 'Home',
         data() {
             return {
-                images: [
-                    'https://img.yzcdn.cn/vant/apple-1.jpg',//
-                    'https://img.yzcdn.cn/vant/apple-2.jpg',
+                hotProductions:[
+                    {title:'周大福十二生肖黄金红绳款 手链甄品',money:'2343',img:require('../assets/home/home_mock1.png')},
+                    {title:'2周大福十二生肖黄金红绳款 手链甄品',money:'2343',img:require('../assets/home/home_mock1.png')},
+/*                    {title:'3周大福十二生肖黄金红绳款 手链甄品',money:'2343',img:require('../assets/home/home_mock1.png')},
+                    {title:'4周大福十二生肖黄金红绳款 手链甄品',money:'2343',img:require('../assets/home/home_mock1.png')},*/
                 ]
             }
         },
+        methods: {
+            int: (val = '330.07') => {
+                return val.substring(0, val.lastIndexOf('.') + 1)
+            },
+            dec: (val = '330.07') => {
+                return val.substring(val.lastIndexOf('.') + 1)
+            }
+        }
 
     }
 </script>
@@ -90,7 +140,7 @@
 
             .info {
                 margin-top: 30px;
-                height: 320px;
+                height: 3rem;
                 padding: 30px;
                 background: url("../assets/home/info_bg.png") no-repeat;
                 background-size: cover;
@@ -115,9 +165,40 @@
                     height: 60%;
                     padding: 0 20px;
                 }
+            }
 
-                .history-data {
+            .banner {
+                width: 100%;
+                margin-top: 10px;
+            }
 
+            .hot-productions {
+                .header-left {
+                    border-left: 3px solid #bc0203;
+                    padding-left: 10px;
+                    font-size: 32px;
+                    color: #333;
+                }
+
+                .header-right {
+                    color: #666;
+                    font-size: 24px;
+                }
+
+.productions{
+    flex:2;
+    flex-direction: row;
+
+    flex-wrap: wrap;
+}
+                .production{
+                   flex:1;
+                    height:507px;
+                    overflow: hidden;
+                    background:rgba(255,255,255,1);
+                    border:4px solid;
+                    border-image:linear-gradient(-45deg, rgba(163,93,9,1), rgba(251,216,173,1), rgba(140,78,3,1), rgba(251,220,179,1)) 4 4;
+                    border-radius:8px 10px 10px 10px;
                 }
             }
         }

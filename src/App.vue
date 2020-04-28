@@ -19,6 +19,10 @@
         .theme-color{
             color:#BC0203
         }
+        .theme-bg{
+            background: url("./assets/common/_bg.png") no-repeat;
+            background-size: cover;
+        }
         .font50{
             font-size: 50px;
         }
