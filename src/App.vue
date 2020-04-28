@@ -43,6 +43,10 @@
                 color: #fff;
                 font-size: 44px;
             }
+
+            .header-right-icon{
+                width:60px
+            }
         }
 
        .mr5{

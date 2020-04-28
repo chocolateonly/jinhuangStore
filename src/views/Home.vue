@@ -67,7 +67,8 @@
             <div class="hot-productions">
                 <div class="hot-header flexRow0 jc-sb ai-center">
                     <div class="header-left">
-                        热门产品
+                        <TitleCore />
+                        <span>热门产品</span>
                     </div>
                     <div class="header-right" @click="$router.push('/productionList')">
                         更多
@@ -92,10 +93,10 @@
 
 <script>
     import ProductionItem from "./product/ProductionItem";
-
+    import TitleCore from './../components/TitleCore'
     export default {
         name: 'Home',
-        components: {ProductionItem},
+        components: {ProductionItem,TitleCore},
         data() {
             return {
                 hotProductions: [
@@ -175,8 +176,6 @@
                 }
 
                 .header-left {
-                    border-left: 3px solid #bc0203;
-                    padding-left: 10px;
                     font-size: 32px;
                     color: #333;
                 }

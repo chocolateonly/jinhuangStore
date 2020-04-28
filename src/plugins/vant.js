@@ -7,7 +7,10 @@ import { Lazyload,Tabbar,TabbarItem,Button,Swipe,SwipeItem,Image as VanImage,
     Cell,
     PullRefresh,
     Icon,
-    Col,Row
+    Col,Row,
+    GoodsAction,
+    GoodsActionButton,
+    GoodsActionIcon
 } from 'vant';
 Vue.use(Lazyload);
 Vue.use(Tabbar);
@@ -31,4 +34,7 @@ Vue.use(Tabs);
 Vue.use(List);
 Vue.use(PullRefresh);
 Vue.use(Cell);
-Vue.use(Icon)
+Vue.use(Icon);
+Vue.use(GoodsAction);
+Vue.use(GoodsActionButton);
+Vue.use(GoodsActionIcon);

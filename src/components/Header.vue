@@ -4,10 +4,11 @@
             :title="title"
             left-arrow
             @click-left="onPressLeft"
-            @click-right="onClickRight"
             :border="hasBorder"
     >
-
+        <template #right>
+            <slot></slot>
+        </template>
     </van-nav-bar>
 </template>
 <script>
@@ -23,10 +24,6 @@
                 default: ''
             },
             onPressLeft: {
-                type: Function,
-                default: () => null
-            },
-            onClickRight: {
                 type: Function,
                 default: () => null
             },

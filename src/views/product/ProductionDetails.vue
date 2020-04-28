@@ -2,104 +2,148 @@
     <div class="product-list flexCol1">
         <div class="pl-header flexCol0">
 
-            <Header title="详细信息" _className="header flexCol0 clearBorder" :on-press-left="goBack"/>
-
-            <div class="tabs flexRow1  ai-center">
-                <div class="tab-item flexRow1 jc-center"
-                     v-for="(v,i) in tabs" :key="i"
-                     :class="{'active':activeTab===i}"
-                     @click="setActiveTab(i)">
-                    {{v}}
-                </div>
-            </div>
+            <Header title="详细信息" _className="header flexCol0 clearBorder" :on-press-left="goBack">
+                <img class="header-right-icon" src="../../assets/common/icon_share.png" alt="">
+            </Header>
 
         </div>
-        <div class="content flexCol1 overflowY">
+        <div class=" flexCol1 overflowY">
 
             <div>
-                <van-pull-refresh v-model="refreshing" @refresh="onRefresh">
-                    <van-list
-                            v-model="loading"
-                            :finished="finished"
-                            finished-text="没有更多了"
-                            @load="onLoad"
-                    >
-                        <div class="productions flexRow1">
-                            <div class="production-wrapper" v-for="(v,i) in list" :key="i">
-                                <ProductionItem :v="v" :i="i" :handleClick="goProductionDetails"/>
+                <Swiper :images="data.images"/>
+            </div>
+
+            <div class="content">
+
+                <div class="title">
+                    {{data.title}}
+                </div>
+
+                <div class="money-info flexRow0">
+                    <div class="flexRow1 flexGrow1 ai-center text-line-1">
+                        <div class="money">
+                            <span>￥</span>
+                            <span class="font50">{{int()}}</span>
+                            <span>{{dec()}}</span>
+                        </div>
+                        <div class="jindou">金豆{{data.jindou}}</div>
+                    </div>
+                    <div class="yishou text-line-1">已售{{data.money}}件</div>
+                </div>
+
+                <van-cell class="has-right-arrow" title="规格数量选择" is-link @click="goBack"/>
+                <van-cell class="has-right-arrow comment" is-link @click="goBack">
+                    <template #title>
+                        <TitleCore/>
+                        <span class="custom-title">宝贝评价</span>
+                    </template>
+                </van-cell>
+
+
+                <div class="comment-item flexRow0" v-for="(v,i) in data.comment" :key="i">
+                    <img src="../../assets/common/user_logo.png" alt="">
+
+                    <div class="content-wrapper flexGrow1">
+                        <div class="flexRow1 jc-sb">
+                            <div class="flexGrow1">
+                                <div class="user">{{v.user}}</div>
+                                <div class="create">{{v.createdTime}}</div>
+                            </div>
+
+                            <div class="xx">
+                                <img src="../../assets/common/icon_star_active.png" alt=""
+                                     v-for="(item,i) in [1,1,1,1,1]" v-show="i<v.star" :key="i">
                             </div>
                         </div>
 
-                    </van-list>
-                </van-pull-refresh>
+                        <div class="cm-content">{{v.content}}</div>
+                    </div>
+                </div>
+
+                <!--产品详情-->
+                <div>
+                    <h4>产品详情</h4>
+
+                    <img src="../../assets/home/home_mock1.png">
+
+                </div>
             </div>
         </div>
+
+        <!--        <div class="jiagou  jc-sb">
+
+                </div>-->
+
+        <van-goods-action class="jiagou  jc-sb">
+            <div  class="left-btn">
+                <van-goods-action-icon class="collect"
+                                       @click="goCollect"
+                                       :icon="data.hasCollected?'star':'star-o'"
+                                       :text="data.hasCollected?'已收藏':'收藏'"
+                                       :color="data.hasCollected?'#ff5000':'#666'"/>
+            </div>
+
+            <div class="right-btn ">
+                <van-goods-action-button type="warning" text="加入购物车"/>
+                <van-goods-action-button type="danger" text="立即购买"/>
+            </div>
+        </van-goods-action>
     </div>
 </template>
 
 <script>
     import Header from "../../components/Header";
-    import ProductionItem from "./ProductionItem";
+    import Swiper from "../../components/Swiper";
+    import TitleCore from "../../components/TitleCore";
 
     export default {
         name: "ProductionDetails",
         data() {
             return {
-                tabs: ['全部', '黄金', '18K黄金', '铂金', '钻石', '珍珠'],
-                activeTab: 0,
-
-                list: [],
-                total: 0,
-                loading: false,
-                finished: false,
-                refreshing: false,
+                data: {
+                    images: [
+                        'https://img.yzcdn.cn/vant/apple-1.jpg',//
+                        'https://img.yzcdn.cn/vant/apple-2.jpg',
+                    ],
+                    title: '周先生周先生周先生周先生周先生周先生周先生周先生周先生周先生周先生周先生周先生',
+                    money: '989.00',
+                    jindou: '2325',
+                    yimai: '4877',
+                    hasCollected: false,
+                    comment: [
+                        {
+                            user: '小君',
+                            content: '太棒了，产品很好 拷贝',
+                            star: 4,
+                            createdTime: '2019-4-23',
+                        },
+                        {
+                            user: '小君',
+                            content: '太棒了，产品很好 拷贝',
+                            star: 4,
+                            createdTime: '2019-4-23',
+                        },
+                    ],
+                    details: {
+                        img: 'https://img.yzcdn.cn/vant/apple-1.jpg',
+                    }
+                }
             }
         },
-        components: {Header, ProductionItem},
+        components: {TitleCore, Swiper, Header},
         methods: {
-            getList(page = 1, pageSize = 5) {
-                console.log(page, pageSize)
-                //请求数据
+            int(val = '330.07') {
+                return val.substring(0, val.lastIndexOf('.') + 1)
             },
-            setActiveTab(i) {
-                this.activeTab = i
+            dec(val = '330.07') {
+                return val.substring(val.lastIndexOf('.') + 1)
             },
             goBack() {
                 this.$router.go(-1)
             },
-            goProductionDetails() {
-                this.$router.push('/productionDetails')
-            },
-            onLoad() {
-                setTimeout(() => {
-                    if (this.refreshing) {
-                        this.list = [];
-                        this.refreshing = false;
-                    }
-
-                    for (let i = 0; i < 10; i++) {
-                        this.list.push({
-                            title: '周大福十二生肖黄金红绳款 手链甄品',
-                            money: '2343',
-                            img: require('../../assets/home/home_mock1.png')
-                        });
-                    }
-                    this.loading = false;
-
-                    if (this.list.length >= 40) {
-                        this.finished = true;
-                    }
-                }, 1000);
-            },
-            onRefresh() {
-                // 清空列表数据
-                this.finished = false;
-
-                // 重新加载数据
-                // 将 loading 设置为 true，表示处于加载状态
-                this.loading = true;
-                this.onLoad();
-            },
+            goCollect(){
+                this.data.hasCollected=!this.data.hasCollected
+            }
         }
     }
 </script>
@@ -107,51 +151,107 @@
 <style lang="less" scoped>
     .product-list {
         height: 100%;
-        background: url("../../assets/common/_bg.png") no-repeat;
+        background: url("../../assets/common/bg.png") no-repeat;
         background-size: cover;
     }
 
-    .pl-header {
-        background: url("../../assets/common/header_bg.png") no-repeat;
-        background-size: cover;
-    }
+    .content {
+        padding: 30px;
+        font-size: 30px;
 
-    .clearBorder:after {
-        border: none;
-    }
+        .title {
+            text-align: left;
+            font-weight: 400;
+            margin-bottom: 40px;
+        }
 
-    .tabs {
-        padding: 10px 30px;
+        .money-info {
+            border-bottom: 1px solid #eee;
+        }
 
-        .tab-item {
+        .money {
+            margin-right: 10px;
+            color: #FD2049;
+            line-height: 1.2rem;
+        }
+
+        .jindou {
+            color: #999;
+            font-size: 20px;
+        }
+
+        .yishou {
+            align-self: center;
             font-size: 14px;
-            color: #fff;
-            text-align: center;
-            position: relative;
-            padding-bottom: 6px;
+            color: #666;
+        }
 
-            &.active:after {
-                content: '';
+        .has-right-arrow {
+            text-align: left;
+            background: transparent;
+            padding: 10px 0;
+
+            &:after {
+                border: none
+            }
+        }
+
+        .comment {
+            border-bottom: 1px solid #eee;
+        }
+
+        .comment-item {
+            border-bottom: 1px solid #eee;
+            padding: 20px 0;
+
+            img {
+                width: 90px;
+                height: 90px;
+            }
+
+            .content-wrapper {
+                text-align: left;
+                margin-left: 10px;
+
+                .user {
+                    color: #7B889B;
+                }
+
+                .create {
+                    color: #999;
+                    font-size: 20px;
+                }
+            }
+
+            .xx img {
                 width: 40px;
-                border-bottom: 2px solid #fff;
-                position: absolute;
-                bottom: 0px;
+                height: 40px;
             }
         }
 
     }
 
-    .content {
-        padding: 30px;
-    }
+    .jiagou {
+        width: 100%;
+        background: url("../../assets/common/_bg.png") no-repeat;
+        background-size: cover;
+        box-shadow: 0px 0px 14px 4px rgba(115, 115, 115, 0.1);
+        display: flex;
+        flex: 4;
 
-    .productions {
-        flex: 2;
-        flex-direction: row;
-        flex-wrap: wrap;
+        .left-btn {
+            flex: 2;
+            justify-content: flex-start;
+            display: flex;
+            .collect{
+                background: transparent;
+            }
+        }
 
-        .production-wrapper {
-            width: 50%;
+        .right-btn {
+            display: flex;
+            flex-direction: row;
+            flex: 2;
         }
     }
 </style>
