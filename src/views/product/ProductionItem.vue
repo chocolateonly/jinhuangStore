@@ -1,5 +1,5 @@
 <template>
-    <div class="production" :class="i%2===0?'mr':'ml'" @click="onClick">
+    <div class="production" :class="i%2===0?'mr':'ml'" @click="handleClick">
         <img class="p-img" :src="v.img" alt="">
 
         <div class="content text-line-2">
@@ -21,7 +21,7 @@
         props: {
             i:Number,
             v: Object,
-            onClick: Function
+            handleClick: Function
         }
     }
 </script>

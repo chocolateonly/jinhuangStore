@@ -6,6 +6,7 @@ import { Lazyload,Tabbar,TabbarItem,Button,Swipe,SwipeItem,Image as VanImage,
     List,
     Cell,
     PullRefresh,
+    Icon,
     Col,Row
 } from 'vant';
 Vue.use(Lazyload);
@@ -30,3 +31,4 @@ Vue.use(Tabs);
 Vue.use(List);
 Vue.use(PullRefresh);
 Vue.use(Cell);
+Vue.use(Icon)

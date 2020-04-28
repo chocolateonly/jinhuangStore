@@ -73,11 +73,10 @@
                         更多
                     </div>
                 </div>
-
                 <!-- productions-->
                 <div class="productions flexRow1">
                     <div class="production-wrapper" v-for="(v,i) in hotProductions" :key="i">
-                        <ProductionItem :v="v" :i="i" :onClick="goProductionDetails"/>
+                        <ProductionItem :v="v" :i="i" :handleClick="goProductionDetails"/>
                     </div>
                 </div>
 
@@ -118,10 +117,9 @@
                 this.$router.push('BuyCenter')
             },
             goProductionDetails() {
-                console.log('push--')
-                this.$router.push('ProductionDetails')
+                this.$router.push('/productionDetails')
             }
-        }
+        },
 
     }
 </script>

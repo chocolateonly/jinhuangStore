@@ -2,7 +2,7 @@
     <div class="product-list flexCol1">
         <div class="pl-header flexCol0">
 
-            <Header title="全部商品" _className="header flexCol0 clearBorder" :on-press-left="goBack"/>
+            <Header title="详细信息" _className="header flexCol0 clearBorder" :on-press-left="goBack"/>
 
             <div class="tabs flexRow1  ai-center">
                 <div class="tab-item flexRow1 jc-center"
@@ -42,7 +42,7 @@
     import ProductionItem from "./ProductionItem";
 
     export default {
-        name: "ProductList",
+        name: "ProductionDetails",
         data() {
             return {
                 tabs: ['全部', '黄金', '18K黄金', '铂金', '钻石', '珍珠'],
@@ -121,7 +121,6 @@
     }
 
     .tabs {
-        background: rgba(0,0,0,0.1);
         padding: 10px 30px;
 
         .tab-item {
