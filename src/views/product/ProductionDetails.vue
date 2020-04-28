@@ -1,5 +1,5 @@
 <template>
-    <div class="product-list flexCol1">
+    <div class="bg flexCol1">
         <div class="pl-header flexCol0">
 
             <Header title="详细信息" _className="header flexCol0 clearBorder" :on-press-left="goBack">
@@ -31,8 +31,8 @@
                     <div class="yishou text-line-1">已售{{data.money}}件</div>
                 </div>
 
-                <van-cell class="has-right-arrow" title="规格数量选择" is-link @click="goBack"/>
-                <van-cell class="has-right-arrow comment" is-link @click="goBack">
+                <van-cell class="has-right-arrow" title="规格数量选择" is-link @click="setNumber"/>
+                <van-cell class="has-right-arrow comment" is-link @click="goCommentPage">
                     <template #title>
                         <TitleCore/>
                         <span class="custom-title">宝贝评价</span>
@@ -40,24 +40,8 @@
                 </van-cell>
 
 
-                <div class="comment-item flexRow0" v-for="(v,i) in data.comment" :key="i">
-                    <img src="../../assets/common/user_logo.png" alt="">
-
-                    <div class="content-wrapper flexGrow1">
-                        <div class="flexRow1 jc-sb">
-                            <div class="flexGrow1">
-                                <div class="user">{{v.user}}</div>
-                                <div class="create">{{v.createdTime}}</div>
-                            </div>
-
-                            <div class="xx">
-                                <img src="../../assets/common/icon_star_active.png" alt=""
-                                     v-for="(item,i) in [1,1,1,1,1]" v-show="i<v.star" :key="i">
-                            </div>
-                        </div>
-
-                        <div class="cm-content">{{v.content}}</div>
-                    </div>
+                <div v-for="(v,i) in data.comment" :key="i">
+                    <CommentItem :v="v" :i="i" />
                 </div>
 
                 <!--产品详情-->
@@ -69,10 +53,6 @@
                 </div>
             </div>
         </div>
-
-        <!--        <div class="jiagou  jc-sb">
-
-                </div>-->
 
         <van-goods-action class="jiagou  jc-sb">
             <div  class="left-btn">
@@ -95,6 +75,7 @@
     import Header from "../../components/Header";
     import Swiper from "../../components/Swiper";
     import TitleCore from "../../components/TitleCore";
+    import CommentItem from "./components/CommentItem";
 
     export default {
         name: "ProductionDetails",
@@ -130,7 +111,7 @@
                 }
             }
         },
-        components: {TitleCore, Swiper, Header},
+        components: {CommentItem, TitleCore, Swiper, Header},
         methods: {
             int(val = '330.07') {
                 return val.substring(0, val.lastIndexOf('.') + 1)
@@ -143,13 +124,19 @@
             },
             goCollect(){
                 this.data.hasCollected=!this.data.hasCollected
+            },
+            goCommentPage(){
+                this.$router.push('/comment')
+            },
+            setNumber(){
+
             }
         }
     }
 </script>
 
 <style lang="less" scoped>
-    .product-list {
+    .bg {
         height: 100%;
         background: url("../../assets/common/bg.png") no-repeat;
         background-size: cover;
@@ -198,35 +185,6 @@
 
         .comment {
             border-bottom: 1px solid #eee;
-        }
-
-        .comment-item {
-            border-bottom: 1px solid #eee;
-            padding: 20px 0;
-
-            img {
-                width: 90px;
-                height: 90px;
-            }
-
-            .content-wrapper {
-                text-align: left;
-                margin-left: 10px;
-
-                .user {
-                    color: #7B889B;
-                }
-
-                .create {
-                    color: #999;
-                    font-size: 20px;
-                }
-            }
-
-            .xx img {
-                width: 40px;
-                height: 40px;
-            }
         }
 
     }

@@ -45,6 +45,11 @@ Vue.use(VueRouter)
       component: () => import(/* webpackChunkName: "productionDetails" */ '../views/product/ProductionDetails')
     },
     {
+      path: '/comment',
+      name: 'Comment',
+      component: () => import(/* webpackChunkName: "productionDetails" */ '../views/product/Comment')
+    },
+    {
       path: '/payOrder',
       name: 'PayOrder',
       component: () => import(/* webpackChunkName: "payOrder" */ '../views/product/PayOrder')

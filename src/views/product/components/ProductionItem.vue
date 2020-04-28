@@ -9,7 +9,7 @@
         <div class="p-bottom flexRow1 jc-sb ai-center">
             <div class="money  text-line-1">￥ {{v.money}}</div>
             <div class="shoppingCart">
-                <img src="../../assets/home/icon_buycar.png" alt="">
+                <img src="../../../assets/home/icon_buycar.png" alt="">
             </div>
         </div>
     </div>

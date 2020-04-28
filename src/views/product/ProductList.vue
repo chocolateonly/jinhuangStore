@@ -39,7 +39,7 @@
 
 <script>
     import Header from "../../components/Header";
-    import ProductionItem from "./ProductionItem";
+    import ProductionItem from "./components/ProductionItem";
 
     export default {
         name: "ProductList",

@@ -92,7 +92,7 @@
 </template>
 
 <script>
-    import ProductionItem from "./product/ProductionItem";
+    import ProductionItem from "./product/components/ProductionItem";
     import TitleCore from './../components/TitleCore'
     export default {
         name: 'Home',
