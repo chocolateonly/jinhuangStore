@@ -63,6 +63,8 @@
             flex: 1;
             flex-direction: column;
             min-width: 0;
+            height: 100%;
+            overflow-y: auto;
         }
         .flexCol0{
             display: flex;

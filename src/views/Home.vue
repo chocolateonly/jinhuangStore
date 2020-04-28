@@ -7,10 +7,9 @@
             这里是商城平台公告通知
         </van-notice-bar>
 
-
         <div class="container">
-            <!--国内金价 info-->
-            <div class="info flexCol1">
+            <!--info-->
+            <div class="info flexCol0">
 
                 <div class="flexRow1 jc-sb">
                     <div class="flexCol1 mr5">
@@ -25,7 +24,8 @@
                     </div>
 
                     <div class="flexCol0">
-                        <div class="img"><img :src="require('../assets/home/in_sc.png')" alt=""></div>
+                        <div class="img" @click="goBuyCenter"><img :src="require('../assets/home/in_sc.png')" alt="">
+                        </div>
                         <div class="img"><img :src="require('../assets/home/in_zn.png')" alt=""></div>
                     </div>
                 </div>
@@ -69,7 +69,7 @@
                     <div class="header-left">
                         热门产品
                     </div>
-                    <div class="header-right">
+                    <div class="header-right" @click="$router.push('/productionList')">
                         更多
                     </div>
                 </div>
@@ -77,34 +77,26 @@
                 <!-- productions-->
                 <div class="productions flexRow1">
                     <div class="production-wrapper" v-for="(v,i) in hotProductions" :key="i">
-                        <div class="production" :class="i%2===0?'mr':'ml'">
-                            <img class="p-img" :src="v.img" alt="">
-
-                            <div class="content text-line-2">
-                                {{v.title}}
-                            </div>
-
-                            <div class="p-bottom flexRow1 jc-sb ai-center">
-                                <div class="money">￥ {{v.money}}</div>
-                                <div class="shoppingCart">
-                                    <img src="../assets/home/icon_buycar.png" alt="">
-                                </div>
-                            </div>
-                        </div>
+                        <ProductionItem :v="v" :i="i" :onClick="goProductionDetails"/>
                     </div>
-
                 </div>
 
             </div>
         </div>
 
-
+        <!-- shopping cart-->
+        <div class="shopping-cart-btn">
+            <img src="../assets/home/shpping-cart.png" alt="">
+        </div>
     </div>
 </template>
 
 <script>
+    import ProductionItem from "./product/ProductionItem";
+
     export default {
         name: 'Home',
+        components: {ProductionItem},
         data() {
             return {
                 hotProductions: [
@@ -116,17 +108,24 @@
             }
         },
         methods: {
-            int: (val = '330.07') => {
+            int(val = '330.07') {
                 return val.substring(0, val.lastIndexOf('.') + 1)
             },
-            dec: (val = '330.07') => {
+            dec(val = '330.07') {
                 return val.substring(val.lastIndexOf('.') + 1)
+            },
+            goBuyCenter() {
+                this.$router.push('BuyCenter')
+            },
+            goProductionDetails() {
+                console.log('push--')
+                this.$router.push('ProductionDetails')
             }
         }
 
     }
 </script>
-<style lang="less">
+<style lang="less" scoped>
     .home {
         background: url("../assets/common/_bg.png") no-repeat;
         background-size: cover;
@@ -188,61 +187,23 @@
                     color: #666;
                     font-size: 24px;
                 }
-
-                .productions {
-                    flex: 2;
-                    flex-direction: row;
-                    flex-wrap: wrap;
-                }
-
-                .production-wrapper {
-                    width: 50%;
-                }
-
-                .production {
-                    margin-bottom: 20px;
-                    overflow: hidden;
-                    background: rgba(255, 255, 255, 1);
-                    border: 4px solid;
-                    border-image: linear-gradient(-45deg, rgba(163, 93, 9, 1), rgba(251, 216, 173, 1), rgba(140, 78, 3, 1), rgba(251, 220, 179, 1)) 4 4;
-                    border-radius: 8px 10px 10px 10px;
-
-                    &.ml {
-                        margin-left: 10px;
-                    }
-
-                    &.mr {
-                        margin-right: 10px;
-                    }
-
-                    .content {
-                        font-size: 14px;
-                        text-align: left;
-                        margin: 6px;
-                        font-weight: 400;
-                        height: 1rem;
-                        line-height: 0.5rem;
-                    }
-
-                    .p-bottom {
-                        font-size: 28px;
-                        padding: 6px;
-                        .money {
-                            color: #FF204A;
-                        }
-                    }
-
-                }
-
-                .p-img {
-                    height: 331px;
-                }
-
-                .shoppingCart img {
-                    width: 50px;
-                    height: 50px;
-                }
             }
+        }
+        .productions {
+            flex: 2;
+            flex-direction: row;
+            flex-wrap: wrap;
+
+            .production-wrapper {
+                width: 50%;
+            }
+        }
+        .shopping-cart-btn img {
+            width: 147px;
+            height: 147px;
+            position: fixed;
+            bottom: 120px;
+            right: 20px;
         }
     }
 </style>

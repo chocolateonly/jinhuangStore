@@ -19,4 +19,7 @@ export default {
             console.log('close')
         });
     },
+    goBack:(that)=> {
+        that.$router.go(-1)
+    },
 }

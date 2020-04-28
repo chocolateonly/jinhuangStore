@@ -20,18 +20,37 @@ Vue.use(VueRouter)
     {
       path: '/register',
       name: 'Register',
-      component: () => import(/* webpackChunkName: "Register" */ '../views/login/Register.vue')
+      component: () => import(/* webpackChunkName: "register" */ '../views/login/Register.vue')
     },
     {
       path: '/contract',
       name: 'Contract',
-      component: () => import(/* webpackChunkName: "Contract" */ '../views/login/Contract.vue')
+      component: () => import(/* webpackChunkName: "contract" */ '../views/login/Contract.vue')
     },
     {
       path: '/forgot',
       name: 'Forgot',
-      component: () => import(/* webpackChunkName: "login" */ '../views/login/Forgot.vue')
+      component: () => import(/* webpackChunkName: "forgot" */ '../views/login/Forgot.vue')
     },
+
+    // production
+    {
+      path: '/productionList',
+      name: 'ProductionList',
+      component: () => import(/* webpackChunkName: "productionList" */ '../views/product/ProductList')
+    },
+    {
+      path: '/productionDetails',
+      name: 'ProductionDetails',
+      component: () => import(/* webpackChunkName: "productionDetails" */ '../views/product/ProductDetails')
+    },
+    {
+      path: '/payOrder',
+      name: 'PayOrder',
+      component: () => import(/* webpackChunkName: "payOrder" */ '../views/product/PayOrder')
+    },
+
+    //tab
     {
       path: '/tab',
       component: ()=> import(/* webpackChunkName: "tab" */ '../views/TabView.vue'),
@@ -62,7 +81,7 @@ Vue.use(VueRouter)
 ]
 
 const router = new VueRouter({
-  mode: 'history',
+  mode: 'hash',
   base: process.env.BASE_URL,
   routes,
   scrollBehavior () {//进入页面时 滚动到最顶部

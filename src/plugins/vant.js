@@ -2,6 +2,10 @@ import Vue from 'vue';
 import { Lazyload,Tabbar,TabbarItem,Button,Swipe,SwipeItem,Image as VanImage,
     Field,NavBar,Radio,RadioGroup,Checkbox,Toast,Dialog,
     NoticeBar,
+    Tab,Tabs,
+    List,
+    Cell,
+    PullRefresh,
     Col,Row
 } from 'vant';
 Vue.use(Lazyload);
@@ -21,3 +25,8 @@ Vue.use(Dialog);
 Vue.use(NoticeBar);
 Vue.use(Col);
 Vue.use(Row);
+Vue.use(Tab);
+Vue.use(Tabs);
+Vue.use(List);
+Vue.use(PullRefresh);
+Vue.use(Cell);
