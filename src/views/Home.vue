@@ -3,9 +3,7 @@
 
         <img :src="require('./../assets/home/banner_header.png')" class="header-banner"/>
 
-        <van-notice-bar left-icon="volume-o" mode="closeable" :scrollable="true">
-            这里是商城平台公告通知
-        </van-notice-bar>
+        <Notice />
 
         <div class="container">
             <!--info-->
@@ -95,9 +93,10 @@
 <script>
     import ProductionItem from "./product/components/ProductionItem";
     import TitleCore from './../components/TitleCore'
+    import Notice from "../components/Notice";
     export default {
         name: 'Home',
-        components: {ProductionItem,TitleCore},
+        components: {Notice, ProductionItem,TitleCore},
         data() {
             return {
                 hotProductions: [
