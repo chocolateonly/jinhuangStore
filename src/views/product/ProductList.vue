@@ -111,11 +111,6 @@
         background-size: cover;
     }
 
-    .pl-header {
-        background: url("../../assets/common/header_bg.png") no-repeat;
-        background-size: cover;
-    }
-
     .clearBorder:after {
         border: none;
     }

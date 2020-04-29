@@ -85,7 +85,7 @@
     .register {
         width: 100%;
         height: 100%;
-        background: url("../../assets/common/bg.png") no-repeat;
+        background: url("../../assets/common/_bg.png") no-repeat;
         background-size: cover;
 
         .container {

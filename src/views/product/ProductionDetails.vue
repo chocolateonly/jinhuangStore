@@ -130,7 +130,14 @@
 
 
         <!--底部购物车-->
-        <van-goods-action class="jiagou  jc-sb">
+        <van-goods-action v-if="show" class="jiagou  jc-sb">
+
+                <van-button style="flex:1;margin:0 20px;" round color="linear-gradient(to right,#ffd01e,#ee0a24)">确认</van-button>
+
+        </van-goods-action>
+
+        <van-goods-action class="jiagou  jc-sb" v-else>
+
             <div class="left-btn">
                 <van-goods-action-icon class="collect"
                                        @click="goCollect"
@@ -143,6 +150,7 @@
                 <van-goods-action-button type="warning" text="加入购物车" @click="showModal"/>
                 <van-goods-action-button type="danger" text="立即购买" @click="placeOrder"/>
             </div>
+
         </van-goods-action>
     </div>
 </template>
@@ -244,7 +252,7 @@
 <style lang="less" scoped>
     .bg {
         height: 100%;
-        background: url("../../assets/common/bg.png") no-repeat;
+        background: url("../../assets/common/_bg.png") no-repeat;
         background-size: cover;
     }
 

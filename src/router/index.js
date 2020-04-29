@@ -54,7 +54,11 @@ Vue.use(VueRouter)
       name: 'PayOrder',
       component: () => import(/* webpackChunkName: "payOrder" */ '../views/product/PayOrder')
     },
-
+    {
+      path: '/shoppingCart',
+      name: 'ShoppingCart',
+      component: () => import(/* webpackChunkName: "shoppingCart" */ '../views/product/ShoppingCart')
+    },
     //tab
     {
       path: '/tab',
