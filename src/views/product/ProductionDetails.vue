@@ -25,8 +25,8 @@
                             <span>￥</span>
                             <span class="font50">{{int()}}</span>
                             <span>{{dec()}}</span>
+                            <span class="jindou">金豆{{data.jindou}}</span>
                         </div>
-                        <div class="jindou">金豆{{data.jindou}}</div>
                     </div>
                     <div class="yishou text-line-1">已售{{data.money}}件</div>
                 </div>
@@ -75,8 +75,9 @@
                                     <span>￥</span>
                                     <span class="font50">{{int()}}</span>
                                     <span>{{dec()}}</span>
+
+                                    <span class="jindou">金豆{{data.jindou}}</span>
                                 </div>
-                                <div class="jindou">金豆{{data.jindou}}</div>
                             </div>
                         </div>
                     </div>
@@ -259,17 +260,18 @@
 
         .money-info {
             border-bottom: 1px solid #eee;
+            padding-bottom: 20px;
         }
 
         .money {
             margin-right: 10px;
             color: #FD2049;
-            line-height: 1.2rem;
         }
 
         .jindou {
             color: #999;
-            font-size: 20px;
+            font-size: 24px;
+            padding-left: 10px;
         }
 
         .yishou {

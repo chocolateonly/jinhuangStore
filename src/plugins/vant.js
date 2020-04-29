@@ -5,6 +5,7 @@ import { Lazyload,Tabbar,TabbarItem,Button,Swipe,SwipeItem,Image as VanImage,
     Tab,Tabs,
     List,
     Cell,
+    CellGroup,
     PullRefresh,
     Icon,
     Col,Row,
@@ -14,7 +15,8 @@ import { Lazyload,Tabbar,TabbarItem,Button,Swipe,SwipeItem,Image as VanImage,
     Sku,
     Popup,
     Stepper,
-    Tag
+    Tag,
+    CountDown
 } from 'vant';
 Vue.use(Lazyload);
 Vue.use(Tabbar);
@@ -38,6 +40,7 @@ Vue.use(Tabs);
 Vue.use(List);
 Vue.use(PullRefresh);
 Vue.use(Cell);
+Vue.use(CellGroup);
 Vue.use(Icon);
 Vue.use(GoodsAction);
 Vue.use(GoodsActionButton);
@@ -46,3 +49,5 @@ Vue.use(Sku);
 Vue.use(Popup);
 Vue.use(Stepper);
 Vue.use(Tag);
+Vue.use(CountDown);
+

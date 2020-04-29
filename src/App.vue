@@ -84,9 +84,12 @@
             display: flex;
             flex: 0;
             flex-direction: row;
+            min-width: 0;
         }
         .flexGrow1{
             flex-grow: 1;
+            min-width: 0;
+
         }
         .flexShrink1{
             flex-shrink: 1;
