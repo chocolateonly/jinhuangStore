@@ -24,7 +24,8 @@
                     </div>
 
                     <div class="flexCol0">
-                        <div class="img" @click="goBuyCenter"><img :src="require('../assets/home/in_sc.png')" alt="">
+                        <div class="img" @click="goBuyCenter">
+                            <img :src="require('../assets/home/in_sc.png')" alt="">
                         </div>
                         <div class="img"><img :src="require('../assets/home/in_zn.png')" alt=""></div>
                     </div>
@@ -85,7 +86,7 @@
         </div>
 
         <!-- shopping cart-->
-        <div class="shopping-cart-btn">
+        <div class="shopping-cart-btn" @click="goShoppingCart">
             <img src="../assets/home/shpping-cart.png" alt="">
         </div>
     </div>
@@ -119,7 +120,10 @@
             },
             goProductionDetails() {
                 this.$router.push('/productionDetails')
-            }
+            },
+            goShoppingCart() {
+                this.$router.push('/shoppingCart')
+            },
         },
 
     }

@@ -16,7 +16,8 @@ import { Lazyload,Tabbar,TabbarItem,Button,Swipe,SwipeItem,Image as VanImage,
     Popup,
     Stepper,
     Tag,
-    CountDown
+    CountDown,
+    SubmitBar
 } from 'vant';
 Vue.use(Lazyload);
 Vue.use(Tabbar);
@@ -50,4 +51,5 @@ Vue.use(Popup);
 Vue.use(Stepper);
 Vue.use(Tag);
 Vue.use(CountDown);
+Vue.use(SubmitBar);
 

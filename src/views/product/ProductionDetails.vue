@@ -130,7 +130,7 @@
 
 
         <!--底部购物车-->
-        <van-goods-action v-if="show" class="jiagou  jc-sb">
+        <van-goods-action v-if="show" class="jiagou  jc-sb" :style="show?'z-index:2020':''">
 
                 <van-button style="flex:1;margin:0 20px;" round color="linear-gradient(to right,#ffd01e,#ee0a24)">确认</van-button>
 
@@ -160,13 +160,11 @@
     import Swiper from "../../components/Swiper";
     import TitleCore from "../../components/TitleCore";
     import CommentItem from "./components/CommentItem";
-
     export default {
         name: "ProductionDetails",
         data() {
             return {
                 show: false,
-
                 //MOCK
                 data: {
                     images: [
@@ -206,7 +204,7 @@
                 guige: [{id: '1', name: 'S'}, {id: '2', name: 'M'}, {id: '3', name: 'L'}, {id: '4', name: 'LX'}],
                 selected_color: '',
                 selected_size: '',
-                buyNumber:2,
+                buyNumber:1,
             }
         },
         components: {CommentItem, TitleCore, Swiper, Header},
@@ -370,7 +368,6 @@
     }
 
     .jiagou {
-        z-index: 9999;
         width: 100%;
         background: url("../../assets/common/_bg.png") no-repeat;
         background-size: cover;
