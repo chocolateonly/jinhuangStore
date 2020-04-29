@@ -13,7 +13,8 @@ import { Lazyload,Tabbar,TabbarItem,Button,Swipe,SwipeItem,Image as VanImage,
     GoodsActionIcon,
     Sku,
     Popup,
-    Stepper
+    Stepper,
+    Tag
 } from 'vant';
 Vue.use(Lazyload);
 Vue.use(Tabbar);
@@ -44,3 +45,4 @@ Vue.use(GoodsActionIcon);
 Vue.use(Sku);
 Vue.use(Popup);
 Vue.use(Stepper);
+Vue.use(Tag);
