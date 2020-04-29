@@ -24,7 +24,7 @@
     }
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
     .full_btn {
         width: 100%;
         height: 89px;

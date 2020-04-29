@@ -25,7 +25,7 @@
     }
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
     .welcome {
         width:100%;
         height:100%;

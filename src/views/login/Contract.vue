@@ -54,7 +54,7 @@
     }
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
 
     .register {
         width: 100%;

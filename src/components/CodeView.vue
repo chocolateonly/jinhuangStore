@@ -44,11 +44,10 @@
     }
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
     .sms-view {
         width: 100%;
         min-width: 100px;
-        height: 50px;
         text-align: center;
     }
 </style>

@@ -32,7 +32,8 @@
         //header 红底白字
         .header {
             height: 128px;
-            background: transparent;
+            background: url("./assets/common/header_bg.png") no-repeat;
+            background-size: cover;
 
             .van-nav-bar__title {
                 color: #fff;
