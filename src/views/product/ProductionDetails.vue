@@ -41,7 +41,7 @@
 
 
                 <div v-for="(v,i) in data.comment" :key="i">
-                    <CommentItem :v="v" :i="i" />
+                    <CommentItem :v="v" :i="i"/>
                 </div>
 
                 <!--产品详情-->
@@ -54,8 +54,46 @@
             </div>
         </div>
 
+        <!--规格选择-->
+        <van-popup class="number-select-box" v-model="show" position="bottom" :style="{ height: '70%' }">
+            <div class="content">
+
+                <div class="number-header flexRow0 flexGrow1">
+
+                    <div class="number-header-left">
+                        <img src="../../assets/home/home_mock1.png" alt="">
+                    </div>
+
+                    <div class="number-header-right ">
+                        <div class="number-header-title text-line-2">
+                            {{data.title}}
+                        </div>
+
+                        <div class="number-header-money">
+                            <div class="flexRow1 flexGrow1 ai-center text-line-1">
+                                <div class="money">
+                                    <span>￥</span>
+                                    <span class="font50">{{int()}}</span>
+                                    <span>{{dec()}}</span>
+                                </div>
+                                <div class="jindou">金豆{{data.jindou}}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="guige-color">
+                    <!--颜色-->
+                </div>
+
+
+            </div>
+        </van-popup>
+
+
+        <!--底部购物车-->
         <van-goods-action class="jiagou  jc-sb">
-            <div  class="left-btn">
+            <div class="left-btn">
                 <van-goods-action-icon class="collect"
                                        @click="goCollect"
                                        :icon="data.hasCollected?'star':'star-o'"
@@ -81,6 +119,7 @@
         name: "ProductionDetails",
         data() {
             return {
+                show: true,
                 data: {
                     images: [
                         'https://img.yzcdn.cn/vant/apple-1.jpg',//
@@ -122,13 +161,13 @@
             goBack() {
                 this.$router.go(-1)
             },
-            goCollect(){
-                this.data.hasCollected=!this.data.hasCollected
+            goCollect() {
+                this.data.hasCollected = !this.data.hasCollected
             },
-            goCommentPage(){
+            goCommentPage() {
                 this.$router.push('/comment')
             },
-            setNumber(){
+            setNumber() {
 
             }
         }
@@ -189,7 +228,32 @@
 
     }
 
+    .number-select-box {
+        background: url("../../assets/common/_bg.png") no-repeat;
+        background-size: cover;
+
+        .number-header {
+            .number-header-left {
+                width: 250px;
+                height: 250px;
+            }
+
+            img {
+                width: 250px;
+                height: 250px;
+            }
+
+            .number-header-right {
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                flex: 1;
+            }
+        }
+    }
+
     .jiagou {
+        z-index: 9999;
         width: 100%;
         background: url("../../assets/common/_bg.png") no-repeat;
         background-size: cover;
@@ -201,7 +265,8 @@
             flex: 2;
             justify-content: flex-start;
             display: flex;
-            .collect{
+
+            .collect {
                 background: transparent;
             }
         }
