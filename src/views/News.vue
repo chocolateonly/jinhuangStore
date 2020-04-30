@@ -18,21 +18,27 @@
 
         <!-- 新闻列表-->
         <div class="news-list flexGrow1 overflowY">
-            <div class="item-wrapper flexGrow1" v-for="(v,i) in news" :key="v.id">
-                <NewsItem :v="v" :i="i" :handle-click="goNewsDetails" />
-            </div>
 
+<!--            <div class="item-wrapper flexGrow1" v-for="(v,i) in news" :key="v.id">
+                <NewsItem :v="v" :i="i" :handle-click="goNewsDetails" />
+            </div>-->
+            <FlatListView :getList="(page,pageSize)=>getList(page,pageSize)">
+            <template scope="item" @change="getTest(item)">
+<!--            <NewsItem :v="item.data" :handle-click="goNewsDetails" />-->
+            </template>
+            </FlatListView>
         </div>
 
     </div>
 </template>
 <script>
     import Notice from "../components/Notice";
-    import NewsItem from "./news/components/NewsItem";
-
+    //import NewsItem from "./news/components/NewsItem";
+    import FlatListView from "../components/FlatListView";
+    import {setList} from '../utils'
     export default {
         name: 'News',
-        components: {NewsItem, Notice},
+        components: {FlatListView, Notice},
         data() {
             return {
                 tabs: ['公司新闻', '行业新闻'],
@@ -41,12 +47,25 @@
                     {id:0,title:'这里是新闻标题新闻标题这里是新 闻标题新闻标题',tag:'新闻热点',createdTime:'2016-12-30',img:require('../assets/news/news-img.png')},
                     {id:1,title:'这里是新闻标题新闻标题这里是新 闻标题新闻标题',tag:'新闻热点',createdTime:'2016-12-30',img:require('../assets/news/news-img.png')},
                     {id:2,title:'这里是新闻标题新闻标题这里是新 闻标题新闻标题',tag:'新闻热点',createdTime:'2016-12-30',img:require('../assets/news/news-img.png')},
+                ],
+
+                total: 0,
+                currentList:[
+                    {id:0,title:'这里是新闻标题新闻标题这里是新 闻标题新闻标题',tag:'新闻热点',createdTime:'2016-12-30',img:require('../assets/news/news-img.png')},
                 ]
             }
         },
         methods:{
             goNewsDetails(){
 
+            },
+            async getList(page,pageSize){
+                console.log(setList(page,pageSize,this.news[0]))
+             return setList(page,pageSize,this.news[0])
+            },
+            getTest(item){
+                console.log('data----')
+                console.log(item)
             }
         }
     }
