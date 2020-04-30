@@ -2,7 +2,7 @@
     <van-nav-bar
             :class="_className"
             :title="title"
-            left-arrow
+            :left-arrow="hasLeftArrow"
             @click-left="onPressLeft"
             :border="hasBorder"
     >
@@ -28,6 +28,10 @@
                 default: () => null
             },
             hasBorder: {
+                type: Boolean,
+                default: true
+            },
+            hasLeftArrow: {
                 type: Boolean,
                 default: true
             }
