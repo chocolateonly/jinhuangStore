@@ -1,6 +1,6 @@
 <template>
     <div class="tab-view flexCol1">
-        <div class="flexCol1 overflowY">
+        <div class="flexCol1">
         <router-view/>
         </div>
         <div class="tab flexCol0">
