@@ -65,6 +65,12 @@ Vue.use(VueRouter)
       name: 'NewsDetails',
       component: () => import(/* webpackChunkName: "newsDetails" */ '../views/news/NewsDetails')
     },
+      //buycenter
+    {
+      path: '/goldBuy',
+      name: 'GoldBuy',
+      component: () => import(/* webpackChunkName: "goldBuy" */ '../views/buycenter/GoldBuy')
+    },
     //tab
     {
       path: '/tab',

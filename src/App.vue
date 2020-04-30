@@ -24,6 +24,20 @@
             background: url("./assets/common/_bg.png") no-repeat;
             background-size: cover;
         }
+        .lg-bg-red{
+            background: linear-gradient(#F24949, #C40D0E);
+            color: #fff;
+            &:hover{
+                opacity: 0.8;
+            }
+        }
+        .lg-bg-yellow{
+            background: linear-gradient(#f2d527, #fb7619);
+            color: #fff;
+            &:hover{
+                opacity: 0.8;
+            }
+        }
 
         .font50 {
             font-size: 50px;
