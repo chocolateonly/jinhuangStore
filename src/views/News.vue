@@ -2,8 +2,8 @@
     <div class="news flexCol1 flexGrow1">
 
         <div class="flexCol0">
-        <img class="header-banner" src="../assets/news/news_banner.png" alt="">
-        <Notice/>
+            <img class="header-banner" src="../assets/news/news_banner.png" alt="">
+            <Notice/>
         </div>
 
         <div class="tabs flexRow0">
@@ -18,7 +18,9 @@
 
         <!-- 新闻列表-->
         <div class="news-list flexGrow1 overflowY">
-
+            <div class="item-wrapper flexGrow1" v-for="(v,i) in news" :key="v.id">
+                <NewsItem :v="v" :i="i" :handle-click="goNewsDetails" />
+            </div>
 
         </div>
 
@@ -26,14 +28,25 @@
 </template>
 <script>
     import Notice from "../components/Notice";
+    import NewsItem from "./news/components/NewsItem";
 
     export default {
         name: 'News',
-        components: {Notice},
+        components: {NewsItem, Notice},
         data() {
             return {
                 tabs: ['公司新闻', '行业新闻'],
-                activeTab: 0
+                activeTab: 0,
+                news:[
+                    {id:0,title:'这里是新闻标题新闻标题这里是新 闻标题新闻标题',tag:'新闻热点',createdTime:'2016-12-30',img:require('../assets/news/news-img.png')},
+                    {id:1,title:'这里是新闻标题新闻标题这里是新 闻标题新闻标题',tag:'新闻热点',createdTime:'2016-12-30',img:require('../assets/news/news-img.png')},
+                    {id:2,title:'这里是新闻标题新闻标题这里是新 闻标题新闻标题',tag:'新闻热点',createdTime:'2016-12-30',img:require('../assets/news/news-img.png')},
+                ]
+            }
+        },
+        methods:{
+            goNewsDetails(){
+
             }
         }
     }
@@ -74,8 +87,8 @@
         }
     }
 
-    .news-list{
-        margin: 0 30px;
+    .news-list {
+        padding: 0 30px;
     }
 </style>
 
