@@ -1,5 +1,5 @@
 <template>
-    <div class="news-item flexRow0">
+    <div class="news-item flexRow0" @click="handleClick">
         <div>
             <img :src="v.img" alt="">
         </div>
@@ -41,6 +41,7 @@
             height: 160px;
             border-radius: 10px;
             display: block;
+            margin-right:10px;
         }
     }
 

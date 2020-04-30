@@ -19,7 +19,7 @@
         <!-- 新闻列表-->
         <div class="news-list flexGrow1 overflowY">
             <div class="item-wrapper flexGrow1" v-for="(v,i) in news" :key="v.id">
-                <NewsItem :v="v" :i="i" :handle-click="goNewsDetails" />
+                <NewsItem :v="v" :i="i" :handle-click="()=>goNewsDetails(v.id)" />
             </div>
 
         </div>
@@ -45,8 +45,8 @@
             }
         },
         methods:{
-            goNewsDetails(){
-
+            goNewsDetails(id){
+                this.$router.push(`/newsDetails/${id}`)
             }
         }
     }

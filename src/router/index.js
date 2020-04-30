@@ -5,7 +5,7 @@ Vue.use(VueRouter)
   const routes = [
     {
       path:'/',
-      redirect:'/login' //  /tab/home
+      redirect:'/newsDetails/:id' //  /tab/home
     },
     {
       path: '/welcome',
@@ -58,6 +58,12 @@ Vue.use(VueRouter)
       path: '/shoppingCart',
       name: 'ShoppingCart',
       component: () => import(/* webpackChunkName: "shoppingCart" */ '../views/product/ShoppingCart')
+    },
+    //  news
+    {
+      path: '/newsDetails/:id',
+      name: 'NewsDetails',
+      component: () => import(/* webpackChunkName: "newsDetails" */ '../views/news/NewsDetails')
     },
     //tab
     {
