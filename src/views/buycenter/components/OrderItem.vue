@@ -16,21 +16,21 @@
                     <div class="info-sub flexRow1">
                         <div class="flexRow1 ai-center text-line-1">
                             <img src="../../../assets/buycenter/icon_gou.png" alt="">
-                            <span class="text-line-1">{{v.buy_m}}</span>
+                            <span class="text-line-1">￥{{v.buy_m}}</span>
                         </div>
                         <div class="flexRow1 ai-center text-line-1">
                             <img src="../../../assets/buycenter/icon_xian.png" alt="">
-                            <span class="text-line-1">{{v.cur_m}}</span>
+                            <span class="text-line-1">￥{{v.cur_m}}</span>
                         </div>
                     </div>
-                    <div class="info-sub text-line-1">货币增减：{{v.huobi}}</div>
+                    <div class="info-sub text-line-1">货币增减：￥{{v.huobi}}</div>
                     <div class="info-sub text-line-1">数量：x{{v.num}}</div>
                 </div>
             </div>
         </div>
 
         <div class="item-footer flexRow0 jc-sb ai-center">
-            <div class="order-money text-line-1"> 预付款金额：{{v.money}}</div>
+            <div class="order-money text-line-1"> 预付款金额：￥{{v.money}}</div>
             <div class="order-btn lg-bg-red">全部卖出</div>
             <!--            <div class="order-btn lg-bg-yellow buy-again">再次购买</div>-->
         </div>
