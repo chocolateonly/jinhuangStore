@@ -26,6 +26,10 @@
                 type: Function,
                 default: () => null
             }
+        },
+        mounted() {
+            console.log('ssss')
+            console.log(this.v)
         }
     }
 </script>
