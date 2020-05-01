@@ -5,33 +5,33 @@
         </div>
 
         <div class="content-wrapper flexGrow1">
-                <div class="flexCol1 flexGrow1 jc-sb">
-                    <div class="title text-line-2">{{v.title}}</div>
-                    <div class="create">
-                        <span class="tag">{{v.tag}}</span>
-                        <span class="createdTime">{{v.createdTime}}</span>
-                    </div>
+            <div class="flexCol1 flexGrow1 jc-sb">
+                <div class="title text-line-2">{{v.title}}</div>
+                <div class="create">
+                    <span class="tag">{{v.tag}}</span>
+                    <span class="createdTime">{{v.createdTime}}</span>
                 </div>
+            </div>
         </div>
     </div>
 </template>
 
 <script>
-    export default {
-        name: "NewsItem",
-        props: {
-            i: Number,
-            v: Object,
-            handleClick: {
-                type: Function,
-                default: () => null
-            }
-        },
-        mounted() {
-            console.log('ssss')
-            console.log(this.v)
-        }
+  export default {
+    name: "NewsItem",
+    props: {
+      i: Number,
+      v: Object,
+      handleClick: {
+        type: Function,
+        default: () => null
+      }
+    },
+    mounted() {
+      // console.log('item--')
+      // console.log(this.v)
     }
+  }
 </script>
 
 <style lang="less" scoped>
@@ -54,14 +54,14 @@
 
         .title {
             font-size: 24px;
-            font-weight:400;
-            color:rgba(51,51,51,1);
+            font-weight: 400;
+            color: rgba(51, 51, 51, 1);
         }
 
         .create {
             color: #999;
             font-size: 20px;
-            .tag{
+            .tag {
                 margin-right: 10px;
             }
         }
