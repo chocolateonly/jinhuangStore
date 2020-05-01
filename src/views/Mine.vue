@@ -8,6 +8,81 @@
         <div class=" flexCol1 overflowY">
             <div class="content">
 
+                <div class="user-info flexRow0">
+                    <div class="avatar">
+                        <img :src="avatar" alt="">
+                    </div>
+                    <div class="right-info flexGrow1">
+                        <div class="flexRow1 jc-sb">
+                            <div class="name">{{user}}</div>
+                            <div class="right-btn">
+                                <span class="user-btn">充值</span>
+                                <span class="user-btn">提现</span>
+                            </div>
+                        </div>
+                        <div class="user-level flexRow0">
+                            <!--todo:会员等级-->
+                            <div><span>V</span>开通会员</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="user-money">
+                    <div class="item-money text-line-1">
+                        <label>资产总额：</label>
+                        <span>{{money}}</span>
+                        <span class="yue">(可用余额：{{yue}})</span>
+                    </div>
+                    <div class="item-money flexRow0 jc-sb ai-center" style="margin-top:10px">
+                        <div class="flexGrow1  text-line-1">
+                        <label>金    豆：</label>
+                        <span>{{money}}</span>
+                        </div>
+                        <div class="set-btn">参数设置</div>
+                    </div>
+                </div>
+
+                <div class="menu-box">
+                    <div class="menu-header">
+                        我的功能
+                    </div>
+                    <div class="menu-item flexRow0 ai-center">
+                      <div class="item flexCol1"   v-for="(v,i) in fun" :key="i">
+                          <div>
+                              <img :src="v.img" alt="">
+                          </div>
+                          <div class="nav-name">{{v.nav}}</div>
+                      </div>
+                    </div>
+                </div>
+
+                <div class="menu-box">
+                    <div class="menu-header">
+                        我的订单
+                    </div>
+                    <div class="menu-item flexRow0 ai-center">
+                        <div class="item flexCol1"   v-for="(v,i) in order" :key="i">
+                            <div>
+                                <img :src="v.img" alt="">
+                            </div>
+                            <div class="nav-name">{{v.nav}}</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="menu-box">
+                    <div class="menu-header">
+                        客户服务
+                    </div>
+                    <div class="menu-item flexRow0 ai-center">
+                        <div class="item flexCol1"   v-for="(v,i) in service" :key="i">
+                            <div>
+                                <img :src="v.img" alt="">
+                            </div>
+                            <div class="nav-name">{{v.nav}}</div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -16,17 +91,46 @@
 </template>
 
 <script>
-    import Header from "../components/Header";
+  import Header from "../components/Header";
 
-    export default {
-        name: "Mine",
-        components: {Header},
-        methods: {
-            goBack() {
-                this.$router.go(-1)
-            }
-        }
+  export default {
+    name: "Mine",
+    components: {Header},
+    data() {
+      return {
+        id: '1',
+        user: '张三',
+        avatar: require('../assets/me/avatar.png'),
+        level: '二级会员',
+        money: '123132.22',
+        yue: '5452.22',
+        jindou: '1231.00',
+        fun:[
+          {nav:'身份认证',img:require('../assets/me/fun1.png')},
+          {nav:'分销中心',img:require('../assets/me/fun2.png')},
+          {nav:'银行卡',img:require('../assets/me/fun3.png')},
+          {nav:'委托交易',img:require('../assets/me/fun4.png')},
+        ],
+        order:[
+          {nav:'全部订单',img:require('../assets/me/order1.png')},
+          {nav:'待付款',img:require('../assets/me/order2.png')},
+          {nav:'待收货',img:require('../assets/me/order3.png')},
+          {nav:'待评价',img:require('../assets/me/order4.png')},
+        ],
+        service:[
+          {nav:'意见反馈',img:require('../assets/me/service1.png')},
+          {nav:'操作指南',img:require('../assets/me/service2.png')},
+          {nav:'收货地址',img:require('../assets/me/service3.png')},
+          {nav:'联系客服',img:require('../assets/me/service4.png')},
+         ]
+      }
+    },
+    methods: {
+      goBack() {
+        this.$router.go(-1)
+      }
     }
+  }
 </script>
 
 <style lang="less" scoped>
@@ -36,7 +140,7 @@
         background-size: cover;
     }
 
-   #app .me-header {
+    #app .me-header {
         background: transparent;
 
         .van-nav-bar__title {
@@ -47,5 +151,99 @@
     .content {
         padding: 0.4rem;
         font-size: 0.4rem;
+
+        .user-info {
+            .avatar {
+                width: 130px;
+                height: 130px;
+                margin-right: 10px;
+                img {
+                    width: 130px;
+                    height: 130px;
+                    border-radius: 65px;
+                }
+            }
+            .name {
+                color: #fff;
+                font-size: 36px;
+            }
+            .user-btn {
+                display: inline-block;
+                width: 124px;
+                height: 62px;
+                line-height: 62px;
+                background: url("../assets/me/btn_bg.png") no-repeat;
+                background-size: cover;
+                color: #C91415;
+                font-size: 36px;
+                margin-left: 10px;
+            }
+            .user-level {
+                div {
+                    padding: 10px 20px;
+                    background: #fff;
+                    border-radius: 20px;
+                    color: #C91415;
+                    span {
+                        display: inline-block;
+                        width: 30px;
+                        height: 30px;
+                        margin-right: 10px;
+                        background: #C91415;
+                        color: #fff;
+                        border-radius: 20px;
+                    }
+                }
+            }
+        }
+
+        .user-money {
+            margin: 20px 0;
+            padding: 20px;
+            background: #fff;
+            text-align: left;
+            border-radius: 10px;
+            .item-money{
+                span{
+                    color: #C91415;
+                    &.yue{
+                        color: #999;
+                    }
+                }
+                .set-btn{
+                    background: linear-gradient(#F24949, #C40D0E);
+                    color: #fff;
+                    padding: 10px;
+                    min-width: 140px;
+                    text-align: center;
+                }
+            }
+        }
+
+        .menu-box{
+
+            margin-bottom: 20px;
+            padding: 20px;
+            background: #fff;
+            border-radius: 10px;
+            .menu-header{
+                padding-bottom: 20px;
+                border-bottom: 1px solid #eee;
+                font-size: 29px;
+                color: #2e2e2e;
+                text-align: left;
+            }
+            .menu-item{
+                padding: 10px 0;
+                img{
+                    width: 72px;
+                    height:72px;
+                }
+                .nav-name{
+                    font-size: 24px;
+                    color: #626262;
+                }
+            }
+        }
     }
 </style>
