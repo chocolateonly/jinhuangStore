@@ -67,8 +67,6 @@
             img: require('../assets/news/news-img.png')
           },
         ],
-
-        total: 0,
         currentList: [
           {
             id: 0,
