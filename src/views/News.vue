@@ -19,9 +19,11 @@
         <!-- 新闻列表-->
         <div class="news-list flexGrow1 overflowY">
 
-                <FlatListView :getList="(page,pageSize)=>getList(page,pageSize)">
-                    <template scope="item" @change="getTest(item)">
-                        <NewsItem :v="item.data" :handle-click="goNewsDetails"/>
+                <FlatListView :key="activeTab" :getList="(page,pageSize)=>getList(page,pageSize)">
+                    <template scope="list">
+                        <div class="item-wrapper" v-for="(v,i) in list.data" :key="i">
+                        <NewsItem :v="v" :handle-click="goNewsDetails"/>
+                        </div>
                     </template>
                 </FlatListView>
 
@@ -85,10 +87,6 @@
       async getList(page, pageSize) {
         return setList(page, pageSize, this.news[0])
       },
-      getTest(item) {
-        console.log('data----')
-        console.log(item)
-      }
     }
   }
 </script>

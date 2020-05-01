@@ -7,9 +7,7 @@
                 @load="onLoad"
         >
 
-            <div class="item-wrapper " v-for="(v,i) in list" :key="i">
-                <slot :data="v"></slot>
-            </div>
+            <slot :data="list"></slot>
 
         </van-list>
     </van-pull-refresh>
@@ -63,7 +61,7 @@
           this.loading = false
           this.page++
           // console.log(list)
-          // console.log(this.page,this.list.length, total)
+          console.log(this.page,this.list.length, total)
           if (this.list.length >= total) {
             this.finished = true;
           }

@@ -15,93 +15,55 @@
 
         </div>
         <div class="content flexCol1 overflowY">
-
             <div>
-                <van-pull-refresh v-model="refreshing" @refresh="onRefresh">
-                    <van-list
-                            v-model="loading"
-                            :finished="finished"
-                            finished-text="没有更多了"
-                            @load="onLoad"
-                    >
+                <FlatListView :key="activeTab" :getList="(page,pageSize)=>getList(page,pageSize)">
+                    <template scope="list">
                         <div class="productions flexRow1">
-                            <div class="production-wrapper" v-for="(v,i) in list" :key="i">
-                                <ProductionItem :v="v" :i="i" :handleClick="goProductionDetails"/>
-                            </div>
+                        <div class="production-wrapper" v-for="(v,i) in list.data" :key="i">
+                        <ProductionItem :v="v" :i="i" :handleClick="goProductionDetails"/>
                         </div>
-
-                    </van-list>
-                </van-pull-refresh>
+                        </div>
+                    </template>
+                </FlatListView>
             </div>
         </div>
     </div>
 </template>
 
 <script>
-    import Header from "../../components/Header";
-    import ProductionItem from "./components/ProductionItem";
+  import Header from "../../components/Header";
+  import ProductionItem from "./components/ProductionItem";
+  import FlatListView from "../../components/FlatListView";
+  import {setList} from '../../utils'
 
-    export default {
-        name: "ProductList",
-        data() {
-            return {
-                tabs: ['全部', '黄金', '18K黄金', '铂金', '钻石', '珍珠'],
-                activeTab: 0,
-
-                list: [],
-                total: 0,
-                loading: false,
-                finished: false,
-                refreshing: false,
-            }
-        },
-        components: {Header, ProductionItem},
-        methods: {
-            getList(page = 1, pageSize = 5) {
-                console.log(page, pageSize)
-                //请求数据
-            },
-            setActiveTab(i) {
-                this.activeTab = i
-            },
-            goBack() {
-                this.$router.go(-1)
-            },
-            goProductionDetails() {
-                this.$router.push('/productionDetails')
-            },
-            onLoad() {
-                setTimeout(() => {
-                    if (this.refreshing) {
-                        this.list = [];
-                        this.refreshing = false;
-                    }
-
-                    for (let i = 0; i < 10; i++) {
-                        this.list.push({
-                            title: '周大福十二生肖黄金红绳款 手链甄品',
-                            money: '2343',
-                            img: require('../../assets/home/home_mock1.png')
-                        });
-                    }
-                    this.loading = false;
-
-                    if (this.list.length >= 40) {
-                        this.finished = true;
-                    }
-                }, 1000);
-            },
-            onRefresh() {
-                // 清空列表数据
-                this.finished = false;
-
-                // 重新加载数据
-                // 将 loading 设置为 true，表示处于加载状态
-                this.loading = true;
-                this.onLoad();
-            },
-        }
+  export default {
+    name: "ProductList",
+    data() {
+      return {
+        tabs: ['全部', '黄金', '18K黄金', '铂金', '钻石', '珍珠'],
+        activeTab: 0
+      }
+    },
+    components: {FlatListView, Header, ProductionItem},
+    methods: {
+      setActiveTab(i) {
+        this.activeTab = i
+      },
+      goBack() {
+        this.$router.go(-1)
+      },
+      goProductionDetails() {
+        this.$router.push('/productionDetails')
+      },
+      async getList(page, pageSize) {
+        return setList(page, pageSize, {
+          title: '周大福十二生肖黄金红绳款 手链甄品',
+          money: '2343',
+          img: require('../../assets/home/home_mock1.png')
+        })
+      },
     }
+  }
 </script>
 
 <style lang="less" scoped>
@@ -121,7 +83,7 @@
     }
 
     .tabs {
-        background: rgba(0,0,0,0.1);
+        background: rgba(0, 0, 0, 0.1);
         padding: 10px 30px;
 
         .tab-item {
