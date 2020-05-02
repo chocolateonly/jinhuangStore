@@ -75,7 +75,112 @@ Vue.use(VueRouter)
     {
       path: '/profile',
       name: 'Profile',
-      component: () => import(/* webpackChunkName: "profile" */ '../views/mine/Profile')
+      component: () => import(/* webpackChunkName: "profile" */ '../views/mine/top/Profile')
+    },
+    //top
+    {
+      path: '/getCash',
+      name: 'GetCash',
+      component: () => import(/* webpackChunkName: "getCash" */ '../views/mine/top/GetCash')
+    },
+    {
+      path: '/getCashRecord',
+      name: 'GetCashRecord',
+      component: () => import(/* webpackChunkName: "getCashRecord" */ '../views/mine/top/GetCashRecord')
+    },
+    {
+      path: '/reCharge',
+      name: 'ReCharge',
+      component: () => import(/* webpackChunkName: "reCharge" */ '../views/mine/top/ReCharge')
+    },
+    {
+      path: '/reChargeCenter',
+      name: 'ReChargeCenter',
+      component: () => import(/* webpackChunkName: "reChargeCenter" */ '../views/mine/top/ReChargeCenter')
+    },
+    {
+      path: '/reChargeList',
+      name: 'ReChargeList',
+      component: () => import(/* webpackChunkName: "reChargeList" */ '../views/mine/top/ReChargeList')
+    },
+    {
+      path: '/setParams',
+      name: 'SetParams',
+      component: () => import(/* webpackChunkName: "setParams" */ '../views/mine/top/SetParams')
+    },
+    //fun
+    {
+      path: '/addBankCard',
+      name: 'AddBankCard',
+      component: () => import(/* webpackChunkName: "addBankCard" */ '../views/mine/fun/AddBankCard')
+    },
+    {
+      path: '/distributionCenter',
+      name: 'DistributionCenter',
+      component: () => import(/* webpackChunkName: "distributionCenter" */ '../views/mine/fun/DistributionCenter')
+    },
+
+    {
+      path: '/distributionTeam',
+      name: 'DistributionTeam',
+      component: () => import(/* webpackChunkName: "distributionTeam" */ '../views/mine/fun/DistributionTeam')
+    },
+    {
+      path: '/entrustTrading',
+      name: 'EntrustTrading',
+      component: () => import(/* webpackChunkName: "entrustTrading" */ '../views/mine/fun/EntrustTrading')
+    },
+    {
+      path: '/entrustTradingRule',
+      name: 'EntrustTradingRule',
+      component: () => import(/* webpackChunkName: "entrustTradingRule" */ '../views/mine/fun/EntrustTradingRule')
+    },
+    {
+      path: '/myMoneyList',
+      name: 'MyMoneyList',
+      component: () => import(/* webpackChunkName: "myMoneyList" */ '../views/mine/fun/MyMoneyList')
+    },
+    {
+      path: '/myQrCode',
+      name: 'MyQrCode',
+      component: () => import(/* webpackChunkName: "myQrCode" */ '../views/mine/fun/MyQrCode')
+    },
+    {
+      path: '/myScore',
+      name: 'MyScore',
+      component: () => import(/* webpackChunkName: "myScore" */ '../views/mine/fun/MyScore')
+    },
+    //order
+    {
+      path: '/myOrder',
+      name: 'MyOrder',
+      component: () => import(/* webpackChunkName: "myOrder" */ '../views/mine/order/MyOrder')
+    },
+    {
+      path: '/orderComment',
+      name: 'OrderComment',
+      component: () => import(/* webpackChunkName: "orderComment" */ '../views/mine/order/OrderComment')
+    },
+    //service
+    {
+      path: '/addOrUpdateAddress',
+      name: 'AddOrUpdateAddress',
+      component: () => import(/* webpackChunkName: "addOrUpdateAddress" */ '../views/mine/service/AddOrUpdateAddress')
+    },
+    {
+      path: '/addressList',
+      name: 'AddressList',
+      component: () => import(/* webpackChunkName: "addressList" */ '../views/mine/service/AddressList')
+    },
+    {
+      path: '/contact',
+      name: 'Contact',
+      component: () => import(/* webpackChunkName: "contact" */ '../views/mine/service/Contact')
+    },
+    {
+      path: '/feedback',
+      name: 'Feedback',
+      component: () => import(/* webpackChunkName: "feedback" */ '../views/mine/service/Feedback')
     },
     //tab
     {
