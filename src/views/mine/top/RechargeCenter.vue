@@ -12,7 +12,7 @@
   import Layout from "../../../components/Layout";
 
   export default {
-    name: "ReChargeCenter",
+    name: "RechargeCenter",
     components: {Layout},
     data() {
       return {

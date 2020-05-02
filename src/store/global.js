@@ -1,7 +1,9 @@
 export default {
   state: {
     loading: false,
-    error: ''
+    error: '',
+    uid:'',
+    token:''
   },
   mutations: {
     changeLoading:(state,val)=>{

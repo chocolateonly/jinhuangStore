@@ -1,10 +1,11 @@
 import {Get} from "./index";
-const apiRoot='http://localhost:2323/api'
+import qs from 'qs'
+const apiRoot='http://jinhuang.test.hbbeisheng.com/'
 
-function getProjectList (options) {
-  return Get(`${apiRoot}/project/list`,options)
+function getUserAgreement (body,options) {
+  return Get(`${apiRoot}/api/publics/userAgreement?${qs.stringify(body)}`,options)
 }
 
 export  const serviceApi =  {
-  getProjectList
+  getUserAgreement
 }

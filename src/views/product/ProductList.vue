@@ -33,8 +33,8 @@
 <script>
   import Header from "../../components/Header";
   import ProductionItem from "./components/ProductionItem";
-  import FlatListView from "../../components/FlatListView";
-  import {setList} from '../../utils'
+  import FlatListView from "../../components/flatListView/FlatListView";
+  import {setList} from '../../components/flatListView/index'
 
   export default {
     name: "ProductList",

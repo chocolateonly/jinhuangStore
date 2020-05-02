@@ -34,8 +34,8 @@
 <script>
   import Notice from "../components/Notice";
   import NewsItem from "./news/components/NewsItem";
-  import FlatListView from "../components/FlatListView";
-  import {setList} from '../utils'
+  import FlatListView from "../components/flatListView/FlatListView";
+  import {setList} from '../components/flatListView/index'
 
   export default {
     name: 'News',

@@ -16,7 +16,7 @@
 
                 </div>
 
-                <FullButton title="签署合同" :onClick="onRegister" _className="btn"/>
+                <FullButton title="签署合同" :onClick="onSubmit" _className="btn"/>
             </div>
         </div>
 
@@ -26,6 +26,8 @@
 <script>
     import FullButton from "../../components/FullButton";
     import Header from "../../components/Header";
+    import {serviceApi} from "../../services/apis";
+    import {apiParams} from "../../utils";
 
     export default {
         name: "Register",
@@ -41,16 +43,24 @@
                 hasRead: false
             }
         },
+
         methods: {
             goBack() {
                 this.$router.go(-1)
             },
-            async onRegister() {
+          async getContract(){
+            const data=await serviceApi.getUserAgreement(apiParams)
+            console.log(data)
+          },
+            async onSubmit() {
                 if (!this.username) {
                     return this.$toast('信息未填写完');
                 }
             }
-        }
+        },
+      mounted(){
+        (async ()=>await this.getContract())()
+      }
     }
 </script>
 

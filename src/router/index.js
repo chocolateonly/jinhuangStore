@@ -5,7 +5,7 @@ Vue.use(VueRouter)
   const routes = [
     {
       path:'/',
-      redirect:'/tab/buyCenter' //  /tab/home
+      redirect:'/contract' //  /tab/home
     },
     {
       path: '/welcome',
@@ -89,19 +89,19 @@ Vue.use(VueRouter)
       component: () => import(/* webpackChunkName: "getCashRecord" */ '../views/mine/top/GetCashRecord')
     },
     {
-      path: '/reCharge',
-      name: 'ReCharge',
-      component: () => import(/* webpackChunkName: "reCharge" */ '../views/mine/top/ReCharge')
+      path: '/recharge',
+      name: 'Recharge',
+      component: () => import(/* webpackChunkName: "recharge" */ '../views/mine/top/Recharge')
     },
     {
-      path: '/reChargeCenter',
-      name: 'ReChargeCenter',
-      component: () => import(/* webpackChunkName: "reChargeCenter" */ '../views/mine/top/ReChargeCenter')
+      path: '/rechargeCenter',
+      name: 'RechargeCenter',
+      component: () => import(/* webpackChunkName: "rechargeCenter" */ '../views/mine/top/RechargeCenter')
     },
     {
-      path: '/reChargeList',
-      name: 'ReChargeList',
-      component: () => import(/* webpackChunkName: "reChargeList" */ '../views/mine/top/ReChargeList')
+      path: '/rechargeList',
+      name: 'RechargeList',
+      component: () => import(/* webpackChunkName: "rechargeList" */ '../views/mine/top/RechargeList')
     },
     {
       path: '/setParams',
