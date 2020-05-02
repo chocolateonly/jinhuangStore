@@ -24,44 +24,47 @@
 </template>
 
 <script>
-    import FullButton from "../../components/FullButton";
-    import Header from "../../components/Header";
-    import {serviceApi} from "../../services/apis";
-    import {apiParams} from "../../utils";
+  import FullButton from "../../components/FullButton";
+  import Header from "../../components/Header";
+  import {serviceApi} from "../../services/apis";
+  import {apiParams} from "../../utils";
 
-    export default {
-        name: "Register",
-        components: {Header, FullButton},
-        data() {
-            return {
-                username: '',
-                mobile: '13476260156',
-                code: '',
-                password: '',
-                confirmPassword: '',
-                recommendCode: '',
-                hasRead: false
-            }
-        },
-
-        methods: {
-            goBack() {
-                this.$router.go(-1)
-            },
-          async getContract(){
-            const data=await serviceApi.getUserAgreement(apiParams)
-            console.log(data)
-          },
-            async onSubmit() {
-                if (!this.username) {
-                    return this.$toast('信息未填写完');
-                }
-            }
-        },
-      mounted(){
-        (async ()=>await this.getContract())()
+  export default {
+    name: "Register",
+    components: {Header, FullButton},
+    data() {
+      return {
+        username: '',
+        mobile: '13476260156',
+        code: '',
+        password: '',
+        confirmPassword: '',
+        recommendCode: '',
+        hasRead: false
       }
+    },
+
+    methods: {
+      goBack() {
+        this.$router.go(-1)
+      },
+      async getContract() {
+        try {
+          await serviceApi.getUserAgreement(apiParams)
+        } catch (e) {
+          console.log(e.msg)
+        }
+      },
+      async onSubmit() {
+        if (!this.username) {
+          return this.$toast('信息未填写完');
+        }
+      }
+    },
+    mounted() {
+      (async () => await this.getContract())()
     }
+  }
 </script>
 
 <style lang="less" scoped>
@@ -82,8 +85,8 @@
         }
 
         .content {
-          font-size: 20px;
-            color:#222;
+            font-size: 20px;
+            color: #222;
             text-align: left;
 
         }
@@ -96,7 +99,7 @@
         .xieyi {
             color: #BC0203
         }
-        .btn{
+        .btn {
             background: url("../../assets/common/sq_full_btn.png") no-repeat;
             background-size: cover;
         }
