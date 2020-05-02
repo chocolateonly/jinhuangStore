@@ -2,7 +2,7 @@ module.exports = {
   /*  publicPath: process.env.NODE_ENV === 'production'
       ? '/production/' //项目部署到服务器的路径配置
       : '/'*/
-  //publicPath:'./',
+  publicPath:'./',
   //outputDir:'test',
   //indexPath:"index.html",
   devServer : {
