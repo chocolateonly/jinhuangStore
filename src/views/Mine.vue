@@ -61,7 +61,8 @@
                         我的订单
                     </div>
                     <div class="menu-item flexRow0 ai-center">
-                        <div class="item flexCol1"   v-for="(v,i) in order" :key="i">
+                        <div class="item flexCol1"   v-for="(v,i) in order" :key="i"
+                        @click="()=>goOrderPage(i)">
                             <div>
                                 <img :src="v.img" alt="">
                             </div>
@@ -131,6 +132,9 @@
       },
       goProfilePage(){
         this.$router.push('/profile')
+      },
+      goOrderPage(i){
+        this.$router.push(`/myOrder/${i}`)
       }
     }
   }

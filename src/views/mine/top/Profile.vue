@@ -1,6 +1,15 @@
 <template>
-    <Layout title="个人信息" :go-back="goBack">
-        <div class="main">
+
+    <div class="bg flexCol1">
+        <Header title="个人信息" _className="header flexCol0 clearBorder"
+                :on-press-left="goBack">
+            <div class="right-btn">保存</div>
+        </Header>
+
+        <div class=" flexCol1 overflowY">
+            <div class="content">
+
+            <div class="main">
 
             <van-cell class="set-avatar ai-center" title="头像">
                 <template #right-icon>
@@ -48,16 +57,17 @@
                     input-align="right"
             />
         </div>
-    </Layout>
-
+            </div>
+        </div>
+    </div>
 </template>
 
 <script>
-  import Layout from "../../../components/Layout";
+  import Header from "../../../components/Header";
 
   export default {
     name: "Profile",
-    components: {Layout},
+    components: {Header},
     data() {
       return {
         username: '',
@@ -82,6 +92,17 @@
 </script>
 
 <style lang="less" scoped>
+    .bg {
+        height: 100%;
+        background: url("../../../assets/common/_bg.png") no-repeat;
+        background-size: cover;
+    }
+
+    .right-btn{color: #fff}
+    .content {
+        padding: 0.4rem;
+        font-size: 0.4rem;
+    }
     .main {
         text-align: left;
     }
