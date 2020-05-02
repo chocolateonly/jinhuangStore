@@ -18,7 +18,7 @@
 
         <div class=" flexCol1 overflowY">
             <div class="content">
-                <FlatListView :getList="getList">
+                <FlatListView :key="activeTab" :getList="getList">
                     <template scope="list">
                         <div class="item" v-for="(v,i) in list.data" :key="i">
                             <MyOrderItem :v="v" :i="i"/>

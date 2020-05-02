@@ -76,7 +76,8 @@
                         客户服务
                     </div>
                     <div class="menu-item flexRow0 ai-center">
-                        <div class="item flexCol1"   v-for="(v,i) in service" :key="i">
+                        <div class="item flexCol1"   v-for="(v,i) in service" :key="i"
+                             @click="()=>goServicePage(i)">
                             <div>
                                 <img :src="v.img" alt="">
                             </div>
@@ -135,6 +136,18 @@
       },
       goOrderPage(i){
         this.$router.push(`/myOrder/${i}`)
+      },
+      goServicePage(i){
+        const that =this;
+        switch (i){
+          case 3: {
+            that.$router.push(`/addressList`);
+            break;
+          }
+          default : {
+            that.$router.push(`/addressList`)
+          }
+        }
       }
     }
   }
