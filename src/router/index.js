@@ -71,6 +71,12 @@ Vue.use(VueRouter)
       name: 'GoldBuy',
       component: () => import(/* webpackChunkName: "goldBuy" */ '../views/buycenter/GoldBuy')
     },
+    //mine
+    {
+      path: '/profile',
+      name: 'Profile',
+      component: () => import(/* webpackChunkName: "profile" */ '../views/mine/Profile')
+    },
     //tab
     {
       path: '/tab',

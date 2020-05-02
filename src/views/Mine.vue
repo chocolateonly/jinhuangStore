@@ -9,12 +9,12 @@
             <div class="content">
 
                 <div class="user-info flexRow0">
-                    <div class="avatar">
+                    <div class="avatar" @click="goProfilePage">
                         <img :src="avatar" alt="">
                     </div>
                     <div class="right-info flexGrow1">
                         <div class="flexRow1 jc-sb">
-                            <div class="name">{{user}}</div>
+                            <div class="name" @click="goProfilePage">{{user}}</div>
                             <div class="right-btn">
                                 <span class="user-btn">充值</span>
                                 <span class="user-btn">提现</span>
@@ -128,6 +128,9 @@
     methods: {
       goBack() {
         this.$router.go(-1)
+      },
+      goProfilePage(){
+        this.$router.push('/profile')
       }
     }
   }
