@@ -15,8 +15,8 @@
                         <div class="gnjj text-line-1">国内金价</div>
                         <div class="top-left theme-color">
                             <span>￥</span>
-                            <span class="font50">{{int()}}</span>
-                            <span>{{dec()}}</span>
+                            <span class="font50">{{int(last_price)}}</span>
+                            <span>{{dec(last_price)}}</span>
                         </div>
 
                     </div>
@@ -74,7 +74,10 @@
                     </div>
                 </div>
                 <!-- productions-->
-                <div class="productions flexRow1">
+
+                <van-empty v-if="data.hotlist" description="没有数据" />
+
+                <div class="productions flexRow1" v-else>
                     <div class="production-wrapper" v-for="(v,i) in data.hotlist" :key="i">
                         <ProductionItem :v="v" :i="i" :handleClick="goProductionDetails"/>
                     </div>
@@ -85,7 +88,10 @@
 
         <!-- shopping cart-->
         <div class="shopping-cart-btn" @click="goShoppingCart">
+            <div class="wrapper">
             <img src="../assets/home/shpping-cart.png" alt="">
+            <span class="badge">{{data.num}}</span>
+            </div>
         </div>
     </div>
 </template>
@@ -105,15 +111,18 @@
                     notice:{},
                     nums:'',
                     today_num:'',
-                    hotlist:[]
-                }
+                    hotlist:[],
+                    num:'33'//购物车数量
+                },
+                last_price:'',
+                lastPriceInterval:null
             }
         },
         methods: {
-            int(val = '330.07') {
+            int(val = '0.00') {
                 return val.substring(0, val.lastIndexOf('.') + 1)
             },
-            dec(val = '330.07') {
+            dec(val = '0.00') {
                 return val.substring(val.lastIndexOf('.') + 1)
             },
             goBuyCenter() {
@@ -126,13 +135,28 @@
                 this.$router.push('/shoppingCart')
             },
         },
-        async mounted() {
+        async beforeMount() {
             try {
+                //基础数据
                 const res=await serviceApi.getHomeData({})
                 this.data={...this.data,...res.data}
+
+                //实时获取金价
+                this.lastPriceInterval=setInterval(async ()=>{
+                    try {
+                        const l_res=await serviceApi.getLastPrice()
+                        this.last_price=l_res.data.last_price
+                    }catch (e) {
+                        clearInterval(this.lastPriceInterval)
+                        global.showErrorTip(e.msg, this)
+                    }
+                },1000)
             }catch (e) {
                 global.showErrorTip(e.msg, this)
             }
+        },
+        destroyed() {
+            clearInterval(this.lastPriceInterval)
         }
     }
 </script>
@@ -207,12 +231,33 @@
                 width: 50%;
             }
         }
-        .shopping-cart-btn img {
-            width: 147px;
-            height: 147px;
-            position: fixed;
-            bottom: 120px;
-            right: 20px;
+        .shopping-cart-btn {
+            .wrapper{
+
+                width: 147px;
+                height: 147px;
+                position: fixed;
+                bottom: 120px;
+                right: 20px;
+            }
+            img {
+                width: 147px;
+                height: 147px;
+            }
+            .badge{
+                position: absolute;
+                right: 5px;
+                font-size: 14px;
+                top: 5px;
+                background: #f24949;
+                height: 40px;
+                align-items: center;
+                display: flex;
+                justify-content: center;
+                border-radius: 20px;
+                padding: 0px 10px;
+                color: #fff;
+            }
         }
     }
 </style>

@@ -23,7 +23,8 @@ import { Lazyload,Tabbar,TabbarItem,Button,Swipe,SwipeItem,Image as VanImage,
   ShareSheet,
     Area,
     PasswordInput,
-    NumberKeyboard
+    NumberKeyboard,
+    Empty
 } from 'vant';
 Vue.use(Lazyload);
 Vue.use(Tabbar);
@@ -64,3 +65,4 @@ Vue.use(ShareSheet);
 Vue.use(Area);
 Vue.use(PasswordInput);
 Vue.use(NumberKeyboard);
+Vue.use(Empty);
