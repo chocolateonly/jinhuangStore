@@ -1,7 +1,6 @@
 <template>
-    <Layout title="银行卡" :go-back="goBack">
+    <Layout title="操作指南" :go-back="goBack">
         <div class="main">
-
 
 
         </div>
@@ -13,7 +12,7 @@
   import Layout from "../../../components/Layout";
 
   export default {
-    name: "BankCardList",
+    name: "Instructions",
     components: {Layout},
     data() {
       return {

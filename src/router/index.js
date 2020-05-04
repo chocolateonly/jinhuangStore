@@ -110,6 +110,16 @@ Vue.use(VueRouter)
     },
     //fun
     {
+      path: '/idCard',
+      name: 'IdCard',
+      component: () => import(/* webpackChunkName: "idCard" */ '../views/mine/fun/IdCard')
+    },
+    {
+      path: '/bankCardList',
+      name: 'BankCardList',
+      component: () => import(/* webpackChunkName: "bankCardList" */ '../views/mine/fun/BankCardList')
+    },
+    {
       path: '/addBankCard',
       name: 'AddBankCard',
       component: () => import(/* webpackChunkName: "addBankCard" */ '../views/mine/fun/AddBankCard')
@@ -176,6 +186,11 @@ Vue.use(VueRouter)
       path: '/contact',
       name: 'Contact',
       component: () => import(/* webpackChunkName: "contact" */ '../views/mine/service/Contact')
+    },
+    {
+      path: '/instructions',
+      name: 'Instructions',
+      component: () => import(/* webpackChunkName: "instructions" */ '../views/mine/service/Instructions')
     },
     {
       path: '/feedback',

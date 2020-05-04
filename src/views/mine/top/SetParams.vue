@@ -28,7 +28,6 @@
                 </template>
             </van-field>
 
-            <div style="  "></div>
             <div class="save-btn lg-bg-red " @Click="onSubmit">
                 <span>保存</span>
             </div>

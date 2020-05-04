@@ -48,7 +48,7 @@
                         我的功能
                     </div>
                     <div class="menu-item flexRow0 ai-center">
-                      <div class="item flexCol1"   v-for="(v,i) in fun" :key="i">
+                      <div class="item flexCol1"   v-for="(v,i) in fun" :key="i" @click="goFunPage(i)">
                           <div>
                               <img :src="v.img" alt="">
                           </div>
@@ -141,8 +141,20 @@
       goServicePage(i){
         const that =this;
         switch (i){
+            case 0:{
+                that.$router.push(`/feedback`);
+                break;
+            }
+            case 1: {
+                that.$router.push(`/instructions`);
+                break;
+            }
+            case 2: {
+                that.$router.push(`/addressList`);
+                break;
+            }
           case 3: {
-            that.$router.push(`/addressList`);
+            that.$router.push(`/contact`);
             break;
           }
           default : {
@@ -150,6 +162,31 @@
           }
         }
       },
+        goFunPage(i){
+            const that =this;
+            switch (i){
+                case 0:{
+                    that.$router.push(`/idCard`);
+                    break;
+                }
+                case 1: {
+                    that.$router.push(`/distributionCenter`);
+                    break;
+                }
+                case 2: {
+                    that.$router.push(`/bankCardList`);
+                    break;
+                }
+                case 3: {
+                    that.$router.push(`/entrustTrading`);
+                    break;
+                }
+                default : {
+                    that.$router.push(`/bankCardList`)
+                }
+            }
+
+        },
         goPage(url){
             this.$router.push(url)
         }
