@@ -2,70 +2,70 @@
     <div class="register flexCol1">
         <Header _className="header flexCol0" title="用户注册" :on-press-left="goBack"/>
         <div class="flexCol1 overflowY">
-        <div class="container">
-            <div class="input_from">
-                <van-field
-                        class="input"
-                        autosize
-                        v-model="username"
-                        :left-icon="require('../../assets/login/icon_user.png')"
-                        placeholder="请输入用户名"
-                />
-                <van-field
-                        class="input"
-                        autosize
-                        type="tel"
-                        v-model="mobile"
-                        :left-icon="require('../../assets/login/icon_mobile.png')"
-                        placeholder="请输入手机号码"
-                >
-                    <!--获取验证码-->
-                    <template #button>
-                        <CodeView :mobile="mobile" />
-                    </template>
+            <div class="container">
+                <div class="input_from">
+                    <van-field
+                            class="input"
+                            autosize
+                            v-model="username"
+                            :left-icon="require('../../assets/login/icon_user.png')"
+                            placeholder="请输入用户名"
+                    />
+                    <van-field
+                            class="input"
+                            autosize
+                            type="tel"
+                            v-model="mobile"
+                            :left-icon="require('../../assets/login/icon_mobile.png')"
+                            placeholder="请输入手机号码"
+                    >
+                        <!--获取验证码-->
+                        <template #button>
+                            <CodeView :mobile="mobile"  type="1"/>
+                        </template>
 
-                </van-field>
-                <van-field
-                        class="input"
-                        autosize
-                        type="number"
-                        v-model="code"
-                        :left-icon="require('../../assets/login/icon_email.png')"
-                        placeholder="请输入短信验证码"
-                />
-                <van-field
-                        class="input"
-                        autosize
-                        type="password"
-                        v-model="password"
-                        :left-icon="require('../../assets/login/icon_lock.png')"
-                        placeholder="请输入登录密码"
-                />
-                <van-field
-                        class="input"
-                        autosize
-                        type="password"
-                        v-model="confirmPassword"
-                        :left-icon="require('../../assets/login/icon_lock.png')"
-                        placeholder="请确认登录密码"
-                />
-                <van-field
-                        class="input"
-                        autosize
-                        type="number"
-                        v-model="recommendCode"
-                        :left-icon="require('../../assets/login/icon_code.png')"
-                        placeholder="请输入推荐码"
-                />
+                    </van-field>
+                    <van-field
+                            class="input"
+                            autosize
+                            type="number"
+                            v-model="code"
+                            :left-icon="require('../../assets/login/icon_email.png')"
+                            placeholder="请输入短信验证码"
+                    />
+                    <van-field
+                            class="input"
+                            autosize
+                            type="password"
+                            v-model="password"
+                            :left-icon="require('../../assets/login/icon_lock.png')"
+                            placeholder="请输入登录密码"
+                    />
+                    <van-field
+                            class="input"
+                            autosize
+                            type="password"
+                            v-model="confirmPassword"
+                            :left-icon="require('../../assets/login/icon_lock.png')"
+                            placeholder="请确认登录密码"
+                    />
+                    <van-field
+                            class="input"
+                            autosize
+                            type="number"
+                            v-model="recommendCode"
+                            :left-icon="require('../../assets/login/icon_code.png')"
+                            placeholder="请输入推荐码"
+                    />
 
-                <van-checkbox class="read-content" v-model="hasRead" icon-size="18px" checked-color="#BC0203">
-                    已阅读并同意本交易平台的<a class="xieyi" @click="showContract">《用户协议》</a>
-                </van-checkbox>
+                    <van-checkbox class="read-content" v-model="hasRead" icon-size="18px" checked-color="#BC0203">
+                        已阅读并同意本交易平台的<a class="xieyi" @click="showContract">《用户协议》</a>
+                    </van-checkbox>
 
+                </div>
+
+                <FullButton title="注 册" :onClick="onRegister"/>
             </div>
-
-            <FullButton title="注 册" :onClick="onRegister"/>
-        </div>
         </div>
     </div>
 </template>
@@ -74,32 +74,69 @@
     import FullButton from "../../components/FullButton";
     import Header from "../../components/Header";
     import CodeView from '../../components/CodeView'
+    import global from "../../components/global";
+    import {serviceApi} from "../../services/apis";
 
     export default {
         name: "Register",
         components: {Header, FullButton, CodeView},
         data() {
             return {
-                username: '',
+                username: 'wo',
                 mobile: '13476260156',
                 code: '',
-                password: '',
-                confirmPassword: '',
+                password: '123',
+                confirmPassword: '123',
                 recommendCode: '',
-                hasRead: false
+                hasRead: true
             }
         },
         methods: {
             goBack() {
                 this.$router.go(-1)
             },
-            showContract(){
-              this.$router.push('Contract')
+            showContract() {
+                this.$router.push('Contract')
             },
             async onRegister() {
                 if (!this.username) {
-                    return this.$toast('信息未填写完');
+                    return this.$toast('用户名必填');
                 }
+                if (!this.mobile) {
+                    return this.$toast('手机号必填');
+                }
+                if (!this.code) {
+                    return this.$toast('短信验证码必填');
+                }
+                if (!this.password) {
+                    return this.$toast('密码必填');
+                }
+                if (!this.confirmPassword) {
+                    return this.$toast('确认密码必填');
+                }
+
+                if (this.password !== this.confirmPassword) {
+                    return this.$toast('密码输入不一致');
+                }
+                if (!this.hasRead) return this.$toast('请勾选并同意用户协议');
+
+                const params = {
+                    nickname: this.username,
+                    mobile: this.mobile,
+                    code: this.code,
+                    password: this.password,
+                    password1: this.confirmPassword,
+                    invite_code: this.recommendCode,
+                }
+
+                try {
+                    await serviceApi.register(params)
+                    this.goBack()
+                } catch (e) {
+                    global.showErrorTip(e.msg, this)
+                }
+
+
             }
         }
     }

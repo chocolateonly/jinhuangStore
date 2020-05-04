@@ -8,10 +8,13 @@
 
 <script>
     import validator from 'validator'
+    import global from "./global";
+    import {serviceApi} from "../services/apis";
     export default {
         name: "CodeView",
         props: {
-            mobile: String
+            mobile: String,
+            type:String
         },
         data() {
             return {
@@ -31,12 +34,21 @@
                 }
                 this.interval = setInterval(() => tick(), 1000)
             },
-            getCode() {
+           async getCode() {
                 if (!validator.isMobilePhone(this.mobile)) {
                     return this.$toast('请输入正确手机号');
                 }
                 //todo:发送验证码请求
                 //
+                try {
+                    await serviceApi.sendMsg({
+                        type:this.type,
+                        mobile:this.mobile
+                    })
+                }catch (e) {
+                    global.showErrorTip(e.msg, this)
+                }
+
                 this.setTimer()
                 this.showView = 1
             }

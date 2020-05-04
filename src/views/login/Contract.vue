@@ -6,17 +6,16 @@
                 <div class="input_from">
 
                     <p class="content">
-                        1、市场性质不同
-                        外汇期货合约是在集中市场 (交易所) 交易，而外汇远期合约的交易则是在店头市场 (银行柜台) 进行。
+                       {{content}}
                     </p>
 
-                    <van-checkbox class="read-content" v-model="hasRead" icon-size="18px" checked-color="#BC0203">
-                        已阅读并同意签署<a class="xieyi">《电子合约》</a>
-                    </van-checkbox>
+<!--                    <van-checkbox class="read-content" v-model="hasRead" icon-size="18px" checked-color="#BC0203">-->
+<!--                        已阅读并同意签署<a class="xieyi">《电子合约》</a>-->
+<!--                    </van-checkbox>-->
 
                 </div>
 
-                <FullButton title="签署合同" :onClick="onSubmit" _className="btn"/>
+<!--                <FullButton title="签署合同" :onClick="onSubmit" _className="btn"/>-->
             </div>
         </div>
 
@@ -24,47 +23,45 @@
 </template>
 
 <script>
-  import FullButton from "../../components/FullButton";
-  import Header from "../../components/Header";
-  import {serviceApi} from "../../services/apis";
-  import {apiParams} from "../../utils";
+   // import FullButton from "../../components/FullButton";
+    import Header from "../../components/Header";
+    import {serviceApi} from "../../services/apis";
+    import global from "../../components/global";
 
-  export default {
-    name: "Contract",
-    components: {Header, FullButton},
-    data() {
-      return {
-        username: '',
-        mobile: '13476260156',
-        code: '',
-        password: '',
-        confirmPassword: '',
-        recommendCode: '',
-        hasRead: false
-      }
-    },
+    export default {
+        name: "Contract",
+        components: {Header,
+            // FullButton
+        },
+        data() {
+            return {
+                content:'',
+                hasRead: false
+            }
+        },
 
-    methods: {
-      goBack() {
-        this.$router.go(-1)
-      },
-      async getContract() {
-        try {
-          await serviceApi.getUserAgreement(apiParams)
-        } catch (e) {
-          console.log(e.msg)
+        methods: {
+            goBack() {
+                this.$router.go(-1)
+            },
+            async getContract() {
+                try {
+                   const res= await serviceApi.getUserAgreement({})
+                    this.content=res.data.user_agreement
+                } catch (e) {
+                    global.showErrorTip(e.msg,this)
+                }
+            },
+            async onSubmit() {
+                if (!this.username) {
+                    return this.$toast('请勾选已阅读');
+                }
+            }
+        },
+        mounted() {
+            (async () => await this.getContract())()
         }
-      },
-      async onSubmit() {
-        if (!this.username) {
-          return this.$toast('信息未填写完');
-        }
-      }
-    },
-    mounted() {
-      (async () => await this.getContract())()
     }
-  }
 </script>
 
 <style lang="less" scoped>
@@ -99,6 +96,7 @@
         .xieyi {
             color: #BC0203
         }
+
         .btn {
             background: url("../../assets/common/sq_full_btn.png") no-repeat;
             background-size: cover;

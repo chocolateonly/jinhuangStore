@@ -14,7 +14,7 @@
                 >
                     <!--获取验证码-->
                     <template #button>
-                        <CodeView :mobile="mobile" />
+                        <CodeView :mobile="mobile" type="2" />
                     </template>
 
                 </van-field>
