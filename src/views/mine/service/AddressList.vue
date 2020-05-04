@@ -3,18 +3,16 @@
 
         <Header title="收货地址" _className="header flexCol0 clearBorder"
                 :on-press-left="goBack">
-            <div>添加</div>
+            <div class="header-right-btn" @click="goAddOrUpdateAddress('add')">添加</div>
         </Header>
 
         <div class=" flexCol1 overflowY">
             <div class="content">
         <FlatListView  :getList="(page,pageSize)=>getList(page,pageSize)">
             <template scope="list">
-                <div class="test--">
                     <div v-for="(v,i) in list.data" :key="i">
                         <AddressItem  :v="v" :i="i" :handle-click="onSelected" />
                     </div>
-                </div>
             </template>
         </FlatListView>
 
@@ -54,6 +52,9 @@
       onSelected(){
 
       },
+        goAddOrUpdateAddress(type){
+            this.$router.push(`/addOrUpdateAddress/${type}`)
+        }
 
     }
   }
@@ -70,5 +71,7 @@
         padding: 30px;
         font-size: 30px;
     }
-
+.header-right-btn{
+    color: #fff;
+}
 </style>

@@ -7,18 +7,21 @@
 
         <div class="address">{{v.address}}</div>
 
-        <div class="flexRow0 ai-center  jc-sb">
+        <div class="flexRow1 flexGrow1 ai-center  jc-sb">
+
             <div class="default-wrap">
-                <div class="default">默认</div>
+                <div class="default " v-show="v.isDefault">默认</div>
             </div>
-            <div class="right-btn">
-                <div class="btn">
-                    <img src="./../../../../assets/me/icon_edit.png" alt=""><span>编辑</span>
+
+            <div class="right-btn  ai-center">
+                <div class="btn flexRow1 ai-center"  @click="goAddOrUpdateAddress('update')">
+                    <span>编辑</span><img src="./../../../../assets/me/icon_edit.png" alt="">
                 </div>
-                <div class="btn">
-                    <img src="./../../../../assets/me/icon_delete.png" alt=""><span>删除</span>
+                <div class="btn flexRow1 ai-center" @click="deleteAddress()">
+                    <span>删除</span><img src="./../../../../assets/me/icon_delete.png" alt="">
                 </div>
             </div>
+
         </div>
     </div>
 </template>
@@ -33,7 +36,15 @@
         type: Function,
         default: () => null
       }
-    }
+    },
+      methods:{
+          goAddOrUpdateAddress(type){
+              this.$router.push(`/addOrUpdateAddress/${type}`)
+          },
+          deleteAddress(){
+              this.$router.go(0)
+          }
+      }
   }
 </script>
 
@@ -41,5 +52,27 @@
 .address-item{
     padding: 20px;
     background: #fff;
+    margin-bottom: 20px;
+    .address{
+        text-align: left;
+        padding: 20px 0;
+        margin: 10px 0;
+        border-bottom: 1px solid #eee;
+        border-top: 1px solid #eee;
+    }
+    .default{
+        color: #BC0203;
+    }
+    .right-btn{
+        display: flex;
+        flex-direction: row;
+      .btn{
+          margin-left: 20px;
+          img{
+              width: 44px;
+              height: 44px;
+          }
+      }
+    }
 }
 </style>

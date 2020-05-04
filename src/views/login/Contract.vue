@@ -30,7 +30,7 @@
   import {apiParams} from "../../utils";
 
   export default {
-    name: "Register",
+    name: "Contract",
     components: {Header, FullButton},
     data() {
       return {

@@ -33,7 +33,6 @@
                     class="input-item"
                     v-model="intro"
                     label="个人介绍"
-                    rows="1"
                     autosize
                     type="textarea"
                     placeholder="请输入"

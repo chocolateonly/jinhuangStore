@@ -21,6 +21,7 @@ import { Lazyload,Tabbar,TabbarItem,Button,Swipe,SwipeItem,Image as VanImage,
     DatetimePicker,
   Uploader,
   ShareSheet,
+    Area
 } from 'vant';
 Vue.use(Lazyload);
 Vue.use(Tabbar);
@@ -58,3 +59,4 @@ Vue.use(SubmitBar);
 Vue.use(DatetimePicker);
 Vue.use(Uploader);
 Vue.use(ShareSheet);
+Vue.use(Area)

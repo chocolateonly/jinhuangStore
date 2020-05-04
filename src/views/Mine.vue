@@ -16,13 +16,14 @@
                         <div class="flexRow1 jc-sb">
                             <div class="name" @click="goProfilePage">{{user}}</div>
                             <div class="right-btn">
-                                <span class="user-btn">充值</span>
-                                <span class="user-btn">提现</span>
+                                <span class="user-btn" @click="goPage('/recharge')">充值</span>
+                                <span class="user-btn"  @click="goPage('/getCash')">提现</span>
                             </div>
                         </div>
                         <div class="user-level flexRow0">
                             <!--todo:会员等级-->
-                            <div><span>V</span>开通会员</div>
+                            <div v-if="true" @click="goPage('/rechargeCenter')">开通会员</div>
+                            <div v-else @click="goPage('/rechargeCenter')"><span>V</span>{{v.level}}</div>
                         </div>
                     </div>
                 </div>
@@ -38,7 +39,7 @@
                         <label>金    豆：</label>
                         <span>{{money}}</span>
                         </div>
-                        <div class="set-btn">参数设置</div>
+                        <div class="set-btn" @click="goPage('/setParams')">参数设置</div>
                     </div>
                 </div>
 
@@ -148,7 +149,10 @@
             that.$router.push(`/addressList`)
           }
         }
-      }
+      },
+        goPage(url){
+            this.$router.push(url)
+        }
     }
   }
 </script>

@@ -5,7 +5,7 @@ Vue.use(VueRouter)
   const routes = [
     {
       path:'/',
-      redirect:'/productionDetails' //  /tab/home
+      redirect:'/contract' //  /tab/home
     },
     {
       path: '/welcome',
@@ -163,7 +163,7 @@ Vue.use(VueRouter)
     },
     //service
     {
-      path: '/addOrUpdateAddress',
+      path: '/addOrUpdateAddress/:type',
       name: 'AddOrUpdateAddress',
       component: () => import(/* webpackChunkName: "addOrUpdateAddress" */ '../views/mine/service/AddOrUpdateAddress')
     },
