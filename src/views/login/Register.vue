@@ -82,13 +82,13 @@
         components: {Header, FullButton, CodeView},
         data() {
             return {
-                username: 'wo',
-                mobile: '13476260156',
+                username: '',
+                mobile: '',
                 code: '',
-                password: '123',
-                confirmPassword: '123',
+                password: '',
+                confirmPassword: '',
                 recommendCode: '',
-                hasRead: true
+                hasRead: false
             }
         },
         methods: {

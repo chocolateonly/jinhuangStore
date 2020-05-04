@@ -3,7 +3,7 @@
 
         <img :src="require('./../assets/home/banner_header.png')" class="header-banner"/>
 
-        <Notice />
+        <Notice v-show="data.notice.title" :data="data.notice"/>
 
         <div class="container">
             <!--info-->
@@ -35,8 +35,8 @@
                         <div class="gnjj text-line-1">今日交易量</div>
                         <div class="top-left color3 text-line-1">
                             <span>￥</span>
-                            <span class="font50">{{int()}}</span>
-                            <span>{{dec()}}</span>
+                            <span class="font50">{{int(data.today_num)}}</span>
+                            <span>{{dec(data.today_num)}}</span>
 
                         </div>
 
@@ -49,8 +49,8 @@
                         <div class="gnjj text-line-1">历史交易量</div>
                         <div class="top-left color3 text-line-1">
                             <span>￥</span>
-                            <span class="font50">{{int()}}</span>
-                            <span>{{dec()}}</span>
+                            <span class="font50">{{int(data.nums)}}</span>
+                            <span>{{dec(data.nums)}}</span>
                         </div>
 
                     </div>
@@ -75,7 +75,7 @@
                 </div>
                 <!-- productions-->
                 <div class="productions flexRow1">
-                    <div class="production-wrapper" v-for="(v,i) in hotProductions" :key="i">
+                    <div class="production-wrapper" v-for="(v,i) in data.hotlist" :key="i">
                         <ProductionItem :v="v" :i="i" :handleClick="goProductionDetails"/>
                     </div>
                 </div>
@@ -94,17 +94,19 @@
     import ProductionItem from "./product/components/ProductionItem";
     import TitleCore from './../components/TitleCore'
     import Notice from "../components/Notice";
+    import {serviceApi} from "../services/apis";
+    import global from "../components/global";
     export default {
         name: 'Home',
         components: {Notice, ProductionItem,TitleCore},
         data() {
             return {
-                hotProductions: [
-                    {title: '周大福十二生肖黄金红绳款 手链甄品', money: '2343', img: require('../assets/home/home_mock1.png')},
-                    {title: '2周大福十二生肖黄金红绳款 手链甄品', money: '2343', img: require('../assets/home/home_mock1.png')},
-                    {title: '3周大福十二生肖黄金红绳款 手链甄品', money: '2343', img: require('../assets/home/home_mock1.png')},
-                    {title: '4周大福十二生肖黄金红绳款 手链甄品', money: '2343', img: require('../assets/home/home_mock1.png')},
-                ]
+                data:{
+                    notice:{},
+                    nums:'',
+                    today_num:'',
+                    hotlist:[]
+                }
             }
         },
         methods: {
@@ -124,7 +126,14 @@
                 this.$router.push('/shoppingCart')
             },
         },
-
+        async mounted() {
+            try {
+                const res=await serviceApi.getHomeData({})
+                this.data={...this.data,...res.data}
+            }catch (e) {
+                global.showErrorTip(e.msg, this)
+            }
+        }
     }
 </script>
 <style lang="less" scoped>

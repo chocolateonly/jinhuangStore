@@ -1,13 +1,13 @@
 <template>
     <div class="production" :class="i%2===0?'mr':'ml'" @click="handleClick">
-        <img class="p-img" :src="v.img" alt="">
+        <img class="p-img" :src="v.iamge" alt="">
 
         <div class="content text-line-2">
-            {{v.title}}
+            {{v.name}}
         </div>
 
         <div class="p-bottom flexRow1 jc-sb ai-center">
-            <div class="money  text-line-1">￥ {{v.money}}</div>
+            <div class="money  text-line-1">￥ {{v.price}}</div>
             <div class="shoppingCart">
                 <img src="../../../assets/home/icon_buycar.png" alt="">
             </div>

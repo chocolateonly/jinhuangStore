@@ -1,12 +1,15 @@
 <template>
     <van-notice-bar class="notice" left-icon="volume-o" mode="closeable" :scrollable="true">
-        这里是商城平台公告通知
+        {{data.title}}
     </van-notice-bar>
 </template>
 
 <script>
     export default {
-        name: "Notice"
+        name: "Notice",
+        props: {
+            data:Object,
+        },
     }
 </script>
 

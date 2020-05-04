@@ -18,6 +18,7 @@
             <van-field
                     class="input"
                     autosize
+                    type="password"
                     v-model="password"
                     :left-icon="require('../../assets/login/icon_lock.png')"
                     placeholder="请输入密码"
@@ -33,19 +34,38 @@
 
 <script>
     import FullButton from "../../components/FullButton";
+    import {serviceApi} from "../../services/apis";
+    import global from "../../components/global";
+    import {storageData} from "../../utils";
     export default {
         name: "Login",
         components: {FullButton},
         data() {
             return {
-                username: '',
+                username: '13476260156',
                 password: ''
             }
         },
         methods:{
-            onLogin(){
-                console.log(this.username)
-                this.$router.push('/tab/home')
+            async onLogin(){
+
+                if (!this.username) {
+                    return this.$toast('手机号必填');
+                }
+                if (!this.password) {
+                    return this.$toast('密码必填');
+                }
+                try {
+                    const res=await serviceApi.login({
+                        username: this.username,
+                        password: this.password
+                    })
+                    storageData(res.data)
+                    this.$router.push('/tab/home')
+                } catch (e) {
+                    global.showErrorTip(e.msg, this)
+                }
+
             },
             onRegister(){
                this.$router.push('Register')

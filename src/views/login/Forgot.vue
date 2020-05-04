@@ -55,6 +55,8 @@
     import FullButton from "../../components/FullButton";
     import Header from "../../components/Header";
     import CodeView from '../../components/CodeView'
+    import {serviceApi} from "../../services/apis";
+    import global from "../../components/global";
 
     export default {
         name: "Forgot",
@@ -73,8 +75,34 @@
             },
             async onForgot() {
                 if (!this.mobile) {
-                    return this.$toast('信息未填写完');
+                    return this.$toast('手机号必填');
                 }
+                if (!this.code) {
+                    return this.$toast('短信验证码必填');
+                }
+                if (!this.password) {
+                    return this.$toast('密码必填');
+                }
+                if (!this.confirmPassword) {
+                    return this.$toast('确认密码必填');
+                }
+
+                if (this.password !== this.confirmPassword) {
+                    return this.$toast('密码输入不一致');
+                }
+                const params = {
+                    mobile: this.mobile,
+                    code: this.code,
+                    password: this.password
+                }
+
+                try {
+                    await serviceApi.forgot(params)
+                    this.goBack()
+                } catch (e) {
+                    global.showErrorTip(e.msg, this)
+                }
+
             }
         }
     }
