@@ -1,6 +1,6 @@
 <template>
-    <Layout title="我的金豆" :go-back="goBack">
-        <div class="main">
+    <Layout title="积分明细" :go-back="goBack">
+        <div class="main" slot="content">
 
 
         </div>
@@ -12,7 +12,7 @@
   import Layout from "../../../components/Layout";
 
   export default {
-    name: "MyScore",
+    name: "MoneyDetails",
     components: {Layout},
     data() {
       return {

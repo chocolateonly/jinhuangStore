@@ -38,6 +38,7 @@
                         <div class="flexGrow1  text-line-1">
                         <label>金    豆：</label>
                         <span>{{money}}</span>
+                            <span style="margin-left: 10px;color:#1a7ada" @click="goPage('/moneyDetails')">查看</span>
                         </div>
                         <div class="set-btn" @click="goPage('/setParams')">参数设置</div>
                     </div>

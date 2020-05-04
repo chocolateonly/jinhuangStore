@@ -1,11 +1,10 @@
 <template>
-    <Layout title="分销团队" :go-back="goBack">
-        <div class="main flexGrow1" slot="content">
-
+    <Layout title="佣金明细" :go-back="goBack">
+        <div class="main" slot="content">
             <div class="team-header flexRow0 ">
                 <div class="left-content flexCol1 ai-center">
-                    <div>累计积分</div>
-                    <div>3660</div>
+                    <div>累计佣金</div>
+                    <div>4012.00</div>
                 </div>
                 <div class="left-content  flexCol1 ai-center">
                     <div>累计人数（人）</div>
@@ -14,7 +13,7 @@
             </div>
 
             <van-tabs class="tabs flexGrow1">
-                <van-tab v-for="index in 8" :title="index+'级团队'" :key="index">
+                <van-tab v-for="index in 8" :title="index+'级用户'" :key="index">
                 </van-tab>
             </van-tabs>
 
@@ -28,8 +27,11 @@
                                 </div>
 
                                 <div class="right-info flexGrow1 jc-sb">
+                                    <div class="flexRow1 jc-sb">
+                                        <div class="name">{{v.name}}</div>
+                                        <div class="money">{{v.yongjin}}</div>
+                                    </div>
 
-                                    <div class="name">{{v.name}}</div>
 
                                     <div class="user-tiem flexRow0">
                                         {{v.createTime}}
@@ -41,49 +43,46 @@
                     </template>
                 </FlatListView>
             </div>
+
+
         </div>
     </Layout>
 
 </template>
 
 <script>
-    import Layout from "../../../components/Layout";
-    import FlatListView from "../../../components/flatListView/FlatListView";
-    import {setList} from "../../../components/flatListView";
+  import Layout from "../../../components/Layout";
+  import {setList} from "../../../components/flatListView";
+  import FlatListView from "../../../components/flatListView/FlatListView";
 
-    export default {
-        name: "DistributionTeam",
-        components: {FlatListView, Layout},
-        data() {
-            return {
-                user: {
-                    name: 'zs',
-                    level: '等级VIP1',
-                    avatar: require('../../../assets/me/avatar.png'),
-                    createTime: '2020-12-30 12:30'
-                },
-            }
+  export default {
+    name: "MoneyDetails",
+    components: {FlatListView, Layout},
+    data() {
+      return {
+
+      }
+    },
+    methods: {
+        goBack() {
+            this.$router.go(-1)
         },
-        methods: {
-            goBack() {
-                this.$router.go(-1)
-            },
-            getList(page, pageSize) {
-                return setList(page, pageSize, {
-                    name: 'zs',
-                    avatar: require('../../../assets/me/avatar.png'),
-                    createTime: '2020-12-30 12:30'
-                })
-            }
+        getList(page, pageSize) {
+            return setList(page, pageSize, {
+                name: 'zs',
+                avatar: require('../../../assets/me/avatar.png'),
+                yongjin:'200',
+                createTime: '2020-12-30 12:30'
+            })
         }
     }
+  }
 </script>
 
 <style lang="less" scoped>
     .main {
         text-align: left;
     }
-
     .team-header {
         padding: 30px;
         background: url("../../../assets/common/header_bg.png") no-repeat;
@@ -91,7 +90,6 @@
         border-radius: 10px;
         color: #fff;
     }
-
     .tabs {
         margin-top: 30px;
         background: transparent;
@@ -131,5 +129,10 @@
             display: flex;
             flex-direction: column;
         }
+    }
+    .money{
+        font-size:40px;
+        font-weight:400;
+        color:rgba(255,190,49,1);
     }
 </style>

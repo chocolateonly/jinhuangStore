@@ -108,6 +108,11 @@ Vue.use(VueRouter)
       name: 'SetParams',
       component: () => import(/* webpackChunkName: "setParams" */ '../views/mine/top/SetParams')
     },
+    {
+      path: '/scoreDetails',
+      name: 'ScoreDetails',
+      component: () => import(/* webpackChunkName: "scoreDetails" */ '../views/mine/top/ScoreDetails')
+    },
     //fun
     {
       path: '/idCard',
@@ -146,19 +151,14 @@ Vue.use(VueRouter)
       component: () => import(/* webpackChunkName: "entrustTradingRule" */ '../views/mine/fun/EntrustTradingRule')
     },
     {
-      path: '/myMoneyList',
-      name: 'MyMoneyList',
-      component: () => import(/* webpackChunkName: "myMoneyList" */ '../views/mine/fun/MyMoneyList')
+      path: '/moneyDetails',
+      name: 'MoneyDetails',
+      component: () => import(/* webpackChunkName: "moneyDetails" */ '../views/mine/fun/MoneyDetails')
     },
     {
       path: '/myQrCode',
       name: 'MyQrCode',
       component: () => import(/* webpackChunkName: "myQrCode" */ '../views/mine/fun/MyQrCode')
-    },
-    {
-      path: '/myScore',
-      name: 'MyScore',
-      component: () => import(/* webpackChunkName: "myScore" */ '../views/mine/fun/MyScore')
     },
     //order
     {

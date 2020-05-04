@@ -5,7 +5,7 @@
         </Header>
 
         <div class=" flexCol1 overflowY">
-            <div class="content">
+            <div class="content flexCol1">
                 <slot name="content"></slot>
             </div>
         </div>
