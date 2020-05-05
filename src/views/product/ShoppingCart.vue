@@ -3,33 +3,42 @@
         <Header title="购物车" _className="header flexCol0 clearBorder" :on-press-left="goBack"></Header>
 
         <div class=" flexCol1 overflowY">
-            <div class="content">
-                <!--购物车为空-->
-                <!--                <div v-if="goods.length===0">
-                                    <img class="cart-img" src="../../assets/home/icon_shoppingcart.png" alt="">
-                                    <div class="tip">购物车是空的</div>
-
-                                    <button class="full_btn" @click="onHome">
-                                        去首页逛逛
-                                    </button>
-                                </div>-->
+            <div class="content flexGrow1">
 
                 <!--购物车列表-->
-                <FlatListView :getList="(page,pageSize)=>getList(page,pageSize)">
-                    <template scope="list">
-                        <div class="flexGrow1" v-for="(v,i) in list.data" :key="i">
-                            <GoodsItemInCart :v="v" :i="i"
-                                             :onSelected="onSelected"
-                                             :onChangeNumber="onChangeNumber"
-                                             :onDelete="onDelete"/>
+                <van-pull-refresh v-model="refreshing" @refresh="onRefresh">
+                    <van-list
+                            v-model="loading"
+                            :finished="finished"
+                            :finished-text="finished&&list.length>0?'没有更多了':''"
+                            @load="onLoad"
+                    >
+                        <div class="flexGrow1" v-if="list.length>0||loading">
+                            <div class="flexGrow1" v-for="(v,i) in list" :key="i" >
+                                <GoodsItemInCart :v="v" :i="i"
+                                                 :onSelected="onSelected"
+                                                 :onChangeNumber="onChangeNumber"
+                                                 :onDelete="onDelete"/>
+                            </div>
                         </div>
-                    </template>
-                </FlatListView>
+
+                        <!--购物车为空-->
+                        <div v-else>
+                            <img class="cart-img" src="../../assets/home/icon_shoppingcart.png" alt="">
+                            <div class="tip">购物车是空的</div>
+
+                            <button class="full_btn" @click="onHome">
+                                去首页逛逛
+                            </button>
+                        </div>
+
+                    </van-list>
+                </van-pull-refresh>
 
             </div>
         </div>
 
-        <van-submit-bar class="footer-bar" :price="0" button-text="提交订单" @submit="onSubmit">
+        <van-submit-bar class="footer-bar" :price="finPrice*100" button-text="提交订单" @submit="onSubmit">
             <van-checkbox v-model="checkedAll" checked-color="#BC0203" @change="onCheckedAll">全选</van-checkbox>
         </van-submit-bar>
 
@@ -42,21 +51,61 @@
     import GoodsItemInCart from "./components/GoodsItemIncart";
     import {serviceApi} from "../../services/apis";
     import global from "../../components/global";
-    import FlatListView from "../../components/flatListView/FlatListView";
+    import {setList} from "../../components/flatListView";
 
     export default {
         name: "ShoppingCart",
-        components: {FlatListView, GoodsItemInCart, Header},
+        components: { GoodsItemInCart, Header},
         data() {
             return {
-                goods: [
-                    {id: '1', title: '周生生格桑花珍珠耳钉', summary: '999+好评爆款', number: 2, selected: false},
-                    {id: '2', title: 'charme黄金串珠吊坠', summary: '999+好评爆款，洁齿又护龈', number: 2, selected: false},
-                ],
-                checkedAll: false
+                list: [],
+                total: 0,
+                loading: false,
+                finished: false,
+                refreshing: false,
+                page: 1,
+                pageSize: 5,
+
+                checkedAll: false,
+                finPrice:0,
             }
         },
         methods: {
+
+            onRefresh() {
+                // 清空列表数据
+                this.finished = false;
+                this.page = 1;
+                // 重新加载数据
+                // 将 loading 设置为 true，表示处于加载状态
+                this.loading = true;
+                this.onLoad();
+            },
+            async onLoad() {
+
+                if (this.refreshing) {
+                    this.list = [];
+                    this.refreshing = false;
+                }
+
+                if (this.page === 1) {
+                    this.list = []
+                }
+
+                if (this.loading) {
+                    const {total = 0, list = []} = await this.getList(this.page, this.pageSize) || {}
+                    this.list.push(...list)
+                    this.total = total
+                    this.loading = false
+                    this.page++
+                    this.changeList(this.list)
+                    console.log(this.page, this.list.length, Number(total))
+                    if (this.list.length >= Number(total)) {
+                        this.finished = true;
+                    }
+
+                }
+            },
             goBack() {
                 this.$router.go(-1)
             },
@@ -66,8 +115,23 @@
             onSubmit() {
 
             },
-            onSelected(item) {
-                console.log(item)
+            changeList(list){
+                console.log(list)
+            },
+            getFinPrice(){
+                let finally_money=0
+                this.list.reduce((acc,cur)=>{
+                   if (cur.selected) {
+                       finally_money+=Number(cur.num)*Number(cur.price)
+                       acc.push(cur)
+                   }
+                    return acc
+                },[])
+
+                this.finPrice=finally_money
+            },
+            onSelected() {
+                this.getFinPrice()
             },
             async onChangeNumber(item, type) {
                 try {
@@ -76,35 +140,54 @@
                     } else {
                         await serviceApi.cutGoodsNum({id: item.id, hasToken: true})
                     }
+                    this.getFinPrice()
                 } catch (e) {
-                    global.showErrorTip(e.msg)
+                    global.showErrorTip(e.msg,this)
                 }
             },
-            onDelete(item) {
-                console.log(item)
+            async onDelete(item) {
+                try {
+                await serviceApi.deleteGoods({id:item.id,hasToken:true})
+                this.getFinPrice()
+                } catch (e) {
+                    global.showErrorTip(e.msg,this)
+                }
             },
             onCheckedAll() {
-
-                this.goods = this.goods.reduce((acc, cur) => {
+                this.list = this.list.reduce((acc, cur) => {
                     acc.push({...cur, selected: this.checkedAll})
                     return acc
                 }, [])
             },
-            async getList(page) {
-                const params = {
+            async getList(page,pageSize) {
+                return setList(page,pageSize,{
+                    "id": "1",
+                    "price": "1000.00",
+                    "num": "1",
+                    "integral": "20",
+                    "create_time": "2020-04-27 10:52:27",
+                    "name": "我去",
+                    "image": "",
+                    "stock": "100000",
+                    selected:false
+                })
+
+/*                const params = {
                     hasToken: true,
                     page: page
                 }
 
                 try {
                     const res = await serviceApi.getShoppingCartList(params)
+                    const data=res.data.data.reduce((acc,cur)=>{
+                        acc.push({...cur,selected:false})
+                        return acc
+                    },[])
+                    return {total: res.data.count, list: data}
 
-                    return {total: res.data.count, list: res.data.data}
                 } catch (e) {
                     global.showErrorTip(e.msg, this)
-                }
-
-
+                }*/
             },
         },
     }
@@ -120,6 +203,7 @@
     .content {
         padding: 0.4rem;
         font-size: 0.4rem;
+        margin-bottom: 80px;
     }
 
     .cart-img {

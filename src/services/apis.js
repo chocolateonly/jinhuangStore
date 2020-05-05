@@ -1,7 +1,7 @@
 import {Get} from "./index";
 import qs from 'qs'
 import {getSign, lastRecord} from "../utils";
-const apiRoot='http://www.jinhuang.com' //'http://jinhuang.test.hbbeisheng.com'
+const apiRoot='http://jinhuang.test.hbbeisheng.com' //'http://jinhuang.test.hbbeisheng.com'
 export const getParams=(body)=>{
   const timestamp = new Date().getTime().toString().substr(0,11)
   const {hasToken,...other}=body
@@ -64,6 +64,9 @@ function addGoodsNum(body,options) {
 function cutGoodsNum(body,options) {
   return Get(`${apiRoot}/api/index/cutNum?${qs.stringify(getParams(body))}`,options)
 }
+function deleteGoods(body,options) {
+  return Get(`${apiRoot}/api/index/delShoppingCart?${qs.stringify(getParams(body))}`,options)
+}
 
 export  const serviceApi =  {
   getUserAgreement,
@@ -84,5 +87,5 @@ export  const serviceApi =  {
   getShoppingCartList,
   addGoodsNum,
   cutGoodsNum,
-
+  deleteGoods
 }

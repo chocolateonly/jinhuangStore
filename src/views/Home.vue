@@ -34,9 +34,7 @@
 
                         <div class="gnjj text-line-1">今日交易量</div>
                         <div class="top-left color3 text-line-1">
-                            <span>￥</span>
                             <span class="font50">{{int(data.today_num)}}</span>
-                            <span>{{dec(data.today_num)}}</span>
 
                         </div>
 
@@ -48,9 +46,7 @@
 
                         <div class="gnjj text-line-1">历史交易量</div>
                         <div class="top-left color3 text-line-1">
-                            <span>￥</span>
                             <span class="font50">{{int(data.nums)}}</span>
-                            <span>{{dec(data.nums)}}</span>
                         </div>
 
                     </div>
