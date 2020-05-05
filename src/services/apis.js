@@ -67,6 +67,34 @@ function cutGoodsNum(body,options) {
 function deleteGoods(body,options) {
   return Get(`${apiRoot}/api/index/delShoppingCart?${qs.stringify(getParams(body))}`,options)
 }
+//todo
+function createCartOrder(body,options) {
+  return Get(`${apiRoot}/api/index/cartOrder?${qs.stringify(getParams(body))}`,options)
+}
+function pay(body,options) {
+  return Get(`${apiRoot}/api/index/surePay?${qs.stringify(getParams(body))}`,options)
+}
+//news
+function getNewsList(body,options) {
+  return Get(`${apiRoot}/api/index/news?${qs.stringify(getParams(body))}`,options)
+}
+
+//me
+function profile(body,options) {
+  return Get(`${apiRoot}/api/index/mine?${qs.stringify(getParams(body))}`,options)
+}
+function updateInfo(body,options) {
+  return Get(`${apiRoot}/api/index/updMine?${qs.stringify(getParams(body))}`,options)
+}
+function updateAddress(body,options) {
+  return Get(`${apiRoot}/api/index/editAddrs?${qs.stringify(getParams(body))}`,options)
+}
+function addAddress(body,options) {
+  return Get(`${apiRoot}/api/index/addAddrs?${qs.stringify(getParams(body))}`,options)
+}
+function getAddressList(body,options) {
+  return Get(`${apiRoot}/api/index/receivingGoodsAddrs?${qs.stringify(getParams(body))}`,options)
+}
 
 export  const serviceApi =  {
   getUserAgreement,
@@ -87,5 +115,15 @@ export  const serviceApi =  {
   getShoppingCartList,
   addGoodsNum,
   cutGoodsNum,
-  deleteGoods
+  deleteGoods,
+  createCartOrder,
+  pay,
+  getNewsList,
+  profile,
+  updateInfo,
+  addAddress,
+  updateAddress,
+  getAddressList,
+
+
 }
