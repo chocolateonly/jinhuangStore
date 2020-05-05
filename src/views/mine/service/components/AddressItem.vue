@@ -57,7 +57,6 @@
         text-align: left;
         padding: 20px 0;
         margin: 10px 0;
-        border-bottom: 1px solid #eee;
         border-top: 1px solid #eee;
     }
     .default{

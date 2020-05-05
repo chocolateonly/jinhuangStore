@@ -4,6 +4,7 @@
         <div class="pl-header flexCol0">
             <Header title="我的订单"
                     _className="header flexCol0 clearBorder"
+                    :hasBorder="false"
                     :on-press-left="goBack"></Header>
 
             <div class="tabs flexRow1  ai-center">

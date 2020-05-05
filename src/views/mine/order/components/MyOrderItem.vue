@@ -93,6 +93,7 @@
             .order-btn {
                 padding: 10px 20px;
                 min-width: 100px;
+                border-radius: 40px;
             }
         }
 

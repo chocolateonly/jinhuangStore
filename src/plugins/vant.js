@@ -27,7 +27,6 @@ import { Lazyload,Tabbar,TabbarItem,Button,Swipe,SwipeItem,Image as VanImage,
     Empty
 } from 'vant';
 Vue.use(Lazyload);
-Vue.use(Field);
 Vue.use(Tabbar);
 Vue.use(TabbarItem);
 Vue.use(Button);
@@ -66,3 +65,4 @@ Vue.use(Area);
 Vue.use(PasswordInput);
 Vue.use(NumberKeyboard);
 Vue.use(Empty);
+Vue.use(Field);  //放最后
