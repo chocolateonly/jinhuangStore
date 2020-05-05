@@ -3,13 +3,13 @@
         <van-list
                 v-model="loading"
                 :finished="finished"
-                finished-text="没有更多了"
+                :finished-text="finished&&list.length>0?'没有更多了':''"
                 @load="onLoad"
         >
 
             <slot v-if="list.length>0" :data="list"></slot>
 
-            <van-empty v-if="data.hotlist" description="没有数据" />
+            <van-empty v-else description="没有数据" />
 
         </van-list>
     </van-pull-refresh>

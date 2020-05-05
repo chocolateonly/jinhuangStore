@@ -6,7 +6,6 @@
             <div class="input_from">
                 <van-field
                         class="input"
-                        autosize
                         type="tel"
                         v-model="mobile"
                         :left-icon="require('../../assets/login/icon_mobile.png')"

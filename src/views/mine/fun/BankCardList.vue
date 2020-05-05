@@ -1,6 +1,6 @@
 <template>
     <Layout title="银行卡" :go-back="goBack">
-        <div class="header-right-btn">添加</div>
+        <div class="header-right-btn" @click="goAddPage">添加</div>
         <div class="main" slot="content">
 
             <FlatListView :getList="getList">
@@ -31,6 +31,9 @@
         methods: {
             goBack() {
                 this.$router.go(-1)
+            },
+            goAddPage(){
+                this.$router.push('/addBankCard')
             },
             getList(page, pageSize) {
                 return setList(page, pageSize, {

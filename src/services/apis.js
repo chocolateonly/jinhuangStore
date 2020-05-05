@@ -1,14 +1,14 @@
 import {Get} from "./index";
 import qs from 'qs'
 import {getSign, lastRecord} from "../utils";
-const apiRoot='http://jinhuang.test.hbbeisheng.com'
+const apiRoot='http://www.jinhuang.com' //'http://jinhuang.test.hbbeisheng.com'
 const getParams=(body)=>{
   const timestamp = new Date().getTime().toString().substr(0,11)
   const {hasToken,...other}=body
   const {uid,token}=lastRecord
   const params = hasToken?{...other,timestamp,uid,token}:{...other,timestamp}
   const sign = getSign(params)
-  return {...body,timestamp,sign}
+  return {...params,timestamp,sign}
 }
 //登录
 function register (body,options) {

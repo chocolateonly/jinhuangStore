@@ -35,7 +35,6 @@ function makeSign(obj) {
 const StorageKey='BS_JINHUANG_USER';
 
 export const lastRecord = (() => { // 上一把的状态
-    console.log('aaa')
     let data = localStorage.getItem(StorageKey);
     if (!data) {
         return false;

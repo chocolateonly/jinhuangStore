@@ -138,7 +138,7 @@
         async beforeMount() {
             try {
                 //基础数据
-                const res=await serviceApi.getHomeData({})
+                const res=await serviceApi.getHomeData({hasToken:true})
                 this.data={...this.data,...res.data}
 
                 //实时获取金价

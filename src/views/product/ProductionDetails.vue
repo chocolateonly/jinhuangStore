@@ -3,8 +3,8 @@
         <div class="pl-header flexCol0">
 
             <Header title="详细信息" _className="header flexCol0 clearBorder" :on-press-left="goBack">
-                <img class="header-right-icon" @click="showShare = true" src="../../assets/common/icon_share.png"
-                     alt="">
+<!--                <img class="header-right-icon" @click="showShare = true" src="../../assets/common/icon_share.png"-->
+<!--                     alt="">-->
             </Header>
 
         </div>

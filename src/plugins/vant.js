@@ -27,13 +27,13 @@ import { Lazyload,Tabbar,TabbarItem,Button,Swipe,SwipeItem,Image as VanImage,
     Empty
 } from 'vant';
 Vue.use(Lazyload);
+Vue.use(Field);
 Vue.use(Tabbar);
 Vue.use(TabbarItem);
 Vue.use(Button);
 Vue.use(Swipe);
 Vue.use(SwipeItem);
 Vue.use(VanImage);
-Vue.use(Field);
 Vue.use(NavBar);
 Vue.use(Radio);
 Vue.use(RadioGroup);
@@ -47,8 +47,8 @@ Vue.use(Tab);
 Vue.use(Tabs);
 Vue.use(List);
 Vue.use(PullRefresh);
-Vue.use(Cell);
 Vue.use(CellGroup);
+Vue.use(Cell);
 Vue.use(Icon);
 Vue.use(GoodsAction);
 Vue.use(GoodsActionButton);
