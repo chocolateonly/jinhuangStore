@@ -2,25 +2,25 @@
     <div class="goods-item flexRow0 flexGrow1 ai-center">
 
         <div>
-            <van-checkbox v-model="v.selected" checked-color="#BC0203" @change="onSelected"/>
+            <van-checkbox v-model="v.selected" checked-color="#BC0203" @change="onSelected(v)"/>
         </div>
 
         <div class="p-img">
-            <img src="../../../assets/common/user_logo.png" alt="">
+            <img :src="v.image" alt="">
         </div>
 
         <div class="content-wrapper flexCol1 flexGrow1  jc-sb text-left">
 
             <div class="flexGrow1">
-                <div class="user  text-line-1">{{v.title}}</div>
-                <div class="summary">{{v.summary}}</div>
+                <div class="user  text-line-1">{{v.name}}</div>
+                <div class="summary">￥ {{v.price}}</div>
             </div>
 
-            <van-stepper v-model="v.number" min="1" max="8" @change="onChangeNumber"/>
+            <van-stepper v-model="v.num" min="1" :max="v.stock" @plus="onChangeNumber(v,1)" @minus="onChangeNumber(v,0)" />
         </div>
 
         <div class="delete-icon">
-            <van-icon name="delete" size="20px" @click="onDelete"/>
+            <van-icon name="delete" size="20px" @click="onDelete(v)"/>
         </div>
 
     </div>
@@ -48,6 +48,11 @@
                 type: Function,
                 default: () => null
             },
+        },
+        data(){
+            return {
+                number:this.v.num
+            }
         }
     }
 </script>
@@ -79,8 +84,8 @@
     }
 
     .summary {
-        font-size: 24px;
+        font-size: 30px;
         font-weight: 400;
-        color: rgba(153, 153, 153, 1);
+        color: #f24949;
     }
 </style>

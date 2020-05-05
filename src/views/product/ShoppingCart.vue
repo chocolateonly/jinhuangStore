@@ -5,28 +5,31 @@
         <div class=" flexCol1 overflowY">
             <div class="content">
                 <!--购物车为空-->
-                <div v-if="goods.length===0">
-                    <img class="cart-img" src="../../assets/home/icon_shoppingcart.png" alt="">
-                    <div class="tip">购物车是空的</div>
+                <!--                <div v-if="goods.length===0">
+                                    <img class="cart-img" src="../../assets/home/icon_shoppingcart.png" alt="">
+                                    <div class="tip">购物车是空的</div>
 
-                    <button class="full_btn" @click="onHome">
-                        去首页逛逛
-                    </button>
-                </div>
+                                    <button class="full_btn" @click="onHome">
+                                        去首页逛逛
+                                    </button>
+                                </div>-->
 
                 <!--购物车列表-->
-                <div class="flexGrow1" v-for="(v,i) in goods" :key="i">
-                    <GoodsItemInCart :v="v" :i="i"
-                                     :onSelected="onSelected"
-                                     :onChangeNumber="onChangeNumber"
-                                     :onDelete="onDelete"/>
-                </div>
-
+                <FlatListView :getList="(page,pageSize)=>getList(page,pageSize)">
+                    <template scope="list">
+                        <div class="flexGrow1" v-for="(v,i) in list.data" :key="i">
+                            <GoodsItemInCart :v="v" :i="i"
+                                             :onSelected="onSelected"
+                                             :onChangeNumber="onChangeNumber"
+                                             :onDelete="onDelete"/>
+                        </div>
+                    </template>
+                </FlatListView>
 
             </div>
         </div>
 
-        <van-submit-bar class="footer-bar" :price="3050" button-text="提交订单" @submit="onSubmit">
+        <van-submit-bar class="footer-bar" :price="0" button-text="提交订单" @submit="onSubmit">
             <van-checkbox v-model="checkedAll" checked-color="#BC0203" @change="onCheckedAll">全选</van-checkbox>
         </van-submit-bar>
 
@@ -37,10 +40,13 @@
 <script>
     import Header from "../../components/Header";
     import GoodsItemInCart from "./components/GoodsItemIncart";
+    import {serviceApi} from "../../services/apis";
+    import global from "../../components/global";
+    import FlatListView from "../../components/flatListView/FlatListView";
 
     export default {
         name: "ShoppingCart",
-        components: {GoodsItemInCart, Header},
+        components: {FlatListView, GoodsItemInCart, Header},
         data() {
             return {
                 goods: [
@@ -60,23 +66,47 @@
             onSubmit() {
 
             },
-            onSelected() {
-
+            onSelected(item) {
+                console.log(item)
             },
-            onChangeNumber() {
-
+            async onChangeNumber(item, type) {
+                try {
+                    if (type === 1) {//add
+                        await serviceApi.addGoodsNum({id: item.id, hasToken: true})
+                    } else {
+                        await serviceApi.cutGoodsNum({id: item.id, hasToken: true})
+                    }
+                } catch (e) {
+                    global.showErrorTip(e.msg)
+                }
             },
-            onDelete() {
-
+            onDelete(item) {
+                console.log(item)
             },
-            onCheckedAll(){
+            onCheckedAll() {
 
-                this.goods=this.goods.reduce((acc,cur)=>{
-                    acc.push({...cur,selected:this.checkedAll})
+                this.goods = this.goods.reduce((acc, cur) => {
+                    acc.push({...cur, selected: this.checkedAll})
                     return acc
-                },[])
-            }
-        }
+                }, [])
+            },
+            async getList(page) {
+                const params = {
+                    hasToken: true,
+                    page: page
+                }
+
+                try {
+                    const res = await serviceApi.getShoppingCartList(params)
+
+                    return {total: res.data.count, list: res.data.data}
+                } catch (e) {
+                    global.showErrorTip(e.msg, this)
+                }
+
+
+            },
+        },
     }
 </script>
 

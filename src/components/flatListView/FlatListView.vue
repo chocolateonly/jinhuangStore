@@ -66,8 +66,8 @@
           this.total = total
           this.loading = false
           this.page++
-          console.log(this.page,this.list.length, total)
-          if (this.list.length >= total) {
+          console.log(this.page,this.list.length, Number(total))
+          if (this.list.length >= Number(total)) {
             this.finished = true;
           }
 

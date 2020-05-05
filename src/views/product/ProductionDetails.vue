@@ -181,10 +181,10 @@
         components: {CommentItem, TitleCore, Swiper, Header},
 
         methods: {
-            int(val = '330.07') {
+            int(val = '0.00') {
                 return val.substring(0, val.lastIndexOf('.') + 1)
             },
-            dec(val = '330.07') {
+            dec(val = '0.00') {
                 return val.substring(val.lastIndexOf('.') + 1)
             },
             goBack() {
@@ -279,7 +279,7 @@
                 const res = await serviceApi.getProductDetails({id: this.$route.params.id})
                 this.data = res.data
             } catch (e) {
-                global.showErrorTip(e.msg)
+                global.showErrorTip(e.msg,this)
             }
 
         },
