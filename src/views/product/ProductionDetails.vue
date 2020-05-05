@@ -56,87 +56,11 @@
             </div>
         </div>
 
-        <!--规格选择-->
-        <van-popup class="number-select-box" v-model="show" position="bottom" :style="{ height: '70%' }">
-            <div class="content">
-
-                <div class="number-header flexRow0 flexGrow1">
-
-                    <div class="number-header-left">
-                        <img src="../../assets/home/home_mock1.png" alt="">
-                    </div>
-
-                    <div class="number-header-right ">
-                        <div class="number-header-title text-line-2">
-                            {{data.title}}
-                        </div>
-
-                        <div class="number-header-money">
-                            <div class="flexRow1 flexGrow1 ai-center text-line-1">
-                                <div class="money">
-                                    <span>￥</span>
-                                    <span class="font50">{{int()}}</span>
-                                    <span>{{dec()}}</span>
-
-                                    <span class="jindou">金豆{{data.jindou}}</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class=" flexGrow1">
-
-                    <div class="guige-select">
-                        <div class="guige-title-wrap">
-                            <div class="guige-select-title">
-                                颜色
-                            </div>
-                        </div>
-
-                        <div class="guige-select-content">
-                        <span class="guige-select-tag" v-for="(v,i) in colorList" :key="i">
-                            <van-tag v-if="selected_color===v.id" type="primary" color="#BC0203"
-                                     @click="selectedColor(v)" size="large">{{v.name}}</van-tag>
-                            <van-tag v-else plain type="primary" color="#323232" @click="selectedColor(v)" size="large">{{v.name}}</van-tag>
-                        </span>
-                        </div>
-                    </div>
-
-                    <div class="guige-select">
-                        <div class="guige-title-wrap">
-                            <div class="guige-select-title">
-                                规格
-                            </div>
-                        </div>
-
-                        <div class="guige-select-content">
-                        <span class="guige-select-tag" v-for="(v,i) in guige" :key="i">
-                            <van-tag v-if="selected_size===v.id" type="primary" color="#BC0203" @click="selectedSize(v)"
-                                     size="large">{{v.name}}</van-tag>
-                            <van-tag v-else plain type="primary" color="#323232" @click="selectedSize(v)" size="large">{{v.name}}</van-tag>
-                        </span>
-                        </div>
-                    </div>
-
-
-                    <div class="set-number flexRow0 jc-sb ai-center">
-                        <div class="set-number-title">购买数量</div>
-                        <div class="set-number-wrap">
-                            <van-stepper v-model="buyNumber" min="1" max="8"/>
-                        </div>
-                    </div>
-
-                </div>
-
-            </div>
-        </van-popup>
-
-
         <!--底部购物车-->
         <van-goods-action v-if="show" class="jiagou  jc-sb" :style="show?'z-index:2020':''">
 
-            <van-button style="flex:1;margin:0 20px;" round color="linear-gradient(to right,#ffd01e,#ee0a24)">确认
+            <van-button style="flex:1;margin:0 20px;" round color="linear-gradient(to right,#ffd01e,#ee0a24)"
+                        @click="handleAddOrPay">确认
             </van-button>
 
         </van-goods-action>
@@ -157,6 +81,67 @@
             </div>
 
         </van-goods-action>
+
+        <!--规格选择-->
+        <van-popup class="number-select-box" v-model="show" position="bottom" :style="{ height: '70%' }">
+            <div class="content">
+
+                <div class="number-header flexRow0 flexGrow1">
+
+                    <div class="number-header-left">
+                        <img :src="specs.image" alt="">
+                    </div>
+
+                    <div class="number-header-right ">
+                        <div class="number-header-title text-line-2">
+                            {{specs.name}}
+                        </div>
+
+                        <div class="number-header-money">
+                            <div class="flexRow1 flexGrow1 ai-center text-line-1">
+                                <div class="money">
+                                    <span>￥</span>
+                                    <span class="font50">{{int(specs.price)}}</span>
+                                    <span>{{dec(specs.price)}}</span>
+
+                                    <span class="jindou">金豆{{specs.integral}}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class=" flexGrow1">
+
+
+                    <div class="guige-select" v-for="(spec,index) in specs.pslist" :key="index">
+                        <div class="guige-title-wrap">
+                            <div class="guige-select-title">
+                                {{spec.name}}
+                            </div>
+                        </div>
+
+                        <div class="guige-select-content">
+                        <span class="guige-select-tag" v-for="(v,i) in spec.list" :key="i">
+                            <van-tag v-if="selected[spec.id]===v.id" type="primary" color="#BC0203"
+                                     @click="setSpecs(spec.id,v.id)" size="large">{{v.name}}</van-tag>
+                            <van-tag v-else plain type="primary" color="#323232" @click="setSpecs(spec.id,v.id)"
+                                     size="large">{{v.name}}</van-tag>
+                        </span>
+                        </div>
+                    </div>
+
+                    <div class="set-number flexRow0 jc-sb ai-center">
+                        <div class="set-number-title">购买数量</div>
+                        <div class="set-number-wrap">
+                            <van-stepper v-model="buyNumber" min="1" max="8"/>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </van-popup>
 
         <!--        <van-share-sheet
                         v-model="showShare"
@@ -186,21 +171,11 @@
                     {name: 'QQ', icon: 'qq'},
                     {name: '复制链接', icon: 'link'},
                 ],
-                colorList: [
-                    {id: '1', name: '柠檬黄'},
-                    {id: '2', name: '天空蓝'},
-                    {id: '3', name: '玫瑰红'},
-                    {id: '4', name: '湖水绿'},
-                    {id: '5', name: '芭比粉'},
-                ],
-                guige: [{id: '1', name: 'S'}, {id: '2', name: 'M'}, {id: '3', name: 'L'}, {id: '4', name: 'LX'}],
-
-                specs:[],//规格列表
-                selected_color: '',
-                selected_size: '',
+                specs: [],//规格列表
                 buyNumber: 1,
                 data: {},
-                selected: {}
+                selected: {},
+                goCarOrPay: ''
             }
         },
         components: {CommentItem, TitleCore, Swiper, Header},
@@ -243,26 +218,60 @@
             //   this.shareToQQ()
             //
             // },
-            selectedColor(item) {
-                this.selected_color = item.id
+            setSpecs(listId, specId) {
+                this.selected[listId] = specId
             },
-            selectedSize(item) {
-                this.selected_size = item.id
-            },
-            async addShoppingCart() {
+            async handleAddOrPay() {//确认
+                if (Object.values(this.selected).includes('')) return this.$toast('请选择规格属性')
                 try {
-                    const res=await serviceApi.getProductSpecs({id:this.$route.params.id})
-                    this.specs=res.data.pslist
-                    //fixme:如果已经选择规格，直接添加到购物车
-                    this.show = !this.show
+                    //获取产品价格spa_id
+                    const compose = Object.entries(this.selected).map((item) => item.join(':')).join(',')
+                    const res = await serviceApi.getPriceBySpecs({
+                        id: this.$route.params.id,
+                        compose
+                    })
+                    const params = {
+                        hasToken: true,
+                        spa_id: res.data.spa_id,
+                        id: this.$route.params.id,
+                        num: this.buyNumber
+                    }
+                    if (this.goCarOrPay === 0) {//加入购物车
+                        await serviceApi.addShoppingCart(params)
+                        this.$toast('已加入购物车')
+                    } else {//去支付
+                        await serviceApi.buyNow(params)
+                        this.$router.push('/payOrder')
+                    }
 
                 } catch (e) {
-                    global.showErrorTip(e.msg)
+                    global.showErrorTip(e.msg, this)
                 }
 
+
             },
-            placeOrder() {
-                this.$router.push('/payOrder')
+            async openToSetProductSpecs() {
+                try {
+                    //获取产品规格
+                    const res = await serviceApi.getProductSpecs({id: this.$route.params.id})
+                    this.specs = res.data
+                    this.selected = Object.values(res.data.pslist).reduce((acc, cur) => {
+                        acc[cur.id] = ''
+                        return acc
+                    }, {})
+                    this.show = true
+
+                } catch (e) {
+                    global.showErrorTip(e.msg, this)
+                }
+            },
+            async addShoppingCart() {
+                this.goCarOrPay = 0;
+                await this.openToSetProductSpecs()
+            },
+            async placeOrder() {
+                this.goCarOrPay = 1;
+                await this.openToSetProductSpecs()
             }
         },
         async mounted() {
@@ -342,6 +351,10 @@
                 width: 200px;
                 height: 200px;
                 margin-right: 20px;
+            }
+
+            .number-header-title {
+                text-align: left;
             }
 
             img {

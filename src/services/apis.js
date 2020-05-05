@@ -46,6 +46,15 @@ function getAllComments (body,options) {
 function getProductSpecs (body,options) {
   return Get(`${apiRoot}/api/publics/productSpecs?${qs.stringify(getParams(body))}`,options)
 }
+function getPriceBySpecs (body,options) {
+  return Get(`${apiRoot}/api/publics/getPriceBySpecs?${qs.stringify(getParams(body))}`,options)
+}
+function buyNow(body,options) {
+  return Get(`${apiRoot}/api/index/buyNow?${qs.stringify(getParams(body))}`,options)
+}
+function addShoppingCart(body,options) {
+  return Get(`${apiRoot}/api/index/addShoppingCart?${qs.stringify(getParams(body))}`,options)
+}
 
 export  const serviceApi =  {
   getUserAgreement,
@@ -59,5 +68,8 @@ export  const serviceApi =  {
   getAllProducts,
   getProductDetails,
   getAllComments,
-  getProductSpecs
+  getProductSpecs,
+  getPriceBySpecs,
+  buyNow,
+  addShoppingCart
 }

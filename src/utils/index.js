@@ -21,7 +21,7 @@ function sortObj(obj) {
 function makeSign(obj) {
     let string = '';
     for (let i in obj) {
-        string += (i + '=' + obj[i] + '&');
+        string += (i + '=' + encodeURIComponent(obj[i]) + '&');
     }
 
     const en_string = string + encrypt_key;
