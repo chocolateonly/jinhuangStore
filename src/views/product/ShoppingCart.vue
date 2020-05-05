@@ -51,7 +51,7 @@
     import GoodsItemInCart from "./components/GoodsItemIncart";
     import {serviceApi} from "../../services/apis";
     import global from "../../components/global";
-    import {setList} from "../../components/flatListView";
+    //import {setList} from "../../components/flatListView";
 
     export default {
         name: "ShoppingCart",
@@ -159,20 +159,20 @@
                     return acc
                 }, [])
             },
-            async getList(page,pageSize) {
-                return setList(page,pageSize,{
-                    "id": "1",
-                    "price": "1000.00",
-                    "num": "1",
-                    "integral": "20",
-                    "create_time": "2020-04-27 10:52:27",
-                    "name": "我去",
-                    "image": "",
-                    "stock": "100000",
-                    selected:false
-                })
+            async getList(page) {
+                // return setList(page,pageSize,{
+                //     "id": "1",
+                //     "price": "1000.00",
+                //     "num": "1",
+                //     "integral": "20",
+                //     "create_time": "2020-04-27 10:52:27",
+                //     "name": "我去",
+                //     "image": "",
+                //     "stock": "100000",
+                //     selected:false
+                // })
 
-/*                const params = {
+                const params = {
                     hasToken: true,
                     page: page
                 }
@@ -187,7 +187,7 @@
 
                 } catch (e) {
                     global.showErrorTip(e.msg, this)
-                }*/
+                }
             },
         },
     }
@@ -203,7 +203,6 @@
     .content {
         padding: 0.4rem;
         font-size: 0.4rem;
-        margin-bottom: 80px;
     }
 
     .cart-img {
@@ -237,5 +236,8 @@
         background: url("../../assets/common/_bg.png") no-repeat;
         background-size: cover;
         box-shadow: 0px 0px 14px 4px rgba(115, 115, 115, 0.1);
+    }
+    .van-submit-bar{
+        position: relative;
     }
 </style>
