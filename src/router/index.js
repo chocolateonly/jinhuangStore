@@ -41,12 +41,12 @@ Vue.use(VueRouter)
       component: () => import(/* webpackChunkName: "productionList" */ '../views/product/ProductList')
     },
     {
-      path: '/productionDetails',
+      path: '/productionDetails/:id',
       name: 'ProductionDetails',
       component: () => import(/* webpackChunkName: "productionDetails" */ '../views/product/ProductionDetails')
     },
     {
-      path: '/comment',
+      path: '/comment/:id',
       name: 'Comment',
       component: () => import(/* webpackChunkName: "productionDetails" */ '../views/product/Comment')
     },

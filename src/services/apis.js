@@ -36,6 +36,16 @@ function getLastPrice (body,options) {
 function getAllProducts (body,options) {
   return Get(`${apiRoot}/api/publics/allProduct?${qs.stringify(getParams(body))}`,options)
 }
+function getProductDetails (body,options) {
+  return Get(`${apiRoot}/api/publics/productDetail?${qs.stringify(getParams(body))}`,options)
+}
+function getAllComments (body,options) {
+  return Get(`${apiRoot}/api/publics/allComments?${qs.stringify(getParams(body))}`,options)
+}
+
+function getProductSpecs (body,options) {
+  return Get(`${apiRoot}/api/publics/productSpecs?${qs.stringify(getParams(body))}`,options)
+}
 
 export  const serviceApi =  {
   getUserAgreement,
@@ -46,5 +56,8 @@ export  const serviceApi =  {
 
   getHomeData,
   getLastPrice,
-  getAllProducts
+  getAllProducts,
+  getProductDetails,
+  getAllComments,
+  getProductSpecs
 }

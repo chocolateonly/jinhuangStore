@@ -20,7 +20,7 @@
                     <template scope="list">
                         <div class="productions flexRow1">
                         <div class="production-wrapper" v-for="(v,i) in list.data" :key="i">
-                        <ProductionItem :v="v" :i="i" :handleClick="goProductionDetails"/>
+                        <ProductionItem :v="v" :i="i" :handleClick="goProductionDetails(v)"/>
                         </div>
                         </div>
                     </template>
@@ -52,8 +52,8 @@
       goBack() {
         this.$router.go(-1)
       },
-      goProductionDetails() {
-        this.$router.push('/productionDetails')
+      goProductionDetails(item) {
+        this.$router.push(`/productionDetails/${item.id}`)
       },
       async getList(page) {
         const params={

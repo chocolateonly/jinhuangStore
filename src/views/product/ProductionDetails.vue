@@ -3,33 +3,33 @@
         <div class="pl-header flexCol0">
 
             <Header title="详细信息" _className="header flexCol0 clearBorder" :on-press-left="goBack">
-<!--                <img class="header-right-icon" @click="showShare = true" src="../../assets/common/icon_share.png"-->
-<!--                     alt="">-->
+                <!--                <img class="header-right-icon" @click="showShare = true" src="../../assets/common/icon_share.png"-->
+                <!--                     alt="">-->
             </Header>
 
         </div>
         <div class=" flexCol1 overflowY">
 
             <div>
-                <Swiper :images="data.images"/>
+                <Swiper :images="data.imglist"/>
             </div>
 
             <div class="content">
 
                 <div class="title">
-                    {{data.title}}
+                    {{data.name}}
                 </div>
 
                 <div class="money-info flexRow0">
                     <div class="flexRow1 flexGrow1 ai-center text-line-1">
                         <div class="money">
                             <span>￥</span>
-                            <span class="font50">{{int()}}</span>
-                            <span>{{dec()}}</span>
-                            <span class="jindou">金豆{{data.jindou}}</span>
+                            <span class="font50">{{int(data.price)}}</span>
+                            <span>{{dec(data.price)}}</span>
+                            <span class="jindou">金豆{{data.integral}}</span>
                         </div>
                     </div>
-                    <div class="yishou text-line-1">已售{{data.money}}件</div>
+                    <div class="yishou text-line-1">已售{{data.sale_num}}件</div>
                 </div>
 
                 <!--                <van-cell class="has-right-arrow" title="规格数量选择" is-link @click="setNumber"/>-->
@@ -41,15 +41,16 @@
                 </van-cell>
 
 
-                <div v-for="(v,i) in data.comment" :key="i">
+                <div v-for="(v,i) in data.comlist" :key="i">
                     <CommentItem :v="v" :i="i"/>
                 </div>
 
                 <!--产品详情-->
                 <div>
                     <h4>产品详情</h4>
-
-                    <img src="../../assets/home/home_mock1.png">
+                    <p>{{data.describe}}</p>
+                    <img v-for="(item,i) in data.imglist" :key="i" :src="item.image"
+                         style="width:100%">
 
                 </div>
             </div>
@@ -151,137 +152,129 @@
             </div>
 
             <div class="right-btn ">
-                <van-goods-action-button type="warning" text="加入购物车" @click="showModal"/>
+                <van-goods-action-button type="warning" text="加入购物车" @click="addShoppingCart"/>
                 <van-goods-action-button type="danger" text="立即购买" @click="placeOrder"/>
             </div>
 
         </van-goods-action>
 
-        <van-share-sheet
-                v-model="showShare"
-                title="分享"
-                :options="options"
-                @select="onSelect"
-        />
+        <!--        <van-share-sheet
+                        v-model="showShare"
+                        title="分享"
+                        :options="options"
+                        @select="onSelect"
+                />-->
     </div>
 </template>
 
 <script>
-  import Header from "../../components/Header";
-  import Swiper from "../../components/Swiper";
-  import TitleCore from "../../components/TitleCore";
-  import CommentItem from "./components/CommentItem";
+    import Header from "../../components/Header";
+    import Swiper from "../../components/Swiper";
+    import TitleCore from "../../components/TitleCore";
+    import CommentItem from "./components/CommentItem";
+    import global from "../../components/global";
+    import {serviceApi} from "../../services/apis";
 
-  export default {
-    name: "ProductionDetails",
-    data() {
-      return {
-        show: false,//购物车
-        showShare: false,
-        options:[
-          { name: '微信', icon: 'wechat' },
-          { name: 'QQ', icon: 'qq' },
-          { name: '复制链接', icon: 'link' },
-        ],
-        //MOCK
-        data: {
-          images: [
-            'https://img.yzcdn.cn/vant/apple-1.jpg',//
-            'https://img.yzcdn.cn/vant/apple-2.jpg',
-          ],
-          title: '周先生周先生周先生周先生周先生周先生周先生周先生周先生周先生周先生周先生周先生',
-          money: '989.00',
-          jindou: '2325',
-          yimai: '4877',
-          hasCollected: false,
-          comment: [
-            {
-              user: '小君',
-              content: '太棒了，产品很好 拷贝',
-              star: 4,
-              createdTime: '2019-4-23',
-            },
-            {
-              user: '小君',
-              content: '太棒了，产品很好 拷贝',
-              star: 4,
-              createdTime: '2019-4-23',
-            },
-          ],
-          details: {
-            img: 'https://img.yzcdn.cn/vant/apple-1.jpg',
-          },
+    export default {
+        name: "ProductionDetails",
+        data() {
+            return {
+                show: false,//购物车
+                showShare: false,
+                options: [
+                    {name: '微信', icon: 'wechat'},
+                    {name: 'QQ', icon: 'qq'},
+                    {name: '复制链接', icon: 'link'},
+                ],
+                colorList: [
+                    {id: '1', name: '柠檬黄'},
+                    {id: '2', name: '天空蓝'},
+                    {id: '3', name: '玫瑰红'},
+                    {id: '4', name: '湖水绿'},
+                    {id: '5', name: '芭比粉'},
+                ],
+                guige: [{id: '1', name: 'S'}, {id: '2', name: 'M'}, {id: '3', name: 'L'}, {id: '4', name: 'LX'}],
+
+                specs:[],//规格列表
+                selected_color: '',
+                selected_size: '',
+                buyNumber: 1,
+                data: {},
+                selected: {}
+            }
         },
-        colorList: [
-          {id: '1', name: '柠檬黄'},
-          {id: '2', name: '天空蓝'},
-          {id: '3', name: '玫瑰红'},
-          {id: '4', name: '湖水绿'},
-          {id: '5', name: '芭比粉'},
-        ],
-        guige: [{id: '1', name: 'S'}, {id: '2', name: 'M'}, {id: '3', name: 'L'}, {id: '4', name: 'LX'}],
-        selected_color: '',
-        selected_size: '',
-        buyNumber: 1,
-      }
-    },
-    components: {CommentItem, TitleCore, Swiper, Header},
-    mounted() {
-      this.selected_color = this.colorList[0].id
-      this.selected_size = this.guige[0].id
-    },
-    methods: {
-      int(val = '330.07') {
-        return val.substring(0, val.lastIndexOf('.') + 1)
-      },
-      dec(val = '330.07') {
-        return val.substring(val.lastIndexOf('.') + 1)
-      },
-      goBack() {
-        this.$router.go(-1)
-      },
-      goCollect() {
-        this.data.hasCollected = !this.data.hasCollected
-      },
-      goCommentPage() {
-        this.$router.push('/comment')
-      },
-      shareToQQ() {
-        //fixme:此处分享链接内无法携带图片
-        const share = {
-          title: "东金秀财",
-          desc: "描述",
-          share_url: "https://xiucai.neafex.com/#/"
-        };
-        location.replace(
-          "https://connect.qq.com/widget/shareqq/index.html?url=" +
-          encodeURIComponent(share.share_url) +
-          "&title=" +
-          share.title +
-          "&desc=" +
-          share.desc
-        );
-      },
-      onSelect(option) {
-         //分享
-        console.log(option.name)
-        this.shareToQQ()
+        components: {CommentItem, TitleCore, Swiper, Header},
 
-      },
-      selectedColor(item) {
-        this.selected_color = item.id
-      },
-      selectedSize(item) {
-        this.selected_size = item.id
-      },
-      showModal() {
-        this.show = !this.show
-      },
-      placeOrder() {
-        this.$router.push('/payOrder')
-      }
+        methods: {
+            int(val = '330.07') {
+                return val.substring(0, val.lastIndexOf('.') + 1)
+            },
+            dec(val = '330.07') {
+                return val.substring(val.lastIndexOf('.') + 1)
+            },
+            goBack() {
+                this.$router.go(-1)
+            },
+            goCollect() {
+                this.data.hasCollected = !this.data.hasCollected
+            },
+            goCommentPage() {
+                this.$router.push(`/comment/${this.$route.params.id}`)
+            },
+            // shareToQQ() {
+            //   //fixme:此处分享链接内无法携带图片
+            //   const share = {
+            //     title: "东金秀财",
+            //     desc: "描述",
+            //     share_url: "https://xiucai.neafex.com/#/"
+            //   };
+            //   location.replace(
+            //     "https://connect.qq.com/widget/shareqq/index.html?url=" +
+            //     encodeURIComponent(share.share_url) +
+            //     "&title=" +
+            //     share.title +
+            //     "&desc=" +
+            //     share.desc
+            //   );
+            // },
+            // onSelect(option) {
+            //    //分享
+            //   console.log(option.name)
+            //   this.shareToQQ()
+            //
+            // },
+            selectedColor(item) {
+                this.selected_color = item.id
+            },
+            selectedSize(item) {
+                this.selected_size = item.id
+            },
+            async addShoppingCart() {
+                try {
+                    const res=await serviceApi.getProductSpecs({id:this.$route.params.id})
+                    this.specs=res.data.pslist
+                    //fixme:如果已经选择规格，直接添加到购物车
+                    this.show = !this.show
+
+                } catch (e) {
+                    global.showErrorTip(e.msg)
+                }
+
+            },
+            placeOrder() {
+                this.$router.push('/payOrder')
+            }
+        },
+        async mounted() {
+            try {
+                const res = await serviceApi.getProductDetails({id: this.$route.params.id})
+                this.data = res.data
+            } catch (e) {
+                global.showErrorTip(e.msg)
+            }
+
+        },
     }
-  }
 </script>
 
 <style lang="less" scoped>
@@ -394,8 +387,10 @@
                 }
 
             }
+
             .set-number {
                 margin: 30px 0 20px 0;
+
                 .set-number-title {
                     color: #666
                 }

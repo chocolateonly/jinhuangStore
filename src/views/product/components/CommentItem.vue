@@ -1,12 +1,12 @@
 <template>
     <div class="comment-item flexRow0">
-        <img src="../../../assets/common/user_logo.png" alt="">
+        <img :src="v.avatar" alt="">
 
         <div class="content-wrapper flexGrow1">
             <div class="flexRow1 jc-sb">
                 <div class="flexGrow1">
-                    <div class="user">{{v.user}}</div>
-                    <div class="create">{{v.createdTime}}</div>
+                    <div class="user">{{v.nickname}}</div>
+                    <div class="create">{{v.create_time}}</div>
                 </div>
 
                 <div class="xx">
