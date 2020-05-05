@@ -33,6 +33,9 @@ function getHomeData (body,options) {
 function getLastPrice (body,options) {
   return Get(`${apiRoot}/api/publics/getLastPrice`,options)
 }
+function getAllProducts (body,options) {
+  return Get(`${apiRoot}/api/publics/allProduct?${qs.stringify(getParams(body))}`,options)
+}
 
 export  const serviceApi =  {
   getUserAgreement,
@@ -42,5 +45,6 @@ export  const serviceApi =  {
   login,
 
   getHomeData,
-  getLastPrice
+  getLastPrice,
+  getAllProducts
 }

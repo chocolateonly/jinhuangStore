@@ -34,8 +34,8 @@
   import Header from "../../components/Header";
   import ProductionItem from "./components/ProductionItem";
   import FlatListView from "../../components/flatListView/FlatListView";
-  import {setList} from '../../components/flatListView/index'
-
+ import global from "../../components/global";
+  import {serviceApi} from "../../services/apis";
   export default {
     name: "ProductList",
     data() {
@@ -55,12 +55,20 @@
       goProductionDetails() {
         this.$router.push('/productionDetails')
       },
-      async getList(page, pageSize) {
-        return setList(page, pageSize, {
-          title: '周大福十二生肖黄金红绳款 手链甄品',
-          money: '2343',
-          img: require('../../assets/home/home_mock1.png')
-        })
+      async getList(page) {
+        const params={
+            page:page,
+            pt_id:this.activeTab
+        }
+
+        try {
+         const res=await  serviceApi.getAllProducts(params)
+            return {total:res.data.count,list:res.data.data}
+        }catch (e) {
+            global.showErrorTip(e.msg,this)
+        }
+
+
       },
     }
   }

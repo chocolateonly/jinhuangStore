@@ -7,7 +7,7 @@
                 @load="onLoad"
         >
 
-            <slot v-if="list.length>0" :data="list"></slot>
+            <slot v-if="list.length>0||loading" :data="list"></slot>
 
             <van-empty v-else description="没有数据" />
 
@@ -56,13 +56,16 @@
           this.refreshing = false;
         }
 
+        if (this.page===1){
+            this.list=[]
+        }
+
         if (this.loading) {
-          const {total, list} = await this.getList(this.page, this.pageSize)
+          const {total=0, list=[]} = await this.getList(this.page, this.pageSize)||{}
           this.list.push(...list)
           this.total = total
           this.loading = false
           this.page++
-          // console.log(list)
           console.log(this.page,this.list.length, total)
           if (this.list.length >= total) {
             this.finished = true;

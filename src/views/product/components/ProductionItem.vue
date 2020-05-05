@@ -1,6 +1,6 @@
 <template>
     <div class="production" :class="i%2===0?'mr':'ml'" @click="handleClick">
-        <img class="p-img" :src="v.iamge" alt="">
+        <img class="p-img" :src="v.image" alt="">
 
         <div class="content text-line-2">
             {{v.name}}
