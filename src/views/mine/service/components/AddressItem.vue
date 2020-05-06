@@ -10,7 +10,7 @@
         <div class="flexRow1 flexGrow1 ai-center  jc-sb">
 
             <div class="default-wrap">
-                <div class="default " v-show="v.is_default">默认</div>
+                <div class="default " v-show="v.is_default==='2'">默认</div>
             </div>
 
             <div class="right-btn  ai-center">
@@ -27,6 +27,9 @@
 </template>
 
 <script>
+  import {serviceApi} from "../../../../services/apis";
+  import global from "../../../../components/global";
+
   export default {
     name: "AddressItem",
     props:{
@@ -41,8 +44,15 @@
           goAddOrUpdateAddress(){
               this.$router.push(`/addOrUpdateAddress/${this.v.id}`)
           },
-          deleteAddress(){
-              this.$router.go(0)
+          async deleteAddress(){
+
+              try {
+                  await serviceApi.deleteAddress({id:this.v.id,hasToken: true})
+                  this.$router.go(0)
+
+              } catch (e) {
+                  global.showErrorTip(e.msg, this)
+              }
           }
       }
   }

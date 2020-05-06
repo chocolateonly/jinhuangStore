@@ -104,6 +104,9 @@ function updateInfo(body,options) {
 function updateAddress(body,options) {
   return Get(`${apiRoot}/api/index/editAddrs?${qs.stringify(getParams(body))}`,options)
 }
+function deleteAddress(body,options) {
+  return Get(`${apiRoot}/api/index/delAddrs?${qs.stringify(getParams(body))}`,options)
+}
 function addAddress(body,options) {
   return Get(`${apiRoot}/api/index/addAddrs?${qs.stringify(getParams(body))}`,options)
 }
@@ -145,6 +148,7 @@ export  const serviceApi =  {
   updateInfo,
   addAddress,
   updateAddress,
+  deleteAddress,
   getAddressList,
   getAddressDetail,
   getAddressListData,

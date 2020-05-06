@@ -80,8 +80,8 @@
                 showArea: false,
                 areaList: areaList,
 
-                name: 'zz',
-                mobile: '13476260156',
+                name: '',
+                mobile: '',
                 address: '',
                 province: {},
                 city: {},
@@ -95,7 +95,7 @@
                 this.$router.go(-1)
             },
             onConfirm(values) {
-                this.address = values.map((item) => item.name).join('/');
+                this.address = values.map((item) => item.name).join(' ');
                 this.province = values[0]
                 this.city = values[1]
                 this.area = values.length === 3 ? values[2] : {code: ''}
@@ -114,18 +114,21 @@
                     city_id: this.city.code,
                     area_id: this.area.code,
                     address: this.addressDetails,
-                    is_default: this.isDefault ? 2 : 1
+                    is_default: this.isDefault ? '2' : '1' //2默认
                 }
 
                 try {
                     if (this.$route.params.type === 'add') {
                         await serviceApi.addAddress(params)
+                    }else{
+                        await serviceApi.updateAddress(params)
                     }
+                    this.$router.push('/addressList')
                 } catch (e) {
                     global.showErrorTip(e.msg, this)
                 }
             },
-            async getAddressList() {
+            async getAddressListData() {
                 try {
                     const res = await serviceApi.getAddressListData({hasToken: true})
                     console.log(res)
@@ -138,12 +141,17 @@
             async getAddressDetail(){
                 try {
                     const res = await serviceApi.getAddressDetail({hasToken: true,id:this.$route.params.id})
+                    const {name,phone,sheng,shi,qu,province_id,city_id,area_id,}=res.data
                     //this.address
-                    this.name=res.data.name
-                    this.mobile=res.data.phone
-                    //this.address=
+                    this.name=name
+                    this.mobile=phone
+                    this.address=[sheng,shi,qu].join(' ')
+                    this.province={code:province_id,name:sheng}
+                    this.city={code:city_id,name:shi}
+                    this.area={code:area_id,name:qu}
                     this.addressDetails=res.data.address
-                    this.isDefault=res.data.is_default
+                    this.isDefault=res.data.is_default==='2'
+
                 } catch (e) {
                     global.showErrorTip(e.msg, this)
                 }
@@ -151,7 +159,7 @@
         },
         mounted() {
             //获取地址列表选择数据
-            //this.getAddressList()
+            //this.getAddressListData()
 
             //todo:if 是修改 获取地址详情  赋默认值
             if (this.$route.params.id!=='add') this.getAddressDetail()
