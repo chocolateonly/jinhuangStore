@@ -34,16 +34,7 @@
         components: {Header},
         data() {
             return {
-                details: {
-                    title: '今日话题193:与pk 你支持谁?',
-                    img: require('../../assets/common/user_logo.png'),
-                    name: '模拟数模拟数据模拟数据模拟数据据',
-                    createTime: '2019-10-23',
-                    content: `<p>在短视频领域的纠葛还未结束,战火便迅速烧到了其他领域。昨日晚间,因为新华网一篇名为《多少道文件才能管住网游对少年儿童的戕害》的文章,让双方大战...</p>
-                                <img src="../../assets/common/user_logo.png" alt="">
-                                <p>在短视频领域的纠葛还未结束,战火便迅速烧到了其他领域。昨日晚间,因为新华网一篇名为《多少道文件才能管住网游对少年儿童的戕害》的文章,让双方大战...</p>
-                                `
-                }
+                details: {}
             }
         },
         methods: {

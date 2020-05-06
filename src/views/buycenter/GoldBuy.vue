@@ -11,8 +11,8 @@
 
                     <div class="money">
                         <span>￥</span>
-                        <span class="font50">{{int(gold.money)}}</span>
-                        <span>{{dec(gold.money)}}</span>
+                        <span class="font50">{{int(gold.price)}}</span>
+                        <span>{{dec(gold.price)}}</span>
                         <span class="jindou">实时金价</span>
                     </div>
 
@@ -24,10 +24,10 @@
                         </div>
 
                         <div class="guige-select-content">
-                        <span class="guige-select-tag" v-for="(v,i) in gold.size" :key="i">
+                        <span class="guige-select-tag" v-for="(v,i) in gold.gtlist" :key="i">
                             <van-tag v-if="selected_size===v.id" type="primary" color="#BC0203" @click="selectedSize(v)"
-                                     size="large">{{v.size}}</van-tag>
-                            <van-tag v-else plain type="primary" color="#323232" @click="selectedSize(v)" size="large">{{v.size}}</van-tag>
+                                     size="large">{{v.weight}}</van-tag>
+                            <van-tag v-else plain type="primary" color="#323232" @click="selectedSize(v)" size="large">{{v.weight}}</van-tag>
                         </span>
                         </div>
                     </div>
@@ -46,7 +46,7 @@
 
                     <div class="gold-item-info flexRow0 jc-sb ai-center">
                         <label class="text-line-1">服务费</label>
-                        <div class="text-line-1">￥{{gold.service_m}}</div>
+                        <div class="text-line-1">￥{{gold.service_harge}}</div>
                     </div>
 
 
@@ -57,11 +57,11 @@
 
                     <div class="gold-item-info flexRow0 jc-sb ai-center">
                         <label class="text-line-1">实付款</label>
-                        <div class="text-line-1">{{gold.fin_m}}</div>
+                        <div class="text-line-1">{{gold.last_price}}</div>
                     </div>
                     <div class="gold-item-info flexRow0 jc-sb ai-center">
                         <label></label>
-                        <div class="yue text-line-1" style="color:#999">(可用余额：{{gold.fin_m}})</div>
+                        <div class="yue text-line-1" style="color:#999">(可用余额：{{gold.balance}})</div>
                     </div>
                 </div>
 
@@ -87,6 +87,8 @@
 
 <script>
     import Header from "../../components/Header";
+    import {serviceApi} from "../../services/apis";
+    import global from "../../components/global";
 
     export default {
         name: "GoldBuy",
@@ -113,9 +115,6 @@
                 buyNumber: 1
             }
         },
-        mounted() {
-            this.selected_size = this.gold.size[0].id
-        },
         methods: {
             goBack() {
                 this.$router.go(-1)
@@ -129,7 +128,20 @@
             selectedSize(item) {
                 this.selected_size = item.id
             }
-        }
+        },
+        async mounted() {
+            const params={
+                hasToken:true
+            }
+            try {
+                const res=await  serviceApi.getGoldGoods(params)
+                console.log(res.data)
+                this.selected_size=res.data.gtlist[0].id
+                this.gold=res.data
+            }catch (e) {
+                global.showErrorTip(e.msg,this)
+            }
+        },
     }
 </script>
 

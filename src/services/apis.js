@@ -81,7 +81,13 @@ function getNewsList(body,options) {
 function getNewsDetails(body,options) {
   return Get(`${apiRoot}/api/index/newsDetail?${qs.stringify(getParams(body))}`,options)
 }
-
+//buycenter
+function getBuyCenterList(body,options) {
+  return Get(`${apiRoot}/api/index/deal?${qs.stringify(getParams(body))}`,options)
+}
+function getGoldGoods(body,options) {
+  return Get(`${apiRoot}/api/index/goldGoods?${qs.stringify(getParams(body))}`,options)
+}
 //me
 function profile(body,options) {
   return Get(`${apiRoot}/api/index/mine?${qs.stringify(getParams(body))}`,options)
@@ -128,6 +134,7 @@ export  const serviceApi =  {
   addAddress,
   updateAddress,
   getAddressList,
-
+  getBuyCenterList,
+  getGoldGoods
 
 }

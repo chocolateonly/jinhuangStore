@@ -14,18 +14,21 @@
 
         </div>
 
-        <div class="select_date" @click="showPicker = true">
+<!--        <div class="select_date" @click="showPicker = true">
             {{selectedDate}}
             <van-icon name="arrow-down"/>
-        </div>
+        </div>-->
 
         <div class=" flexCol1 overflowY">
             <div class="content">
 
-                <!--todo ：订单列表-->
-             <div class="order" v-for="(v,i) in orderList" :key="i">
-                 <OrderItem :v="v" />
-             </div>
+                <FlatListView :key="activeTab" :getList="(page,pageSize)=>getList(page,pageSize)">
+                    <template scope="list">
+                        <div class="order" v-for="(v,i) in list.data" :key="i">
+                            <OrderItem :v="v" :type="activeTab"/>
+                        </div>
+                    </template>
+                </FlatListView>
 
             </div>
         </div>
@@ -54,6 +57,9 @@
     import moment from 'moment'
     import FullButton from "../components/FullButton";
     import OrderItem from "./buycenter/components/OrderItem";
+    import {serviceApi} from "../services/apis";
+    import global from "../components/global";
+    import FlatListView from "../components/flatListView/FlatListView";
 
     export default {
         name: "BuyCenter",
@@ -67,14 +73,9 @@
                 currentDate: moment().toDate(),  //for pop
                 showPicker: false,
                 selectedDate: this.formatDate(),  //for selected val
-                orderList:[
-                    {id:0,orderNum:'234234',createTime:'2020-04-21  14:24',img:require('../assets/home/home_mock1.png'),name:'锦煌金条',size:'1kg',huobi:'1100.00',num:'2',buy_m:'322.19',cur_m:'322.19',money:'8000.00'},
-                    {id:0,orderNum:'34534545',createTime:'2020-04-21  14:24',img:require('../assets/home/home_mock1.png'),name:'锦煌金条',size:'1kg',huobi:'1100.00',num:'2',buy_m:'322.19',cur_m:'322.19',money:'8000.00'},
-
-                ]
             }
         },
-        components: {OrderItem, FullButton},
+        components: {FlatListView, OrderItem, FullButton},
         methods: {
             goBack() {
                 this.$router.go(-1)
@@ -91,8 +92,24 @@
             },
             goBuyPage() {
                 this.$router.push('/goldBuy')
-            }
-        }
+            },
+            async getList(page) {
+
+                const params = {
+                    page: page,
+                    sta: this.activeTab + 1,
+                    hasToken: true
+                }
+
+                try {
+                    const res = await serviceApi.getBuyCenterList(params)
+                    return {total: res.data.count, list: res.data.data}
+                } catch (e) {
+                    global.showErrorTip(e.msg, this)
+                }
+
+            },
+        },
     }
 </script>
 
