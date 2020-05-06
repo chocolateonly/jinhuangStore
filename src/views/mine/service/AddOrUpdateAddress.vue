@@ -135,6 +135,20 @@
                 } catch (e) {
                     global.showErrorTip(e.msg, this)
                 }
+            },
+            async getAddressDetail(){
+                try {
+                    const res = await serviceApi.getAddressDetail({hasToken: true,id:this.$route.params.id})
+                    console.log(res)
+                    //this.address
+                    this.name=res.data.name
+                    this.mobile=res.data.phone
+                    //this.address=
+                    this.addressDetails=res.data.address
+                    this.isDefault=res.data.is_default
+                } catch (e) {
+                    global.showErrorTip(e.msg, this)
+                }
             }
         },
         mounted() {
@@ -142,7 +156,7 @@
             //this.getAddressList()
 
             //todo:if update 获取地址详情  赋默认值
-
+            if (this.$route.params.id!=='add') this.getAddressDetail()
 
 
         }

@@ -174,7 +174,7 @@ Vue.use(VueRouter)
     },
     //service
     {
-      path: '/addOrUpdateAddress/:type',
+      path: '/addOrUpdateAddress/:id',
       name: 'AddOrUpdateAddress',
       component: () => import(/* webpackChunkName: "addOrUpdateAddress" */ '../views/mine/service/AddOrUpdateAddress')
     },

@@ -3,7 +3,7 @@
 
         <Header title="收货地址" _className="header flexCol0 clearBorder"
                 :on-press-left="goBack">
-            <div class="header-right-btn" @click="goAddOrUpdateAddress('add')">添加</div>
+            <div class="header-right-btn" @click="goAddOrUpdateAddress">添加</div>
         </Header>
 
         <div class=" flexCol1 overflowY">
@@ -56,8 +56,8 @@
       onSelected(){
 
       },
-        goAddOrUpdateAddress(type){
-            this.$router.push(`/addOrUpdateAddress/${type}`)
+        goAddOrUpdateAddress(){
+            this.$router.push(`/addOrUpdateAddress/add`)
         }
 
     }

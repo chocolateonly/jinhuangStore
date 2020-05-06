@@ -110,6 +110,9 @@ function getAddressList(body,options) {
 function getAddressListData(body,options) {
   return Get(`${apiRoot}/api/index/arealist?${qs.stringify(getParams(body))}`,options)
 }
+function getAddressDetail(body,options) {
+  return Get(`${apiRoot}/api/index/addrDetail?${qs.stringify(getParams(body))}`,options)
+}
 
 export  const serviceApi =  {
   getUserAgreement,
@@ -140,6 +143,7 @@ export  const serviceApi =  {
   addAddress,
   updateAddress,
   getAddressList,
+  getAddressDetail,
   getAddressListData,
   getBuyCenterList,
   getGoldGoods,

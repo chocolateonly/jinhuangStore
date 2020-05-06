@@ -14,10 +14,10 @@
             </div>
 
             <div class="right-btn  ai-center">
-                <div class="btn flexRow1 ai-center"  @click="goAddOrUpdateAddress('update')">
+                <div class="btn flexRow1 ai-center"  @click="goAddOrUpdateAddress">
                     <span>编辑</span><img src="./../../../../assets/me/icon_edit.png" alt="">
                 </div>
-                <div class="btn flexRow1 ai-center" @click="deleteAddress()">
+                <div class="btn flexRow1 ai-center" @click="deleteAddress">
                     <span>删除</span><img src="./../../../../assets/me/icon_delete.png" alt="">
                 </div>
             </div>
@@ -38,8 +38,8 @@
       }
     },
       methods:{
-          goAddOrUpdateAddress(type){
-              this.$router.push(`/addOrUpdateAddress/${type}`)
+          goAddOrUpdateAddress(){
+              this.$router.push(`/addOrUpdateAddress/${this.v.id}`)
           },
           deleteAddress(){
               this.$router.go(0)
