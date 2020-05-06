@@ -25,18 +25,19 @@
                         </div>
                     </div>
                     <!-- fixme:单价 现价-->
-                    <div class="info-sub text-line-1 profit" >
+                    <div class="info-sub text-line-1 profit">
                         货币增减：<span :class="isUp?'red':'green'">￥{{profit_money}}</span>
                     </div>
                     <div class="info-sub text-line-1">数量：x{{v.num}}</div>
                 </div>
             </div>
         </div>
-        <!--0已取消  1待付款  2进行中  3已卖出-->
+        <!--state: 0已取消  1待付款  2进行中  3已卖出-->
         <div class="item-footer flexRow0 jc-sb ai-center">
             <div class="order-money text-line-1"> 预付款金额：￥{{v.buy_money}}</div>
-            <div class="order-btn lg-bg-red" v-show="type===0&&v.state==='2'">全部卖出</div>
-            <div class="order-btn lg-bg-yellow buy-again" v-show="type===1&&v.state==='2'">再次购买</div>
+            <div class="order-btn lg-bg-red" v-show="type===0&&v.state==='2'" @click="onBuyOut">全部卖出</div>
+            <div class="order-btn lg-bg-yellow buy-again" v-show="type===1&&v.state==='2'" @click="onBuyAgain">再次购买
+            </div>
         </div>
 
     </div>
@@ -58,6 +59,20 @@
                 lastPriceInterval: null,
                 profit_money: 0,
                 isUp: true
+            }
+        },
+        methods: {
+            async onBuyOut() {
+                try {
+                    await serviceApi.sellOut({id:this.v.id,hasToken:true})
+                    this.$toast('成功卖出')
+                    this.$router.push('/tab/buyCenter')
+                } catch (e) {
+                    global.showErrorTip(e.msg, this)
+                }
+            },
+            onBuyAgain() {
+                this.$router.push('/goldBuy')
             }
         },
         mounted() {

@@ -91,6 +91,9 @@ function getGoldGoods(body,options) {
 function buyGold(body,options) {
   return Get(`${apiRoot}/api/index/buyGold?${qs.stringify(getParams(body))}`,options)
 }
+function sellOut(body,options) {
+  return Get(`${apiRoot}/api/index/sellOut?${qs.stringify(getParams(body))}`,options)
+}
 //me
 function profile(body,options) {
   return Get(`${apiRoot}/api/index/mine?${qs.stringify(getParams(body))}`,options)
@@ -148,6 +151,7 @@ export  const serviceApi =  {
   getBuyCenterList,
   getGoldGoods,
   buyGold,
+  sellOut,
 
 
 }

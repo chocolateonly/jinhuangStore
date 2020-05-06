@@ -86,7 +86,7 @@
                 province: {},
                 city: {},
                 area: {},
-                addressDetails: '襄阳市樊城区yy',
+                addressDetails: '',
                 isDefault: true
             }
         },
@@ -102,7 +102,6 @@
                 this.showArea = false;
             },
             async onSave() {
-                //fixme:
                 if (!this.name || !this.address || !this.addressDetails) return this.$toast.fail('请填写完整信息')
 
                 if (!validator.isMobilePhone(this.mobile)) return this.$toast.fail('请输入正确的手机号')
@@ -139,7 +138,6 @@
             async getAddressDetail(){
                 try {
                     const res = await serviceApi.getAddressDetail({hasToken: true,id:this.$route.params.id})
-                    console.log(res)
                     //this.address
                     this.name=res.data.name
                     this.mobile=res.data.phone
@@ -155,7 +153,7 @@
             //获取地址列表选择数据
             //this.getAddressList()
 
-            //todo:if update 获取地址详情  赋默认值
+            //todo:if 是修改 获取地址详情  赋默认值
             if (this.$route.params.id!=='add') this.getAddressDetail()
 
 

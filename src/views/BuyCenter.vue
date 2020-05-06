@@ -100,7 +100,6 @@
                     sta: this.activeTab + 1,
                     hasToken: true
                 }
-console.log(this.activeTab + 1)
                 try {
                     const res = await serviceApi.getBuyCenterList(params)
                     return {total: res.data.count, list: res.data.data}
