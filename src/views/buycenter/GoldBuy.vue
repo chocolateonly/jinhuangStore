@@ -25,9 +25,10 @@
 
                         <div class="guige-select-content">
                         <span class="guige-select-tag" v-for="(v,i) in gold.gtlist" :key="i">
-                            <van-tag v-if="selected_size===v.id" type="primary" color="#BC0203" @click="selectedSize(v)"
+                            <van-tag v-if="selected_size.id===v.id" type="primary" color="#BC0203"
+                                     @click="selectedSize(v)"
                                      size="large">{{v.weight}}g</van-tag>
-                            <van-tag v-else plain type="primary" color="#323232" @click="selectedSize(v)" size="large">{{v.weight}}</van-tag>
+                            <van-tag v-else plain type="primary" color="#323232" @click="selectedSize(v)" size="large">{{v.weight}}g</van-tag>
                         </span>
                         </div>
                     </div>
@@ -35,18 +36,18 @@
                     <div class="set-number flexRow0 jc-sb ai-center">
                         <div class="set-number-title">购买数量</div>
                         <div class="set-number-wrap">
-                            <van-stepper v-model="buyNumber" min="1" max="8"/>
+                            <van-stepper v-model="buyNumber" min="1" @change="changeBuyNum"/>
                         </div>
                     </div>
 
                     <div class="gold-item-info flexRow0 jc-sb ai-center">
                         <label class="text-line-1">预付款</label>
-                        <div class="text-line-1">￥{{getTotalPrice()}}</div>
+                        <div class="text-line-1">￥{{totalPrice}}</div>
                     </div>
 
                     <div class="gold-item-info flexRow0 jc-sb ai-center">
                         <label class="text-line-1">服务费</label>
-                        <div class="text-line-1">￥{{gold.service_harge}}</div>
+                        <div class="text-line-1">￥{{servicePrice}}</div>
                     </div>
 
 
@@ -57,7 +58,7 @@
 
                     <div class="gold-item-info flexRow0 jc-sb ai-center">
                         <label class="text-line-1">实付款</label>
-                        <div class="text-line-1">{{getFinaPrice()}}</div>
+                        <div class="text-line-1">{{finaPrice}}</div>
                     </div>
                     <div class="gold-item-info flexRow0 jc-sb ai-center">
                         <label></label>
@@ -96,9 +97,14 @@
         data() {
             return {
                 gold: {},
-                selected_size: '',
+                selected_size: {id: ''},
                 buyNumber: 1,
-                curPrice:''
+                curPrice: '',
+                profile: {},
+                scoreNumber: '',
+                servicePrice: '',
+                totalPrice: '',
+                finaPrice: ''
             }
         },
         methods: {
@@ -111,45 +117,54 @@
             dec(val = '330.07') {
                 return val.substring(val.lastIndexOf('.') + 1)
             },
-            selectedSize(item) {
-                this.selected_size = item.id
+            changeBuyNum() {
+                this.getPrice()
             },
-            async buyGold(type){
-                const params={
-                    hasToken:true,
-                    type:type+1,
-                    num:this.buyNumber,
-                    gt_id:this.selected_size,
-                    g_id:this.gold.id,
+            async selectedSize(item) {
+                this.selected_size = item
+                await this.getPrice()
+            },
+            async buyGold(type) {
+                const params = {
+                    hasToken: true,
+                    type: type + 1,
+                    num: this.buyNumber,
+                    gt_id: this.selected_size.id,
+                    g_id: this.gold.id,
                 }
                 try {
-                    const res=await  serviceApi.buyGold(params)
-
+                    await serviceApi.buyGold(params)
                     //回到交易大厅
                     this.$router.push('/tab/buyCenter')
-                }catch (e) {
-                    global.showErrorTip(e.msg,this)
+                } catch (e) {
+                    global.showErrorTip(e.msg, this)
                 }
             },
-            getTotalPrice() {//计算预付款
-                return Number(this.gold.price)*Number(this.buyNumber)
+            computedPre() {//每手
+                return Number(this.selected_size.weight) / 1000 * Number(this.buyNumber)
             },
-            getFinaPrice() {//计算实付款
-                return Number(this.gold.price)*Number(this.buyNumber)-Number(this.gold.service_harge)
+            getPrice() {//计算积分：积分*每手
+                this.scoreNumber = Number(this.computedPre() * Number(this.gold.integral)).toFixed(2)
+                //计算服务费:判断是否为VIP，获取手续费*每手
+                this.servicePrice = Number(this.computedPre() * Number(this.gold.service_harge)).toFixed(2)
+                //计算预付款:规格g*数量*后台价格
+                this.totalPrice = Number(Number(this.gold.price) * Number(this.buyNumber) * Number(this.selected_size.weight)).toFixed(2)
+                //计算实付款:
+                this.finaPrice = Number(this.totalPrice - this.servicePrice).toFixed(2)
             },
-            async getGoldDetails(){
-                const params={
-                    hasToken:true
+            async getGoldDetails() {
+                const params = {
+                    hasToken: true
                 }
                 try {
-                    const res=await  serviceApi.getGoldGoods(params)
-                    this.selected_size=res.data.gtlist[0].id
-                    this.gold=res.data
-                }catch (e) {
-                    global.showErrorTip(e.msg,this)
+                    const res = await serviceApi.getGoldGoods(params)
+                    this.selected_size = res.data.gtlist[0]
+                    this.gold = res.data
+                } catch (e) {
+                    global.showErrorTip(e.msg, this)
                 }
             },
-            async getLastPrice(){
+            async getLastPrice() {
                 try {
                     //实时获取金价
                     this.lastPriceInterval = setInterval(async () => {
@@ -164,12 +179,27 @@
                 } catch (e) {
                     global.showErrorTip(e.msg, this)
                 }
+            },
+            async getProfile() {
+                const params = {
+                    hasToken: true
+                }
+
+                try {
+                    const res = await serviceApi.profile(params)
+                    this.profile = res.data
+                } catch (e) {
+                    global.showErrorTip(e.msg, this)
+                }
             }
         },
         async mounted() {
-           this.getGoldDetails()
+            await this.getGoldDetails()
 
-           this.getLastPrice()
+            await this.getLastPrice()
+
+            await this.getPrice()
+
         },
         destroyed() {
             clearInterval(this.lastPriceInterval)
@@ -255,21 +285,26 @@
 
 
     }
+
     .gold-item-info {
         margin: 12px 0;
-        div{
+
+        div {
             flex-grow: 1;
             text-align: right;
             margin-left: 20px;
         }
     }
-    .btn{
+
+    .btn {
         margin: 20px;
-        div{
+
+        div {
             padding: 16px;
         }
     }
-    .other{
+
+    .other {
         font-size: 20px;
         color: #999;
         text-align: left;

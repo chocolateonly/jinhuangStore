@@ -1,10 +1,10 @@
 <template>
     <div class="home flexCol1">
 
-        <!--<img :src="require('./../assets/home/banner_header.png')" class="header-banner"/>-->
-        <div>
+        <img :src="require('./../assets/home/banner_header.png')" class="header-banner"/>
+<!--        <div>
         <Swiper :images="images"/>
-        </div>
+        </div>-->
 
         <Notice v-show="data.notice.title" :data="data.notice"/>
 
@@ -101,10 +101,12 @@
     import Notice from "../components/Notice";
     import {serviceApi} from "../services/apis";
     import global from "../components/global";
-    import Swiper from "../components/Swiper";
+    //import Swiper from "../components/Swiper";
     export default {
         name: 'Home',
-        components: {Swiper, Notice, ProductionItem,TitleCore},
+        components: {
+            //Swiper,
+            Notice, ProductionItem,TitleCore},
         data() {
             return {
                 data:{

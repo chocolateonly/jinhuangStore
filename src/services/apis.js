@@ -1,7 +1,7 @@
 import {Get} from "./index";
 import qs from 'qs'
 import {getSign, lastRecord} from "../utils";
-const apiRoot='http://www.jinhuang.com' //'http://jinhuang.test.hbbeisheng.com' //http://www.jinhuang.com
+const apiRoot='http://jinhuang.test.hbbeisheng.com' //'http://jinhuang.test.hbbeisheng.com' //http://www.jinhuang.com
 export const getParams=(body)=>{
   const timestamp = new Date().getTime().toString().substr(0,11)
   const {hasToken,...other}=body
