@@ -10,11 +10,11 @@
 
                 <div class="user-info flexRow0">
                     <div class="avatar" @click="goProfilePage">
-                        <img :src="avatar" alt="">
+                        <img :src="data.avatar" alt="">
                     </div>
                     <div class="right-info flexGrow1">
                         <div class="flexRow1 jc-sb">
-                            <div class="name" @click="goProfilePage">{{user}}</div>
+                            <div class="name" @click="goProfilePage">{{data.nickname}}</div>
                             <div class="right-btn">
                                 <span class="user-btn" @click="goPage('/recharge')">充值</span>
                                 <span class="user-btn"  @click="goPage('/getCash')">提现</span>
@@ -22,8 +22,8 @@
                         </div>
                         <div class="user-level flexRow0">
                             <!--todo:会员等级-->
-                            <div v-if="true" @click="goPage('/rechargeCenter')">开通会员</div>
-                            <div v-else @click="goPage('/rechargeCenter')"><span>V</span>{{v.level}}</div>
+                            <div v-if="data.mlname==='普通会员'" @click="goPage('/rechargeCenter')">开通会员</div>
+                            <div v-else @click="goPage('/rechargeCenter')"><span>V</span>{{data.mlname}}</div>
                         </div>
                     </div>
                 </div>
@@ -31,13 +31,13 @@
                 <div class="user-money">
                     <div class="item-money text-line-1">
                         <label>资产总额：</label>
-                        <span>{{money}}</span>
-                        <span class="yue">(可用余额：{{yue}})</span>
+                        <span>{{data.balance}}</span>
+<!--                        <span class="yue">(可用余额：{{data.balance}})</span>-->
                     </div>
                     <div class="item-money flexRow0 jc-sb ai-center" style="margin-top:10px">
                         <div class="flexGrow1  text-line-1">
                         <label>金    豆：</label>
-                        <span>{{money}}</span>
+                        <span>{{data.integral}}</span>
                             <span style="margin-left: 10px;color:#1a7ada" @click="goPage('/moneyDetails')">查看</span>
                         </div>
                         <div class="set-btn" @click="goPage('/setParams')">参数设置</div>
@@ -96,19 +96,14 @@
 
 <script>
   import Header from "../components/Header";
+  import {serviceApi} from "../services/apis";
+  import global from "../components/global";
 
   export default {
     name: "Mine",
     components: {Header},
     data() {
       return {
-        id: '1',
-        user: '张三',
-        avatar: require('../assets/me/avatar.png'),
-        level: '二级会员',
-        money: '123132.22',
-        yue: '5452.22',
-        jindou: '1231.00',
         fun:[
           {nav:'身份认证',img:require('../assets/me/fun1.png')},
           {nav:'分销中心',img:require('../assets/me/fun2.png')},
@@ -126,7 +121,8 @@
           {nav:'操作指南',img:require('../assets/me/service2.png')},
           {nav:'收货地址',img:require('../assets/me/service3.png')},
           {nav:'联系客服',img:require('../assets/me/service4.png')},
-         ]
+         ],
+          data:{}
       }
     },
     methods: {
@@ -191,7 +187,19 @@
         goPage(url){
             this.$router.push(url)
         }
-    }
+    },
+      async mounted() {
+          const params = {
+              hasToken: true
+          }
+
+          try {
+              const res = await serviceApi.profile(params)
+              this.data=res.data
+          } catch (e) {
+              global.showErrorTip(e.msg, this)
+          }
+      }
   }
 </script>
 

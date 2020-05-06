@@ -1,4 +1,4 @@
-import md5 from 'md5'
+import {hexMD5} from './../utils/md5'
 
 //加密
 const encrypt_key = '60f57f752a5bdcae0898d4487f7a73b2';//token加密key
@@ -26,7 +26,7 @@ function makeSign(obj) {
 
     const en_string = string + encrypt_key;
     console.log(en_string)
-    const sign = md5(en_string);
+    const sign = hexMD5(en_string);
     return sign;
 }
 

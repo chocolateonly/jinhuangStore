@@ -112,8 +112,18 @@
             onHome() {
                 this.$router.push('/tab/home')
             },
-            onSubmit() {
+            async onSubmit() {
+                if (Number(this.finPrice)===0) return this.$toast('请选择要购买的商品')
+                const params={
+                    hasToken: true
+                }
+                try {
 
+                        await serviceApi.addGoodsNum(params)
+
+                } catch (e) {
+                    global.showErrorTip(e.msg,this)
+                }
             },
             changeList(list){
                 console.log(list)

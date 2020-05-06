@@ -11,8 +11,8 @@
 
                     <div class="money">
                         <span>￥</span>
-                        <span class="font50">{{int(gold.price)}}</span>
-                        <span>{{dec(gold.price)}}</span>
+                        <span class="font50">{{int(curPrice)}}</span>
+                        <span>{{dec(curPrice)}}</span>
                         <span class="jindou">实时金价</span>
                     </div>
 
@@ -112,7 +112,8 @@
                     yue: '354561.22'
                 },
                 selected_size: '',
-                buyNumber: 1
+                buyNumber: 1,
+                curPrice:''
             }
         },
         methods: {
@@ -127,21 +128,44 @@
             },
             selectedSize(item) {
                 this.selected_size = item.id
+            },
+            async getGoldDetails(){
+                const params={
+                    hasToken:true
+                }
+                try {
+                    const res=await  serviceApi.getGoldGoods(params)
+                    this.selected_size=res.data.gtlist[0].id
+                    this.gold=res.data
+                }catch (e) {
+                    global.showErrorTip(e.msg,this)
+                }
+            },
+            async getLastPrice(){
+                try {
+                    //实时获取金价
+                    this.lastPriceInterval = setInterval(async () => {
+                        try {
+                            const l_res = await serviceApi.getLastPrice()
+                            this.curPrice = l_res.data.last_price
+                        } catch (e) {
+                            clearInterval(this.lastPriceInterval)
+                            global.showErrorTip(e.msg, this)
+                        }
+                    }, 1000)
+                } catch (e) {
+                    global.showErrorTip(e.msg, this)
+                }
             }
         },
         async mounted() {
-            const params={
-                hasToken:true
-            }
-            try {
-                const res=await  serviceApi.getGoldGoods(params)
-                console.log(res.data)
-                this.selected_size=res.data.gtlist[0].id
-                this.gold=res.data
-            }catch (e) {
-                global.showErrorTip(e.msg,this)
-            }
+           this.getGoldDetails()
+
+           this.getLastPrice()
         },
+        destroyed() {
+            clearInterval(this.lastPriceInterval)
+        }
     }
 </script>
 

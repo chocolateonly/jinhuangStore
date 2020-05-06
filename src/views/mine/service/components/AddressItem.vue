@@ -2,7 +2,7 @@
     <div class="address-item" @click="handleClick">
         <div class="flexRow0 ai-center jc-sb">
             <div class="name">{{v.name}}</div>
-            <div class="mobile">{{v.mobile}}</div>
+            <div class="mobile">{{v.phone}}</div>
         </div>
 
         <div class="address">{{v.address}}</div>
@@ -10,7 +10,7 @@
         <div class="flexRow1 flexGrow1 ai-center  jc-sb">
 
             <div class="default-wrap">
-                <div class="default " v-show="v.isDefault">默认</div>
+                <div class="default " v-show="v.is_default">默认</div>
             </div>
 
             <div class="right-btn  ai-center">

@@ -24,9 +24,10 @@
 
 <script>
   import FlatListView from "../../../components/flatListView/FlatListView";
-  import {setList} from "../../../components/flatListView";
   import AddressItem from "./components/AddressItem";
   import Header from "../../../components/Header";
+  import {serviceApi} from "../../../services/apis";
+  import global from "../../../components/global";
 
   export default {
     name: "AddressList",
@@ -40,14 +41,17 @@
       goBack() {
         this.$router.go(-1)
       },
-      getList(page,pageSize){
-        return setList(page,pageSize,{
-          id:'1',
-          name:'zhangsan',
-          mobile:'12345646',
-          address:'武汉市武汉市武汉市武汉市武汉市武汉市',
-          isDefault:true
-        })
+      async getList() {
+          const params={
+              hasToken:true
+          }
+
+          try {
+              const res=await  serviceApi.getAddressList(params)
+              return {total:res.data.length,list:res.data}
+          }catch (e) {
+              global.showErrorTip(e.msg,this)
+          }
       },
       onSelected(){
 

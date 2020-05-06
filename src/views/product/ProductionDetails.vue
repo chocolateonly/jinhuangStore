@@ -247,6 +247,7 @@
                     }
 
                 } catch (e) {
+                    this.show=false
                     global.showErrorTip(e.msg, this)
                 }
 

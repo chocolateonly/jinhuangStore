@@ -67,7 +67,7 @@ function cutGoodsNum(body,options) {
 function deleteGoods(body,options) {
   return Get(`${apiRoot}/api/index/delShoppingCart?${qs.stringify(getParams(body))}`,options)
 }
-//todo
+
 function createCartOrder(body,options) {
   return Get(`${apiRoot}/api/index/cartOrder?${qs.stringify(getParams(body))}`,options)
 }
@@ -104,6 +104,9 @@ function addAddress(body,options) {
 function getAddressList(body,options) {
   return Get(`${apiRoot}/api/index/receivingGoodsAddrs?${qs.stringify(getParams(body))}`,options)
 }
+function getAddressListData(body,options) {
+  return Get(`${apiRoot}/api/index/arealist?${qs.stringify(getParams(body))}`,options)
+}
 
 export  const serviceApi =  {
   getUserAgreement,
@@ -134,7 +137,8 @@ export  const serviceApi =  {
   addAddress,
   updateAddress,
   getAddressList,
+  getAddressListData,
   getBuyCenterList,
-  getGoldGoods
+  getGoldGoods,
 
 }
