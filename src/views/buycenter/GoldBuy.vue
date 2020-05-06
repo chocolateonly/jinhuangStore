@@ -26,7 +26,7 @@
                         <div class="guige-select-content">
                         <span class="guige-select-tag" v-for="(v,i) in gold.gtlist" :key="i">
                             <van-tag v-if="selected_size===v.id" type="primary" color="#BC0203" @click="selectedSize(v)"
-                                     size="large">{{v.weight}}</van-tag>
+                                     size="large">{{v.weight}}g</van-tag>
                             <van-tag v-else plain type="primary" color="#323232" @click="selectedSize(v)" size="large">{{v.weight}}</van-tag>
                         </span>
                         </div>
@@ -41,7 +41,7 @@
 
                     <div class="gold-item-info flexRow0 jc-sb ai-center">
                         <label class="text-line-1">预付款</label>
-                        <div class="text-line-1">￥{{gold.total_m}}</div>
+                        <div class="text-line-1">￥{{getTotalPrice()}}</div>
                     </div>
 
                     <div class="gold-item-info flexRow0 jc-sb ai-center">
@@ -52,12 +52,12 @@
 
                     <div class="gold-item-info flexRow0 jc-sb ai-center">
                         <label class="text-line-1">促销活动</label>
-                        <div class="text-line-1" style="color:#FA5454">{{gold.activity}}</div>
+                        <div class="text-line-1" style="color:#FA5454">返还金豆{{gold.integral}}个</div>
                     </div>
 
                     <div class="gold-item-info flexRow0 jc-sb ai-center">
                         <label class="text-line-1">实付款</label>
-                        <div class="text-line-1">{{gold.last_price}}</div>
+                        <div class="text-line-1">{{getFinaPrice()}}</div>
                     </div>
                     <div class="gold-item-info flexRow0 jc-sb ai-center">
                         <label></label>
@@ -66,10 +66,10 @@
                 </div>
 
                 <div class="flexRow0">
-                    <div class="btn flexCol1" style="margin-left: 0">
+                    <div class="btn flexCol1" style="margin-left: 0" @click="()=>buyGold(0)">
                         <div class="lg-bg-red">回购</div>
                     </div>
-                    <div class="btn flexCol1" style="margin-right: 0">
+                    <div class="btn flexCol1" style="margin-right: 0" @click="()=>buyGold(1)">
                         <div class="lg-bg-red">预定</div>
                     </div>
                 </div>
@@ -95,22 +95,7 @@
         components: {Header},
         data() {
             return {
-                gold: {
-                    name: '锦煌金条',
-                    money: '322.01',
-                    size: [
-                        {id: 0, size: '100g'},
-                        {id: 1, size: '1000g'},
-                        {id: 2, size: '3000g'},
-                        {id: 3, size: '5000g'},
-                    ],
-                    number: 1,
-                    total_m: '2020.22',
-                    service_m: '270.22',
-                    activity: '返还金豆30个',
-                    fin_m: '3442.225',
-                    yue: '354561.22'
-                },
+                gold: {},
                 selected_size: '',
                 buyNumber: 1,
                 curPrice:''
@@ -128,6 +113,29 @@
             },
             selectedSize(item) {
                 this.selected_size = item.id
+            },
+            async buyGold(type){
+                const params={
+                    hasToken:true,
+                    type:type+1,
+                    num:this.buyNumber,
+                    gt_id:this.selected_size,
+                    g_id:this.gold.id,
+                }
+                try {
+                    const res=await  serviceApi.buyGold(params)
+
+                    //回到交易大厅
+                    this.$router.push('/tab/buyCenter')
+                }catch (e) {
+                    global.showErrorTip(e.msg,this)
+                }
+            },
+            getTotalPrice() {//计算预付款
+                return Number(this.gold.price)*Number(this.buyNumber)
+            },
+            getFinaPrice() {//计算实付款
+                return Number(this.gold.price)*Number(this.buyNumber)-Number(this.gold.service_harge)
             },
             async getGoldDetails(){
                 const params={

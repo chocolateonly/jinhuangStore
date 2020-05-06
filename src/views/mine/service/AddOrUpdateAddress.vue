@@ -125,9 +125,6 @@
                 } catch (e) {
                     global.showErrorTip(e.msg, this)
                 }
-
-//价格*规格*数量
-//服务费：规格*数量/ 1000
             },
             async getAddressList() {
                 try {
