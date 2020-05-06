@@ -1,7 +1,8 @@
 import {Get} from "./index";
 import qs from 'qs'
 import {getSign, lastRecord} from "../utils";
-const apiRoot='http://jinhuang.test.hbbeisheng.com' //'http://jinhuang.test.hbbeisheng.com' //http://www.jinhuang.com
+export const apiRoot='http://jinhuang.test.hbbeisheng.com' //'http://jinhuang.test.hbbeisheng.com' //http://www.jinhuang.com
+export const payRedirectUrl='http://localhost:8080'
 export const getParams=(body)=>{
   const timestamp = new Date().getTime().toString().substr(0,11)
   const {hasToken,...other}=body
@@ -119,6 +120,9 @@ function getAddressListData(body,options) {
 function getAddressDetail(body,options) {
   return Get(`${apiRoot}/api/index/addrDetail?${qs.stringify(getParams(body))}`,options)
 }
+function getOrderDetail(body,options) {
+  return Get(`${apiRoot}/api/index/orderDetail?${qs.stringify(getParams(body))}`,options)
+}
 
 export  const serviceApi =  {
   getUserAgreement,
@@ -156,6 +160,6 @@ export  const serviceApi =  {
   getGoldGoods,
   buyGold,
   sellOut,
-
+  getOrderDetail
 
 }
