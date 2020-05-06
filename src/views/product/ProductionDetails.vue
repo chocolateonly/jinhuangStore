@@ -241,9 +241,9 @@
                         this.show=false
                         this.$toast('已加入购物车')
                     } else {//去支付
-                        await serviceApi.buyNow(params)
+                        const res=await serviceApi.buyNow(params)
                         this.show=false
-                        this.$router.push('/payOrder')
+                        this.$router.push(`/payOrder/${res.data.order_id}`)
                     }
 
                 } catch (e) {

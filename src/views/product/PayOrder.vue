@@ -7,7 +7,7 @@
             <div class="content">
                 <div class="time-tip">支付剩余时间</div>
 
-                <TimeCountDown/>
+                <TimeCountDown />
 
                 <div class="order-info flexRow0 ">
                     <div class="prod-img">

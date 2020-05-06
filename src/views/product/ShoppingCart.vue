@@ -14,7 +14,7 @@
                             @load="onLoad"
                     >
                         <div class="flexGrow1" v-if="list.length>0||loading">
-                            <div class="flexGrow1" v-for="(v,i) in list" :key="i" >
+                            <div class="flexGrow1" v-for="(v,i) in list" :key="i">
                                 <GoodsItemInCart :v="v" :i="i"
                                                  :onSelected="onSelected"
                                                  :onChangeNumber="onChangeNumber"
@@ -55,7 +55,7 @@
 
     export default {
         name: "ShoppingCart",
-        components: { GoodsItemInCart, Header},
+        components: {GoodsItemInCart, Header},
         data() {
             return {
                 list: [],
@@ -67,7 +67,7 @@
                 pageSize: 5,
 
                 checkedAll: false,
-                finPrice:0,
+                finPrice: 0,
             }
         },
         methods: {
@@ -113,32 +113,40 @@
                 this.$router.push('/tab/home')
             },
             async onSubmit() {
-                if (Number(this.finPrice)===0) return this.$toast('请选择要购买的商品')
-                const params={
-                    hasToken: true
-                }
-                try {
+                if (Number(this.finPrice) === 0) return this.$toast('请选择要购买的商品')
 
-                        await serviceApi.addGoodsNum(params)
-
-                } catch (e) {
-                    global.showErrorTip(e.msg,this)
-                }
-            },
-            changeList(list){
-                console.log(list)
-            },
-            getFinPrice(){
-                let finally_money=0
-                this.list.reduce((acc,cur)=>{
-                   if (cur.selected) {
-                       finally_money+=Number(cur.num)*Number(cur.price)
-                       acc.push(cur)
-                   }
+                const idsArr=this.list.reduce((acc,cur)=>{
+                    if (cur.selected){
+                        acc.push(cur.id)
+                    }
                     return acc
                 },[])
 
-                this.finPrice=finally_money
+                const params = {
+                    hasToken: true,
+                    ids:idsArr.join(',')
+                }
+                try {
+                    const res=await serviceApi.createCartOrder(params)
+                    this.$router.push(`/payOrder/${res.data.order_id}`)
+                } catch (e) {
+                    global.showErrorTip(e.msg, this)
+                }
+            },
+            changeList(list) {
+                console.log(list)
+            },
+            getFinPrice() {
+                let finally_money = 0
+                this.list.reduce((acc, cur) => {
+                    if (cur.selected) {
+                        finally_money += Number(cur.num) * Number(cur.price)
+                        acc.push(cur)
+                    }
+                    return acc
+                }, [])
+
+                this.finPrice = finally_money
             },
             onSelected() {
                 this.getFinPrice()
@@ -152,17 +160,18 @@
                     }
                     this.getFinPrice()
                 } catch (e) {
-                    global.showErrorTip(e.msg,this)
+                    global.showErrorTip(e.msg, this)
                 }
             },
             async onDelete(item) {
 
                 try {
-                await serviceApi.deleteGoods({id:item.id,hasToken:true})
-                this.list=_.difference(this.list,item)
-                this.getFinPrice()
+                    await serviceApi.deleteGoods({id: item.id, hasToken: true})
+                    this.list = _.difference(this.list, item)
+                    this.getFinPrice()
+                    this.$router.go(0)
                 } catch (e) {
-                    global.showErrorTip(e.msg,this)
+                    global.showErrorTip(e.msg, this)
                 }
             },
             onCheckedAll() {
@@ -172,17 +181,6 @@
                 }, [])
             },
             async getList(page) {
-                // return setList(page,pageSize,{
-                //     "id": "1",
-                //     "price": "1000.00",
-                //     "num": "1",
-                //     "integral": "20",
-                //     "create_time": "2020-04-27 10:52:27",
-                //     "name": "我去",
-                //     "image": "",
-                //     "stock": "100000",
-                //     selected:false
-                // })
 
                 const params = {
                     hasToken: true,
@@ -191,10 +189,10 @@
 
                 try {
                     const res = await serviceApi.getShoppingCartList(params)
-                    const data=res.data.data.reduce((acc,cur)=>{
-                        acc.push({...cur,selected:false})
+                    const data = res.data.data.reduce((acc, cur) => {
+                        acc.push({...cur, selected: false})
                         return acc
-                    },[])
+                    }, [])
                     return {total: res.data.count, list: data}
 
                 } catch (e) {
@@ -249,7 +247,8 @@
         background-size: cover;
         box-shadow: 0px 0px 14px 4px rgba(115, 115, 115, 0.1);
     }
-    .van-submit-bar{
+
+    .van-submit-bar {
         position: relative;
     }
 </style>

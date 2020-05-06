@@ -62,7 +62,7 @@
         margin-left: 10px;
 
         .title {
-            font-size: 24px;
+            font-size: 30px;
             font-weight: 400;
             color: rgba(51, 51, 51, 1);
         }
