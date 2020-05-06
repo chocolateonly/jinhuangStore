@@ -20,7 +20,7 @@
                     <template scope="list">
                         <div class="productions flexRow1">
                         <div class="production-wrapper" v-for="(v,i) in list.data" :key="i">
-                        <ProductionItem :v="v" :i="i" :handleClick="goProductionDetails(v)"/>
+                        <ProductionItem :v="v" :i="i" :handleClick="()=>goProductionDetails(v)"/>
                         </div>
                         </div>
                     </template>

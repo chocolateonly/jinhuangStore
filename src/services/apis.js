@@ -1,7 +1,7 @@
 import {Get} from "./index";
 import qs from 'qs'
 import {getSign, lastRecord} from "../utils";
-const apiRoot='http://jinhuang.test.hbbeisheng.com' //'http://jinhuang.test.hbbeisheng.com'
+const apiRoot='http://www.jinhuang.com' //'http://jinhuang.test.hbbeisheng.com' //http://www.jinhuang.com
 export const getParams=(body)=>{
   const timestamp = new Date().getTime().toString().substr(0,11)
   const {hasToken,...other}=body
@@ -78,6 +78,9 @@ function pay(body,options) {
 function getNewsList(body,options) {
   return Get(`${apiRoot}/api/index/news?${qs.stringify(getParams(body))}`,options)
 }
+function getNewsDetails(body,options) {
+  return Get(`${apiRoot}/api/index/newsDetail?${qs.stringify(getParams(body))}`,options)
+}
 
 //me
 function profile(body,options) {
@@ -119,6 +122,7 @@ export  const serviceApi =  {
   createCartOrder,
   pay,
   getNewsList,
+  getNewsDetails,
   profile,
   updateInfo,
   addAddress,

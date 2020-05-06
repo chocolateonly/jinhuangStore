@@ -1,7 +1,10 @@
 <template>
     <div class="home flexCol1">
 
-        <img :src="require('./../assets/home/banner_header.png')" class="header-banner"/>
+        <!--<img :src="require('./../assets/home/banner_header.png')" class="header-banner"/>-->
+        <div>
+        <Swiper :images="images"/>
+        </div>
 
         <Notice v-show="data.notice.title" :data="data.notice"/>
 
@@ -34,7 +37,7 @@
 
                         <div class="gnjj text-line-1">今日交易量</div>
                         <div class="top-left color3 text-line-1">
-                            <span class="font50">{{int(data.today_num)}}</span>
+                            <span class="font50">{{data.today_num}}</span>
 
                         </div>
 
@@ -46,7 +49,7 @@
 
                         <div class="gnjj text-line-1">历史交易量</div>
                         <div class="top-left color3 text-line-1">
-                            <span class="font50">{{int(data.nums)}}</span>
+                            <span class="font50">{{data.nums}}</span>
                         </div>
 
                     </div>
@@ -71,11 +74,11 @@
                 </div>
                 <!-- productions-->
 
-                <van-empty v-if="data.hotlist" description="没有数据" />
+                <van-empty v-if="data.hotlist.length===0" description="没有数据" />
 
                 <div class="productions flexRow1" v-else>
                     <div class="production-wrapper" v-for="(v,i) in data.hotlist" :key="i">
-                        <ProductionItem :v="v" :i="i" :handleClick="goProductionDetails"/>
+                        <ProductionItem :v="v" :i="i" :handleClick="()=>goProductionDetails(v)"/>
                     </div>
                 </div>
 
@@ -86,7 +89,7 @@
         <div class="shopping-cart-btn" @click="goShoppingCart">
             <div class="wrapper">
             <img src="../assets/home/shpping-cart.png" alt="">
-            <span class="badge">{{data.num}}</span>
+            <span class="badge" v-show="data.num!=='0'">{{data.num}}</span>
             </div>
         </div>
     </div>
@@ -98,9 +101,10 @@
     import Notice from "../components/Notice";
     import {serviceApi} from "../services/apis";
     import global from "../components/global";
+    import Swiper from "../components/Swiper";
     export default {
         name: 'Home',
-        components: {Notice, ProductionItem,TitleCore},
+        components: {Swiper, Notice, ProductionItem,TitleCore},
         data() {
             return {
                 data:{
@@ -108,10 +112,11 @@
                     nums:'',
                     today_num:'',
                     hotlist:[],
-                    num:'33'//购物车数量
+                    num:'0'//购物车数量
                 },
                 last_price:'',
-                lastPriceInterval:null
+                lastPriceInterval:null,
+                images:[]
             }
         },
         methods: {
@@ -124,8 +129,8 @@
             goBuyCenter() {
                 this.$router.push('BuyCenter')
             },
-            goProductionDetails() {
-                this.$router.push('/productionDetails')
+            goProductionDetails(item) {
+                this.$router.push(`/productionDetails/${item.id}`)
             },
             goShoppingCart() {
                 this.$router.push('/shoppingCart')
@@ -136,7 +141,10 @@
                 //基础数据
                 const res=await serviceApi.getHomeData({hasToken:true})
                 this.data={...this.data,...res.data}
-
+                this.images=res.data.sliderlist.reduce((acc,cur)=>{
+                    acc.push({...cur,image:cur.cover})
+                    return acc
+                },[])
                 //实时获取金价
                 this.lastPriceInterval=setInterval(async ()=>{
                     try {

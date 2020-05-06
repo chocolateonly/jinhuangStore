@@ -8,12 +8,12 @@
 
                 <div class="user-info flexRow0 jc-sb ai-center">
                     <div class="user flexRow0 ai-center flexGrow1">
-                        <div>
-                        <img :src="details.img" alt="">
-                        </div>
-                        <div class="name text-line-1">{{details.name}}</div>
+
+                        <img :src="details.cover" alt="">
+
+                        <div class="name text-line-1">{{details.nickname}}</div>
                     </div>
-                    <div class="create">发布于：{{details.createTime}}</div>
+                    <div class="create">发布于：{{details.create_time}}</div>
                 </div>
 
                 <div class="details-content" v-html="details.content"></div>
@@ -26,6 +26,8 @@
 
 <script>
     import Header from "../../components/Header";
+    import {serviceApi} from "../../services/apis";
+    import global from "../../components/global";
 
     export default {
         name: "NewsDetails",
@@ -48,6 +50,18 @@
             goBack() {
                 this.$router.go(-1)
             }
+        },
+       async mounted() {
+            const params={
+                id:this.$route.params.id,
+                hasToken:true
+            }
+           try {
+               const res=await  serviceApi.getNewsDetails(params)
+               this.details=res.data
+           }catch (e) {
+               global.showErrorTip(e.msg,this)
+           }
         }
     }
 </script>
@@ -74,6 +88,7 @@
                 width: 80px;
                 height: 80px;
                 border-radius: 40px;
+                background: #fcc;
             }
 
             .name {

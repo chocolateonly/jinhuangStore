@@ -51,7 +51,7 @@
     import GoodsItemInCart from "./components/GoodsItemIncart";
     import {serviceApi} from "../../services/apis";
     import global from "../../components/global";
-    //import {setList} from "../../components/flatListView";
+    import _ from 'lodash'
 
     export default {
         name: "ShoppingCart",
@@ -146,8 +146,10 @@
                 }
             },
             async onDelete(item) {
+
                 try {
                 await serviceApi.deleteGoods({id:item.id,hasToken:true})
+                this.list=_.difference(this.list,item)
                 this.getFinPrice()
                 } catch (e) {
                     global.showErrorTip(e.msg,this)

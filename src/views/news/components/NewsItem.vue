@@ -1,15 +1,15 @@
 <template>
     <div class="news-item flexRow0" @click="handleClick">
-        <div>
-            <img :src="v.img" alt="">
+        <div class="img-wrap">
+            <img :src="v.cover" alt="">
         </div>
 
         <div class="content-wrapper flexGrow1">
             <div class="flexCol1 flexGrow1 jc-sb">
                 <div class="title text-line-2">{{v.title}}</div>
                 <div class="create">
-                    <span class="tag">{{v.tag}}</span>
-                    <span class="createdTime">{{v.createdTime}}</span>
+                    <span class="tag">{{v.desc}}</span>
+                    <span class="createdTime">{{v.created_time}}</span>
                 </div>
             </div>
         </div>
@@ -40,13 +40,21 @@
         padding: 20px 0;
         height: 160px;
         overflow: hidden;
-        img {
+        .img-wrap{
+
             width: 250px;
             height: 160px;
             border-radius: 10px;
-            display: block;
-            margin-right:10px;
+            background: #fcc;
+            img {
+                width: 250px;
+                height: 160px;
+                border-radius: 10px;
+                display: block;
+                margin-right:10px;
+            }
         }
+
     }
 
     .content-wrapper {

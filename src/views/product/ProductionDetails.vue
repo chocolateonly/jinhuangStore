@@ -68,11 +68,11 @@
         <van-goods-action class="jiagou  jc-sb" v-else>
 
             <div class="left-btn">
-                <van-goods-action-icon class="collect"
+                <!--<van-goods-action-icon class="collect"
                                        @click="goCollect"
                                        :icon="data.hasCollected?'star':'star-o'"
                                        :text="data.hasCollected?'已收藏':'收藏'"
-                                       :color="data.hasCollected?'#ff5000':'#666'"/>
+                                       :color="data.hasCollected?'#ff5000':'#666'"/>-->
             </div>
 
             <div class="right-btn ">
@@ -238,9 +238,11 @@
                     }
                     if (this.goCarOrPay === 0) {//加入购物车
                         await serviceApi.addShoppingCart(params)
+                        this.show=false
                         this.$toast('已加入购物车')
                     } else {//去支付
                         await serviceApi.buyNow(params)
+                        this.show=false
                         this.$router.push('/payOrder')
                     }
 

@@ -3,7 +3,7 @@
 
         <div class="flexCol0">
             <img class="header-banner" src="../assets/news/news_banner.png" alt="">
-            <Notice/>
+            <Notice :data="notice"/>
         </div>
 
         <div class="tabs flexRow0">
@@ -22,7 +22,7 @@
                 <FlatListView :key="activeTab" :getList="(page,pageSize)=>getList(page,pageSize)">
                     <template scope="list">
                         <div class="item-wrapper" v-for="(v,i) in list.data" :key="i">
-                        <NewsItem :v="v" :handle-click="goNewsDetails"/>
+                        <NewsItem :v="v" :handle-click="()=>goNewsDetails(v.id)"/>
                         </div>
                     </template>
                 </FlatListView>
@@ -35,7 +35,8 @@
   import Notice from "../components/Notice";
   import NewsItem from "./news/components/NewsItem";
   import FlatListView from "../components/flatListView/FlatListView";
-  import {setList} from '../components/flatListView/index'
+  import {serviceApi} from "../services/apis";
+  import global from "../components/global";
 
   export default {
     name: 'News',
@@ -44,46 +45,29 @@
       return {
         tabs: ['公司新闻', '行业新闻'],
         activeTab: 0,
-        news: [
-          {
-            id: 0,
-            title: '这里是新闻标题新闻标题这里是新 闻标题新闻标题',
-            tag: '新闻热点',
-            createdTime: '2016-12-30',
-            img: require('../assets/news/news-img.png')
-          },
-          {
-            id: 1,
-            title: '这里是新闻标题新闻标题这里是新 闻标题新闻标题',
-            tag: '新闻热点',
-            createdTime: '2016-12-30',
-            img: require('../assets/news/news-img.png')
-          },
-          {
-            id: 2,
-            title: '这里是新闻标题新闻标题这里是新 闻标题新闻标题',
-            tag: '新闻热点',
-            createdTime: '2016-12-30',
-            img: require('../assets/news/news-img.png')
-          },
-        ],
-        currentList: [
-          {
-            id: 0,
-            title: '这里是新闻标题新闻标题这里是新 闻标题新闻标题',
-            tag: '新闻热点',
-            createdTime: '2016-12-30',
-            img: require('../assets/news/news-img.png')
-          },
-        ]
+          notice:{}
       }
     },
     methods: {
       goNewsDetails(id){
         this.$router.push(`/newsDetails/${id}`)
       },
-      async getList(page, pageSize) {
-        return setList(page, pageSize, this.news[0])
+      async getList(page) {
+
+          const params={
+              page:page,
+              cls_id:this.activeTab,
+              hasToken:true
+          }
+
+          try {
+              const res=await  serviceApi.getNewsList(params)
+              this.notice=res.data.notice
+              return {total:res.data.count,list:res.data.list}
+          }catch (e) {
+              global.showErrorTip(e.msg,this)
+          }
+
       },
     }
   }
