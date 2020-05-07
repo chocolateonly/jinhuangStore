@@ -10,8 +10,19 @@
 
             <FlatListView  :getList="(page,pageSize)=>getList(page,pageSize)">
                 <template scope="list">
-                    <div v-for="(v,i) in list.data" :key="i">
+                    <div v-for="(v,i) in list.data" :key="i" class="item flexRow0 jc-sb ai-center">
+                        <img :src="v.icon" alt="">
 
+                        <div class="flexCol1 text-line-1">{{v.name}}</div>
+
+                        <div class="flexCol1 jc-sb">
+                            <div  class=" text-line-1">周期</div>
+                            <div class=" text-line-1">{{v.cycle}}个月</div>
+                        </div>
+
+                        <div>
+                        <div class="order-btn lg-bg-red" v-show="v.is_check==='1'" @click="()=>onConfirm(v)">确认选择</div>
+                        </div>
                     </div>
                 </template>
             </FlatListView>
@@ -41,15 +52,29 @@
             goRule(){
                 this.$router.push('/entrustTradingRule')
             },
-            async getList(page) {
+            async onConfirm(item){
                 const params={
                     hasToken:true,
-                    page
+                    id:item.id
+                }
+
+                try {
+                    await  serviceApi.confirmEt(params)
+                    this.$router.go(0)
+                }catch (e) {
+                    global.showErrorTip(e.msg,this)
+                }
+
+            },
+            async getList() {
+                const params={
+                    hasToken:true
                 }
 
                 try {
                     const res=await  serviceApi.getEtList(params)
-                    return {total:res.data.length,list:res.data.list}
+                    console.log(res.data.list.length,res.data.list)
+                    return {total:res.data.list.length,list:res.data.list}
                 }catch (e) {
                     global.showErrorTip(e.msg,this)
                 }
@@ -66,5 +91,19 @@
     .rule {
         font-size: 24px;
         color: #999;
+    }
+    .item{
+        padding: 20px 0;
+        border-bottom: 1px solid #eee;
+        img{
+            width:40px;
+            height: 40px;
+        }
+    }
+    .order-btn {
+        margin-left: 10px;
+        padding: 10px 20px;
+        min-width: 100px;
+        border-radius: 40px;
     }
 </style>

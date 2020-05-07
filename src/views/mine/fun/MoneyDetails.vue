@@ -4,16 +4,16 @@
             <div class="team-header flexRow0 ">
                 <div class="left-content flexCol1 ai-center">
                     <div>累计佣金</div>
-                    <div class="num">4012.00</div>
+                    <div class="num">{{data.commission_money}}</div>
                 </div>
                 <div class="left-content  flexCol1 ai-center">
                     <div>累计人数（人）</div>
-                    <div class="num">3660</div>
+                    <div class="num">{{data.commission_num}}</div>
                 </div>
             </div>
 
-            <van-tabs class="tabs flexGrow1">
-                <van-tab v-for="index in 8" :title="index+'级用户'" :key="index">
+            <van-tabs class="tabs flexGrow1"  v-model="selectedTab">
+                <van-tab v-for="index in 3" :title="index+'级用户'" :key="index">
                 </van-tab>
             </van-tabs>
 
@@ -28,13 +28,13 @@
 
                                 <div class="right-info flexGrow1 jc-sb">
                                     <div class="flexRow1 jc-sb">
-                                        <div class="name">{{v.name}}</div>
-                                        <div class="money">{{v.yongjin}}</div>
+                                        <div class="name">{{v.nickname}}</div>
+                                        <div class="money">{{v.money}}</div>
                                     </div>
 
 
                                     <div class="user-tiem flexRow0">
-                                        {{v.createTime}}
+                                        {{v.create_time}}
                                     </div>
                                 </div>
                             </div>
@@ -52,28 +52,37 @@
 
 <script>
   import Layout from "../../../components/Layout";
-  import {setList} from "../../../components/flatListView";
   import FlatListView from "../../../components/flatListView/FlatListView";
+  import {serviceApi} from "../../../services/apis";
+  import global from "../../../components/global";
 
   export default {
     name: "MoneyDetails",
     components: {FlatListView, Layout},
     data() {
       return {
-
+          data: {},
+          selectedTab:0
       }
     },
     methods: {
         goBack() {
             this.$router.go(-1)
         },
-        getList(page, pageSize) {
-            return setList(page, pageSize, {
-                name: 'zs',
-                avatar: require('../../../assets/me/avatar.png'),
-                yongjin:'200',
-                createTime: '2020-12-30 12:30'
-            })
+        async getList(page) {
+            const params = {
+                hasToken: true,
+                page,
+                sta:this.selectedTab+1
+            }
+
+            try {
+                const res = await serviceApi.getCommissionDetail(params)
+                this.data=res.data
+                return {total:res.data.count,list:res.data.list}
+            } catch (e) {
+                global.showErrorTip(e.msg, this)
+            }
         }
     }
   }

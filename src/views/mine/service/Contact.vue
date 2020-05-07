@@ -18,7 +18,7 @@
                         <div class="name">24小时全国服务热线</div>
 
                         <div class="user-level flexRow0">
-                            {{data[0]}}
+                            {{data}}
                         </div>
                     </div>
                 </div>

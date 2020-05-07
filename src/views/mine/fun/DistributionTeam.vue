@@ -4,22 +4,22 @@
 
             <div class="team-header flexRow0 ">
                 <div class="left-content flexCol1 ai-center">
-                    <div>累计积分</div>
-                    <div>3660</div>
+                    <div>累计佣金</div>
+                    <div class="num">{{data.commission_money}}</div>
                 </div>
                 <div class="left-content  flexCol1 ai-center">
                     <div>累计人数（人）</div>
-                    <div>3660</div>
+                    <div class="num">{{data.commission_num}}</div>
                 </div>
             </div>
 
-            <van-tabs class="tabs flexGrow1">
-                <van-tab v-for="index in 8" :title="index+'级团队'" :key="index">
+            <van-tabs class="tabs flexGrow1" v-model="selectedTab">
+                <van-tab v-for="index in 3" :title="index+'级团队'" :key="index" >
                 </van-tab>
             </van-tabs>
 
             <div class=" flexGrow1">
-                <FlatListView :getList="(page,pageSize)=>getList(page,pageSize)">
+                <FlatListView :key="selectedTab" :getList="(page,pageSize)=>getList(page,pageSize)">
                     <template scope="list">
                         <div class="user-info" v-for="(v,i) in list.data" :key="i">
                             <div class="flexRow0">
@@ -29,10 +29,10 @@
 
                                 <div class="right-info flexGrow1 jc-sb">
 
-                                    <div class="name">{{v.name}}</div>
+                                    <div class="name">{{v.nickname}}</div>
 
                                     <div class="user-tiem flexRow0">
-                                        {{v.createTime}}
+                                        {{v.create_time}}
                                     </div>
                                 </div>
                             </div>
@@ -49,33 +49,42 @@
 <script>
     import Layout from "../../../components/Layout";
     import FlatListView from "../../../components/flatListView/FlatListView";
-    import {setList} from "../../../components/flatListView";
+    import {serviceApi} from "../../../services/apis";
+    import global from "../../../components/global";
 
     export default {
         name: "DistributionTeam",
         components: {FlatListView, Layout},
         data() {
             return {
-                user: {
-                    name: 'zs',
-                    level: '等级VIP1',
-                    avatar: require('../../../assets/me/avatar.png'),
-                    createTime: '2020-12-30 12:30'
-                },
+                data: {},
+                selectedTab:0
             }
         },
         methods: {
             goBack() {
                 this.$router.go(-1)
             },
-            getList(page, pageSize) {
-                return setList(page, pageSize, {
-                    name: 'zs',
-                    avatar: require('../../../assets/me/avatar.png'),
-                    createTime: '2020-12-30 12:30'
-                })
+            selectTab(i){console.log(i)
+             this.selectedTab=i
+            },
+            async getList(page) {
+                const params = {
+                    hasToken: true,
+                    page,
+                    sta:this.selectedTab+1
+                }
+
+                try {
+                    const res = await serviceApi.getDistrTeam(params)
+                    this.data=res.data
+                    return {total:res.data.count,list:res.data.list}
+                } catch (e) {
+                    global.showErrorTip(e.msg, this)
+                }
             }
-        }
+        },
+
     }
 </script>
 
@@ -120,7 +129,7 @@
         }
 
         .name {
-            font-size: 36px;
+            font-size: 30px;
         }
 
         .user-tiem {
@@ -131,5 +140,10 @@
             display: flex;
             flex-direction: column;
         }
+    }
+    .num{
+        font-size: 40px;
+        font-weight: 400;
+        padding: 20px 0;
     }
 </style>

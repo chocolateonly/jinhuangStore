@@ -11,17 +11,17 @@
 
                     <div class="right-info flexGrow1">
 
-                        <div class="name">{{user.name}}</div>
+                        <div class="name">{{user.nickname}}</div>
 
                         <div class="user-level flexRow0">
-                           推荐人： {{user.tuijianren}}
+                           推荐人： {{user.pnickname}}
                         </div>
                     </div>
                 </div>
 
                 <div class="userinfo-footer flexRow0 jc-sb">
-                    <div class="yongjin text-line-1">累计佣金：<span>{{user.yongjin}}</span></div>
-                    <div class="renshu  text-line-1">累计人数：<span>{{user.renshu}}</span></div>
+                    <div class="yongjin text-line-1">累计佣金：<span>{{user.commission_money}}</span></div>
+                    <div class="renshu  text-line-1">累计人数：<span>{{user.commission_num}}</span></div>
                 </div>
 
             </div>
@@ -45,6 +45,8 @@
 
 <script>
     import Layout from "../../../components/Layout";
+    import {serviceApi} from "../../../services/apis";
+    import global from "../../../components/global";
 
     export default {
         name: "DistributionCenter",
@@ -56,14 +58,7 @@
                     {name:'我的团队',img:require('../../../assets/me/icon_team.png')},
                     {name:'佣金明细',img:require('../../../assets/me/icon_money.png')},
                 ],
-                user: {
-                    name: 'zs',
-                    level: '等级VIP1',
-                    avatar: require('../../../assets/me/avatar.png'),
-                    tuijianren:'zz',
-                    yongjin: 34454,
-                    renshu: 34,
-                },
+                user: {},
             }
         },
         methods: {
@@ -89,6 +84,18 @@
                         that.$router.push(`/bankCardList`)
                     }
                 }
+            }
+        },
+        async beforeCreate() {
+            const params = {
+                hasToken: true
+            }
+
+            try {
+                const res = await serviceApi.getDistrCenterData(params)
+                this.user=res.data
+            } catch (e) {
+                global.showErrorTip(e.msg, this)
             }
         }
     }

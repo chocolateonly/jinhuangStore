@@ -3,13 +3,13 @@
         <div class="main flexCol1" slot="content">
             <van-password-input
                     class="code"
-                    :value="code"
+                    :value="data.invite_code"
                     :mask="false"
                     :show="false"
             />
             <div class="flexCol1  flexGrow1 ai-center " style="margin-top: 60px">
 
-                <img id="imageWrapper" src="https://img.yzcdn.cn/vant/leaf.jpg" alt="">
+                <img id="imageWrapper" :src="data.erweima" alt="">
                 <div style="margin-top: 10px">(长按图片即可保存)</div>
             </div>
 
@@ -22,6 +22,8 @@
 
 <script>
     import Layout from "../../../components/Layout";
+    import {serviceApi} from "../../../services/apis";
+    import global from "../../../components/global";
     //import html2canvas from 'html2canvas'
 
     export default {
@@ -29,7 +31,7 @@
         components: {Layout},
         data() {
             return {
-                code: '123456'
+               data:{}
             }
         },
         methods: {
@@ -63,6 +65,18 @@
             //     return new Blob([uInt8Array], {type: contentType})
             // },
         },
+        async beforeCreate() {
+            const params = {
+                hasToken: true
+            }
+
+            try {
+                const res = await serviceApi.getMyInviteCode(params)
+                this.data=res.data
+            } catch (e) {
+                global.showErrorTip(e.msg, this)
+            }
+        }
     }
 </script>
 

@@ -136,6 +136,9 @@ function commentProduct(body,options) {
 function getEtList(body,options) {
   return Get(`${apiRoot}/api/index/etlist?${qs.stringify(getParams(body))}`,options)
 }
+function confirmEt(body,options) {
+  return Get(`${apiRoot}/api/index/myEt?${qs.stringify(getParams(body))}`,options)
+}
 function getRechargeData(body,options) {
   return Get(`${apiRoot}/api/index/toRecharge?${qs.stringify(getParams(body))}`,options)
 }
@@ -238,6 +241,7 @@ export  const serviceApi =  {
   delOrder,
   commentProduct,
   getEtList,
+  confirmEt,
   getTixianData,
   getTixianList,
   getDistrCenterData,
