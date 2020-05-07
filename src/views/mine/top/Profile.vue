@@ -76,7 +76,6 @@
                 email: '',
                 code: '',
                 fileList: [],
-                avatarId:''
             }
         },
         methods: {
@@ -85,22 +84,22 @@
             },
             async afterRead(file) {
                 // 此时可以自行将文件上传至服务器
-                try {
-                   // const res=await
                     this.fileList = [file]
-                } catch (e) {
-                    global.showErrorTip(e.msg, this)
-                }
             },
             async onSave() {
+                try {
+                //1,上传头像
+                //todo
+
+
                 const params = {
                     hasToken: true,
-                    avatar: this.avatarId,
+                    //avatar: avatarId,
                     nickname:this.nickName,
                     email:this.email,
                 }
 
-                try {
+               //2,修改
                     await serviceApi.updateInfo(params)
                     this.$router.push('/tab/mine')
                 } catch (e) {

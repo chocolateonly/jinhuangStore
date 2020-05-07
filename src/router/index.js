@@ -168,7 +168,7 @@ Vue.use(VueRouter)
       component: () => import(/* webpackChunkName: "myOrder" */ '../views/mine/order/MyOrder')
     },
     {
-      path: '/orderComment',
+      path: '/orderComment/:id',
       name: 'OrderComment',
       component: () => import(/* webpackChunkName: "orderComment" */ '../views/mine/order/OrderComment')
     },

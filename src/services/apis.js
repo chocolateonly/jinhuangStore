@@ -123,6 +123,9 @@ function getAddressDetail(body,options) {
 function getOrderDetail(body,options) {
   return Get(`${apiRoot}/api/index/orderDetail?${qs.stringify(getParams(body))}`,options)
 }
+function getMyOrderList(body,options) {
+  return Get(`${apiRoot}/api/index/myOrders?${qs.stringify(getParams(body))}`,options)
+}
 
 export  const serviceApi =  {
   getUserAgreement,
@@ -160,6 +163,7 @@ export  const serviceApi =  {
   getGoldGoods,
   buyGold,
   sellOut,
-  getOrderDetail
+  getOrderDetail,
+  getMyOrderList
 
 }

@@ -30,20 +30,6 @@
         components: {FlatListView, Header, CommentItem},
         data() {
             return {
-                data: [
-                    {
-                        user: '小君',
-                        content: '太棒了，产品很好 拷贝',
-                        star: 4,
-                        createdTime: '2019-4-23',
-                    },
-                    {
-                        user: '小君',
-                        content: '太棒了，产品很好 拷贝',
-                        star: 4,
-                        createdTime: '2019-4-23',
-                    },
-                ]
             }
         },
         methods: {

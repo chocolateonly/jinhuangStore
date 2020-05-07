@@ -94,10 +94,10 @@
             }
         },
         methods: {
-            int(val = '330.07') {
+            int(val = '0.00') {
                 return val.substring(0, val.lastIndexOf('.') + 1)
             },
-            dec(val = '330.07') {
+            dec(val = '0.00') {
                 return val.substring(val.lastIndexOf('.') + 1)
             },
             goBack() {
@@ -125,6 +125,7 @@
                     }
                     else{
                         this.$toast(res.desc) //支付成功
+                        this.$router.push('/myOrder')
                     }
 
                 } catch (e) {

@@ -36,8 +36,9 @@
 <script>
   import Header from "../../../components/Header";
   import FlatListView from "../../../components/flatListView/FlatListView";
-  import {setList} from "../../../components/flatListView";
   import MyOrderItem from "./components/MyOrderItem";
+  import {serviceApi} from "../../../services/apis";
+  import global from "../../../components/global";
 
   export default {
     name: "ShoppingCart",
@@ -57,15 +58,18 @@
       goBack() {
         this.$router.go(-1)
       },
-      getList(page, pageSize) {
-        return setList(page, pageSize, {
-          orderNum: '345345',
-          name: '周大福十二生肖黄金红绳款 手链甄品',
-          money: '2343',
-          num: 1,
-          img: require('../../../assets/home/home_mock1.png'),
-          createTime: '2020-12-30 12:30'
-        })
+      async getList(page) {
+       try {
+           const params={
+               hasToken:true,
+               page:page,
+               sta:this.activeTab
+           }
+           const res=await serviceApi.getMyOrderList(params)
+           return {total:res.data.count,list:res.data.list}
+       }catch (e) {
+           global.showErrorTip(e.msg, this)
+       }
       }
     },
     mounted(){
