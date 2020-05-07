@@ -67,8 +67,6 @@
         }catch (e) {
             global.showErrorTip(e.msg,this)
         }
-
-
       },
     }
   }

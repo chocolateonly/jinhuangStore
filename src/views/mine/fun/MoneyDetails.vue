@@ -4,11 +4,11 @@
             <div class="team-header flexRow0 ">
                 <div class="left-content flexCol1 ai-center">
                     <div>累计佣金</div>
-                    <div>4012.00</div>
+                    <div class="num">4012.00</div>
                 </div>
                 <div class="left-content  flexCol1 ai-center">
                     <div>累计人数（人）</div>
-                    <div>3660</div>
+                    <div class="num">3660</div>
                 </div>
             </div>
 
@@ -134,5 +134,10 @@
         font-size:40px;
         font-weight:400;
         color:rgba(255,190,49,1);
+    }
+    .num{
+        font-size: 40px;
+        font-weight: 400;
+        padding: 20px 0;
     }
 </style>

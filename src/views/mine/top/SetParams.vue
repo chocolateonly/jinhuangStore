@@ -17,7 +17,7 @@
             </van-field>
             <van-field
                     class="input-item"
-                    v-model="yinli"
+                    v-model="kuisun"
                     label="亏损"
                     type="number"
                     placeholder="请输入"
@@ -30,7 +30,7 @@
                 </template>
             </van-field>
 
-            <div class="save-btn lg-bg-red " @Click="onSubmit">
+            <div class="save-btn lg-bg-red " @click="onSubmit">
                 <span>保存</span>
             </div>
 
@@ -71,7 +71,18 @@
                 global.showErrorTip(e.msg,this)
             }
         }
-    }
+    },
+      async beforeCreate(){
+        try {
+            const res=await serviceApi.getMyParams({hasToken:true})
+           if (res.data){
+               this.yinli=res.data.profit_scale
+               this.kuisun=res.data.loss_scale
+           }
+        }catch (e) {
+            global.showErrorTip(e.msg,this)
+        }
+      }
   }
 </script>
 

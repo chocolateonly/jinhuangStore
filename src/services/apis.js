@@ -181,6 +181,9 @@ function getActionDetail(body,options) {
 function setParams(body,options) {
   return Get(`${apiRoot}/api/index/setParams?${qs.stringify(getParams(body))}`,options)
 }
+function getMyParams(body,options) {
+  return Get(`${apiRoot}/api/index/myParams?${qs.stringify(getParams(body))}`,options)
+}
 function getVIPListData(body,options) {
   return Get(`${apiRoot}/api/index/rechargeIndex?${qs.stringify(getParams(body))}`,options)
 }
@@ -245,6 +248,7 @@ export  const serviceApi =  {
   getCustomerPhones,
   getActionDetail,
   setParams,
+  getMyParams,
   getVIPListData,
   addFeedback
 
