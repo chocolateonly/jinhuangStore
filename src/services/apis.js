@@ -1,8 +1,8 @@
 import {Get} from "./index";
 import qs from 'qs'
 import {getSign, lastRecord} from "../utils";
-export const apiRoot='http://www.jinhuang.com' //'http://jinhuang.test.hbbeisheng.com' //http://www.jinhuang.com
-export const payRedirectUrl='http://localhost:8080'
+export const apiRoot='http://jinhuang.test.hbbeisheng.com' //'http://jinhuang.test.hbbeisheng.com' //http://www.jinhuang.com
+export const payRedirectUrl='http://jinhuang.test.hbbeisheng.com'
 export const getParams=(body)=>{
   const timestamp = new Date().getTime().toString().substr(0,11)
   const {hasToken,...other}=body
@@ -130,6 +130,9 @@ function confirmOrder(body,options) {
 function delOrder(body,options) {
   return Get(`${apiRoot}/api/index/delOrder?${qs.stringify(getParams(body))}`,options)
 }
+function cancelOrder(body,options) {
+  return Get(`${apiRoot}/api/index/cancelOrder?${qs.stringify(getParams(body))}`,options)
+}
 function commentProduct(body,options) {
   return Get(`${apiRoot}/api/index/commentProduct?${qs.stringify(getParams(body))}`,options)
 }
@@ -242,6 +245,7 @@ export  const serviceApi =  {
 
   confirmOrder,
   delOrder,
+  cancelOrder,
   commentProduct,
   getEtList,
   confirmEt,

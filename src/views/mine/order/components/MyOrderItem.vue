@@ -18,11 +18,18 @@
             </div>
         </div>
 
-        <!--status  1待付款  2待收货  3待评价-->
+        <!--status  -1删除订单 1待付款  2待收货  3待评价-->
+        <div class="item-footer flexRow0 jc-sb ai-center" v-if="v.status==='-1'">
+            <div class=" flexRow1 text-line-1"></div>
+            <div class="right-btn flexRow1  ai-center">
+                <div class="order-btn lg-bg-gray buy-again" @click="delOrder">删除订单</div>
+            </div>
+
+        </div>
         <div class="item-footer flexRow0 jc-sb ai-center" v-if="v.status==='1'">
             <div class=" flexRow1 text-line-1"></div>
             <div class="right-btn flexRow1  ai-center">
-                <div class="order-btn lg-bg-gray buy-again" @click="delOrder">取消订单</div>
+                <div class="order-btn lg-bg-gray buy-again" @click="cancelOrder">取消订单</div>
                 <div class="order-btn lg-bg-red" @click="goPay">去付款</div>
             </div>
 
@@ -59,6 +66,20 @@
         methods:{
             goComment(){
                 this.$router.push(`/orderComment/${this.v.id}`)
+            },
+            async cancelOrder(){
+
+                const params = {
+                    hasToken: true,
+                    id:this.v.id,
+                }
+
+                try {
+                    await serviceApi.cancelOrder(params)
+                    this.$router.go(0)
+                } catch (e) {
+                    global.showErrorTip(e.msg, this)
+                }
             },
             async delOrder(){
 
