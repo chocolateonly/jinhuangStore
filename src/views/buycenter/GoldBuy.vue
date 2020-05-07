@@ -193,7 +193,7 @@
                 }
             }
         },
-        async mounted() {
+        async beforeCreate() {
             await this.getGoldDetails()
 
             await this.getLastPrice()

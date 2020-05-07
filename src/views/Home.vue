@@ -138,7 +138,7 @@
                 this.$router.push('/shoppingCart')
             },
         },
-        async beforeMount() {
+        async beforeCreate() {
             try {
                 //基础数据
                 const res=await serviceApi.getHomeData({hasToken:true})

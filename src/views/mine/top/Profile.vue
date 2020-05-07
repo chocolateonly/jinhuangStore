@@ -133,7 +133,7 @@
                 }
             }
         },
-        async mounted() {
+        async beforeCreate() {
             const params = {
                 hasToken: true
             }

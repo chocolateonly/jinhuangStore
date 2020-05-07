@@ -24,13 +24,13 @@
             <van-field
                     class="input-item"
                     v-model="mobile"
-                    type="tel"
+                    type="number"
                     label="联系方式"
                     placeholder="请输入"
                     label-align="left"
 
             />
-            <div class="save-btn lg-bg-red " @Click="onSubmit">
+            <div class="save-btn lg-bg-red " @click="onSubmit">
                 <span>提 交</span>
             </div>
 
@@ -42,23 +42,38 @@
 
 <script>
     import Layout from "../../../components/Layout";
-
+    import {serviceApi} from "../../../services/apis";
+    import global from "../../../components/global";
+    import validator from 'validator'
     export default {
         name: "Feedback",
         components: {Layout},
         data() {
             return {
-                title: '',
-                mobile: '',
-                feedback:''
+                title: 'test',
+                mobile: '13476260156',
+                feedback:'test'
             }
         },
         methods: {
             goBack() {
                 this.$router.go(-1)
             },
-            onSubmit() {
+            async onSubmit(){
+                if (!validator.isMobilePhone(this.mobile)) return  this.$toast('请输入正确手机号')
+                const params={
+                    hasToken:true,
+                    title:this.title,
+                    content:this.feedback,
+                    phone:this.mobile
+                }
 
+                try {
+                    await  serviceApi.addFeedback(params)
+                    this.$toast('提交成功')
+                }catch (e) {
+                    global.showErrorTip(e.msg,this)
+                }
             }
         }
     }

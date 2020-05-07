@@ -14,15 +14,16 @@
 
 
                 <div class="money-item" v-for="(v,i) in moneyList" :key="i">
-                     <van-tag v-if="selected_color===v" type="primary" color="#BC0203"
-                              @click="selectedColor(v)" size="large">{{v}}</van-tag>
+                     <van-tag v-if="selected===v.money" type="primary" color="#BC0203"
+                              @click="onSelected(v)" size="large">{{v.money}}</van-tag>
                      <van-tag v-else plain  type="primary" color="#323232"
-                              @click="selectedColor(v)" size="large">{{v}}</van-tag>
+                              @click="onSelected(v)" size="large">{{v.money}}</van-tag>
                 </div>
 
 
                     <div class="zdy">
                         <van-field v-model="sdyMoney" type="number" label="自定义"
+                                   @input="val=>onChangeMoney(val)"
                                    placeholder="自定义金额不低于1万"
                                    label-align="left"
                                    input-align="right" />
@@ -48,7 +49,7 @@
                 </van-radio-group>
 
 
-                <div class="save-btn lg-bg-red flexCol0 ai-center" @Click="onSubmit">
+                <div class="save-btn lg-bg-red flexCol0 ai-center" @click="onSubmit">
                     <span>充 值</span>
                 </div>
 
@@ -62,8 +63,9 @@
 
 <script>
     import Layout from "../../../components/Layout";
-    import {serviceApi} from "../../../services/apis";
+    import {apiRoot, getParams, serviceApi,payRedirectUrl} from "../../../services/apis";
     import global from "../../../components/global";
+    import qs from "qs";
 
     export default {
         name: "Recharge",
@@ -71,8 +73,8 @@
         data() {
             return {
                 yue:'0',
-                moneyList:['1万元','3万元','5万元','10万元'],
-                selected_color:'',
+                moneyList:[], //'1万元','3万元','5万元','10万元'
+                selected:'',
                 sdyMoney:'',
 
                 payMethods: [
@@ -86,11 +88,55 @@
             goBack() {
                 this.$router.go(-1)
             },
-            selectedColor(item){
-                this.selected_color=item
+            onSelected(item){
+                this.selected=item.money
+                this.sdyMoney=''
             },
-            onSubmit(){
+            onChangeMoney(){
+                this.sdyMoney=Number(this.sdyMoney).toFixed('2')
+                if (Number(this.sdyMoney)>0){this.selected=''}
+                else{
+                    this.sdyMoney=''
+                }
+            },
+            async onPay() {
+                const params = {
+                    hasToken: true,
+                    money:this.sdyMoney?this.sdyMoney:this.selected,
+                    type:this.payWay+1,
+                }
 
+                try {
+                    let res = await fetch(`${apiRoot}/api/index/recharge?${qs.stringify(getParams(params))}`)
+
+                    if (this.payWay===0){//微信
+                        res=await res.json()
+                        const url = encodeURIComponent(`${payRedirectUrl}/#/payOrder/4`)
+                        window.location.href = res.data+"&redirect_url="+url;
+                    }
+                    else if (this.payWay===1){//支付宝
+                        res=await res.text()
+                        const div = document.createElement('div');
+                        div.innerHTML =res;
+                        document.body.appendChild(div);
+                        document.forms[0].submit();
+                    }
+                    else{
+                        this.$toast(res.desc) //支付成功
+                        this.$router.push('/myOrder')
+                    }
+
+                } catch (e) {
+                    global.showErrorTip(e.msg, this)
+                }
+            },
+            async onSubmit(){
+                try {
+                    await this.onPay()
+
+                }catch (e) {
+                    global.showErrorTip(e.msg, this)
+                }
             },
             goPage(url){
                 this.$router.push(url)
@@ -108,7 +154,8 @@
             try {
                 const res = await serviceApi.getRechargeData(params)
                 this.yue = res.data.balance
-                //this.moneyList=
+                this.moneyList=res.data.list
+                this.selected=res.data.list.length>0?res.data.list[0].money:''
             } catch (e) {
                 global.showErrorTip(e.msg, this)
             }

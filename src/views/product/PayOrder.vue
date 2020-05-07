@@ -7,7 +7,7 @@
             <div class="content">
                 <div class="time-tip">支付剩余时间</div>
 
-                <TimeCountDown />
+                <TimeCountDown :onFinish="onFinish" />
 
 
                 <div class="order-info flexRow0 " v-for="(v,i) in oplist" :key="i">
@@ -67,8 +67,9 @@
     import Header from "../../components/Header";
     import TimeCountDown from "../../components/TimeCountDown";
     import FullButton from "../../components/FullButton";
-    import {serviceApi,payRedirectUrl} from "../../services/apis";
+    import {apiRoot, getParams, serviceApi,payRedirectUrl} from "../../services/apis";
     import global from "../../components/global";
+    import qs from "qs";
 
     export default {
         name: "PayOrder",
@@ -103,23 +104,30 @@
             goBack() {
                 this.$router.go(-1)
             },
+            onFinish(){
+              this.$toast({message:'您已超时',forbidClick:true})
+                setTimeout(()=>{this.$router.push('/myOrder/0')},1000)
+            },
             async onPay() {
                 const params = {
                     hasToken: true,
                     order_id:this.$route.params.orderId,
-                    type:this.payWay+1
+                    type:this.payWay+1,
+
                 }
 
                 try {
-                    const res = await serviceApi.pay(params)
+                    let res = await fetch(`${apiRoot}/api/index/surePay?${qs.stringify(getParams(params))}`)
 
                     if (this.payWay===0){//微信
+                        res=await res.json()
                         const url = encodeURIComponent(`${payRedirectUrl}/#/payOrder/4`)
                         window.location.href = res.data+"&redirect_url="+url;
                     }
                     else if (this.payWay===1){//支付宝
+                        res=await res.text()
                         const div = document.createElement('div');
-                        div.innerHTML = res.data;
+                        div.innerHTML =res;
                         document.body.appendChild(div);
                         document.forms[0].submit();
                     }

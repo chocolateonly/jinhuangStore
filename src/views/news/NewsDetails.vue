@@ -42,7 +42,7 @@
                 this.$router.go(-1)
             }
         },
-       async mounted() {
+       async beforeCreate() {
             const params={
                 id:this.$route.params.id,
                 hasToken:true

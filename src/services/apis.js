@@ -8,13 +8,6 @@ export const getParams=(body)=>{
   const {hasToken,...other}=body
   const {uid,token}=lastRecord
 
-/*  if (Object.keys(other).includes('formData')){
-    const {formData,...ot}=other
-    console.log(formData)
-    const params = hasToken?{...ot,timestamp,uid,token}:{...ot,timestamp}
-    const sign = getSign(params)
-    return {...params,timestamp,sign}
-  }*/
   const params = hasToken?{...other,timestamp,uid,token}:{...other,timestamp}
   const sign = getSign(params)
   return {...params,timestamp,sign}
@@ -80,9 +73,6 @@ function deleteGoods(body,options) {
 function createCartOrder(body,options) {
   return Get(`${apiRoot}/api/index/cartOrder?${qs.stringify(getParams(body))}`,options)
 }
-function pay(body,options) {
-  return Get(`${apiRoot}/api/index/surePay?${qs.stringify(getParams(body))}`,options)
-}
 //news
 function getNewsList(body,options) {
   return Get(`${apiRoot}/api/index/news?${qs.stringify(getParams(body))}`,options)
@@ -134,15 +124,68 @@ function getOrderDetail(body,options) {
 function getMyOrderList(body,options) {
   return Get(`${apiRoot}/api/index/myOrders?${qs.stringify(getParams(body))}`,options)
 }
+function confirmOrder(body,options) {
+  return Get(`${apiRoot}/api/index/sureRece?${qs.stringify(getParams(body))}`,options)
+}
+function delOrder(body,options) {
+  return Get(`${apiRoot}/api/index/delOrder?${qs.stringify(getParams(body))}`,options)
+}
+function commentProduct(body,options) {
+  return Get(`${apiRoot}/api/index/productComment?${qs.stringify(getParams(body))}`,options)
+}
+function getEtList(body,options) {
+  return Get(`${apiRoot}/api/index/etlist?${qs.stringify(getParams(body))}`,options)
+}
 function getRechargeData(body,options) {
   return Get(`${apiRoot}/api/index/toRecharge?${qs.stringify(getParams(body))}`,options)
 }
-
-
-
-
-function upload(body,options) {
-  return Get(`${apiRoot}/api/index/uploadImg?${qs.stringify(getParams(body))}`,options)
+function getRechargeList(body,options) {
+  return Get(`${apiRoot}/api/index/rechargelist?${qs.stringify(getParams(body))}`,options)
+}
+function getTixianData(body,options) {
+  return Get(`${apiRoot}/api/index/toTixian?${qs.stringify(getParams(body))}`,options)
+}
+function getTixianList(body,options) {
+  return Get(`${apiRoot}/api/index/tixian?${qs.stringify(getParams(body))}`,options)
+}
+function getDistrCenterData(body,options) {
+  return Get(`${apiRoot}/api/index/fx_index?${qs.stringify(getParams(body))}`,options)
+}
+function getDistrTeam(body,options) {
+  return Get(`${apiRoot}/api/index/commissionTeam?${qs.stringify(getParams(body))}`,options)
+}
+function getMyInviteCode(body,options) {
+  return Get(`${apiRoot}/api/index/myInviteCode?${qs.stringify(getParams(body))}`,options)
+}
+function getIntegralDetail(body,options) {
+  return Get(`${apiRoot}/api/index/integralDetail?${qs.stringify(getParams(body))}`,options)
+}
+function getCommissionDetail(body,options) {
+  return Get(`${apiRoot}/api/index/commissionDetail?${qs.stringify(getParams(body))}`,options)
+}
+function geBanksListData(body,options) {
+  return Get(`${apiRoot}/api/index/banks?${qs.stringify(getParams(body))}`,options)
+}
+function geMyBanksList(body,options) {
+  return Get(`${apiRoot}/api/index/myBankAccounts?${qs.stringify(getParams(body))}`,options)
+}
+function addBankAccount(body,options) {
+  return Get(`${apiRoot}/api/index/addBankAccount?${qs.stringify(getParams(body))}`,options)
+}
+function getCustomerPhones(body,options) {
+  return Get(`${apiRoot}/api/index/customerPhones?${qs.stringify(getParams(body))}`,options)
+}
+function getActionDetail(body,options) {
+  return Get(`${apiRoot}/api/index/actionDetail?${qs.stringify(getParams(body))}`,options)
+}
+function setParams(body,options) {
+  return Get(`${apiRoot}/api/index/setParams?${qs.stringify(getParams(body))}`,options)
+}
+function getVIPListData(body,options) {
+  return Get(`${apiRoot}/api/index/rechargeIndex?${qs.stringify(getParams(body))}`,options)
+}
+function addFeedback(body,options) {
+  return Get(`${apiRoot}/api/index/ideaFeedback?${qs.stringify(getParams(body))}`,options)
 }
 
 export  const serviceApi =  {
@@ -166,7 +209,6 @@ export  const serviceApi =  {
   cutGoodsNum,
   deleteGoods,
   createCartOrder,
-  pay,
   getNewsList,
   getNewsDetails,
   profile,
@@ -183,7 +225,27 @@ export  const serviceApi =  {
   sellOut,
   getOrderDetail,
   getMyOrderList,
-  upload,
-  getRechargeData
+  getRechargeData,
+  getRechargeList,
+
+  confirmOrder,
+  delOrder,
+  commentProduct,
+  getEtList,
+  getTixianData,
+  getTixianList,
+  getDistrCenterData,
+  getDistrTeam,
+  getMyInviteCode,
+  getIntegralDetail,
+  getCommissionDetail,
+  geBanksListData,
+  geMyBanksList,
+  addBankAccount,
+  getCustomerPhones,
+  getActionDetail,
+  setParams,
+  getVIPListData,
+  addFeedback
 
 }

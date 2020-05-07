@@ -5,6 +5,7 @@
                     class="input-item"
                     v-model="yinli"
                     label="盈利"
+                    type="number"
                     placeholder="请输入"
                     label-align="left"
                     input-align="right"
@@ -18,6 +19,7 @@
                     class="input-item"
                     v-model="yinli"
                     label="亏损"
+                    type="number"
                     placeholder="请输入"
                     label-align="left"
                     input-align="right"
@@ -39,6 +41,8 @@
 
 <script>
   import Layout from "../../../components/Layout";
+  import {serviceApi} from "../../../services/apis";
+  import global from "../../../components/global";
 
   export default {
     name: "SetParams",
@@ -53,8 +57,19 @@
       goBack() {
         this.$router.go(-1)
       },
-        onSubmit(){
+        async onSubmit(){
+            const params={
+                hasToken:true,
+                profit_scale:this.yinli,
+                loss_scale:this.kuisun
+            }
 
+            try {
+                await  serviceApi.setParams(params)
+
+            }catch (e) {
+                global.showErrorTip(e.msg,this)
+            }
         }
     }
   }

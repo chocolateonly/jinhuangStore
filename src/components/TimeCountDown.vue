@@ -1,5 +1,5 @@
 <template>
-    <van-count-down :time="time" @finish="finish">
+    <van-count-down :time="time" @finish="onFinish">
         <template v-slot="timeData">
             <span class="block">{{ timeData.minutes }}</span>
             <span class="colon">:</span>
@@ -11,14 +11,15 @@
 <script>
     export default {
         name: "TimeCountDown",
+        props:{
+          onFinish:{
+              type:Function,
+              default:()=>null
+          }
+        },
         data() {
             return {
                 time: 15 * 60 * 1000,  //毫秒单位
-            }
-        },
-        methods: {
-            finish() {
-                console.log('finished')
             }
         },
     }

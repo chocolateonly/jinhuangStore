@@ -277,7 +277,7 @@
                 await this.openToSetProductSpecs()
             }
         },
-        async mounted() {
+        async beforeCreate() {
             try {
                 const res = await serviceApi.getProductDetails({id: this.$route.params.id})
                 this.data = res.data

@@ -5,10 +5,10 @@
             <img class="banner" src="../../../assets/me/contact_banner.png" alt="">
 
 
-            <div class="user-info">
+            <a class="user-info" :href="`tel:${data[0]}`">
                 <div class="flexRow1 jc-sb ai-center">
 
-                    <div class="flexRow1">
+                 <div class="flexRow1">
                     <div class="avatar">
                         <img src="../../../assets/me/icon_service.png" alt="">
                     </div>
@@ -18,7 +18,7 @@
                         <div class="name">24小时全国服务热线</div>
 
                         <div class="user-level flexRow0">
-                            800-222-2222
+                            {{data[0]}}
                         </div>
                     </div>
                 </div>
@@ -29,7 +29,7 @@
 
                 </div>
 
-            </div>
+            </a>
 
         </div>
     </Layout>
@@ -38,20 +38,30 @@
 
 <script>
   import Layout from "../../../components/Layout";
+  import {serviceApi} from "../../../services/apis";
+  import global from "../../../components/global";
 
   export default {
     name: "Contact",
     components: {Layout},
     data() {
       return {
-
+          data:{}
       }
     },
     methods: {
       goBack() {
         this.$router.go(-1)
       },
-    }
+    },
+      async beforeCreate() {
+          try {
+              const res = await serviceApi.getCustomerPhones({hasToken: true})
+              this.data = res.data
+          } catch (e) {
+              global.showErrorTip(e.msg, this)
+          }
+      }
   }
 </script>
 
@@ -63,6 +73,7 @@
         width: 100%;
     }
     .user-info {
+        display: block;
         margin-top: 20px;
         background: url("../../../assets/common/header_bg.png") no-repeat;
         background-size: cover;

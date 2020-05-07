@@ -188,7 +188,7 @@
             this.$router.push(url)
         }
     },
-      async mounted() {
+      async beforeCreate() {
           const params = {
               hasToken: true
           }
