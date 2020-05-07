@@ -11,7 +11,7 @@
             />
             <van-field
                     class="input-item"
-                    v-model="name"
+                    v-model="idCard"
                     type="number"
                     label="身份证号码"
                     placeholder="请输入"
@@ -47,7 +47,7 @@
                 </div>
 
             </div>
-            <div class="save-btn lg-bg-red " @Click="onSubmit">
+            <div class="save-btn lg-bg-red " @click="onSubmit">
                 <span>保存</span>
             </div>
         </div>
@@ -57,6 +57,9 @@
 
 <script>
     import Layout from "../../../components/Layout";
+    import {serviceApi} from "../../../services/apis";
+    import global from "../../../components/global";
+    import {lastRecord} from "../../../utils";
 
     export default {
         name: "AddBankCard",
@@ -66,7 +69,9 @@
                 name: '',
                 idCard: '',
                 idCardUp: [],
-                idCardDown: []
+                idCardDown: [],
+                idCardUpId:'',
+                idCardDownId:'',
             }
         },
         methods: {
@@ -79,8 +84,68 @@
             afterReadDown(file) {
                 this.idCardDown = [file]
             },
-            onSubmit() {
+            async upload(file){
+                try {
+                    //upload
+                    const formData = new FormData();
+                    const {uid,token}=lastRecord
+                    formData.append('file',  file);
+                    formData.append("uid", uid);
+                    formData.append("token", token);
+                    const options = {
+                        //'Content-Type': 'multipart/form-data',
+                    };
+                    let u_res=await fetch(`http://www.jinhuang.com/api/index/uploadImg`,{
+                        method: 'POST',
+                        headers: { ...options},
+                        body:formData,
+                    })
+                    u_res=await u_res.json()
+                    return u_res.data.id
+                }catch (e) {
+                    global.showErrorTip(e.msg, this)
+                }
+            },
+            async onSubmit() {
+                //1,上传头像
+                if (Object.keys(this.idCardUp[0]).includes('file')) {
+                   const id =await this.upload(this.idCardUp[0].file)
+                    this.idCardUpId=id
+                }
 
+                if (Object.keys(this.idCardDown[0]).includes('file')) {
+                    const id =await this.upload(this.idCardDown[0].file)
+                    this.idCardUpId=id
+                }
+
+                if (!this.name||!this.idCard||!this.idCardUpId||!this.idCardDownId) this.$toast('请将信息填写完整')
+                const params = {
+                    hasToken: true,
+                    realname:this.name,
+                    id_card:this.idCard,
+                    id_card_face:this.idCardUpId,
+                    id_card_verso:this.idCardDownId
+                }
+
+                try {
+                    await serviceApi.addIdCardAuth(params)
+                    this.$toast('身份认证成功')
+                } catch (e) {
+                    global.showErrorTip(e.msg, this)
+                }
+            }
+        },
+        async beforeCreate(){
+            try {
+                const res=await serviceApi.profile({hasToken:true})
+                this.idCardUpId=res.data.id_card_face0
+                this.idCardDownId=res.data.id_card_verso0
+                this.idCardUp=[{content: res.data.id_card_face,}]
+                this.idCardDown=[{content: res.data.id_card_verso,}]
+                this.name=res.data.realname
+                this.idCard=res.data.id_card
+            }catch (e) {
+                global.showErrorTip(e.msg,this)
             }
         }
     }

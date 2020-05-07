@@ -12,15 +12,35 @@
             />
             <van-field
                     class="input-item"
+                    readonly
+                    clickable
+                    label="选择银行"
+                    :value="selectBank.name"
+                    placeholder="请选择"
+                    @click="showPicker = true"
+                    input-align="right"
+            />
+            <van-field
+                    class="input-item"
                     v-model="bankcardNum"
                     label="银行卡号"
+                    type="digit"
                     placeholder="请输入"
                     label-align="left"
                     input-align="right"
 
             />
+            <van-field
+                    class="input-item"
+                    v-model="mobile"
+                    type="number"
+                    label="手机号"
+                    placeholder="请输入"
+                    label-align="left"
+                    input-align="right"
 
-            <div class="save-btn lg-bg-red " @Click="onSubmit">
+            />
+            <div class="save-btn lg-bg-red " @click="onSubmit">
                 <span>绑定</span>
             </div>
 
@@ -28,28 +48,81 @@
                 请正确将你的银行卡卡号输入，这样您的收益才会到达您的个 人账户里。
             </div>
         </div>
+
+        <van-popup v-model="showPicker" position="bottom">
+            <van-picker
+                    title="选择银行"
+                    show-toolbar
+                    :columns="getBankCardArr()"
+                    @confirm="onConfirm"
+                    @cancel="onCancel"
+            />
+        </van-popup>
     </Layout>
 
 </template>
 
 <script>
     import Layout from "../../../components/Layout";
-
+    import {serviceApi} from "../../../services/apis";
+    import global from "../../../components/global";
+    import validator from 'validator'
     export default {
         name: "AddBankCard",
         components: {Layout},
         data() {
             return {
                 name: '',
-                bankcardNum: ''
+                bankcardNum: '',
+                selectBank:{},
+                mobile:'',
+                showPicker:false,
+                bankcardListData:[]
             }
         },
         methods: {
             goBack() {
                 this.$router.go(-1)
             },
-            onSubmit(){
+            onConfirm(value, index) {
+                console.log(`当前值：${value}, 当前索引：${index}`);
+                this.selectBank=this.bankcardListData[index]
+                this.showPicker=false
+            },
+            onCancel() {
 
+            },
+            getBankCardArr(){
+               return this.bankcardListData.reduce((acc,cur)=>{
+                   acc.push(cur.name)
+                   return acc
+               },[])
+            },
+            async onSubmit(){
+                if (!validator.isMobilePhone(this.mobile)) return this.$toast('请输入手机号')
+
+                const params={
+                    hasToken:true,
+                    account_name:this.name,
+                    account_no:this.bankcardNum,
+                    bank_id:this.selectBank.id,
+                    mobile:this.mobile
+                }
+
+                try {
+                    await  serviceApi.addBankAccount(params)
+
+                }catch (e) {
+                    global.showErrorTip(e.msg,this)
+                }
+            }
+        },
+        async beforeCreate(){
+            try {
+                const res=await serviceApi.geBanksListData({hasToken:true})
+                this.bankcardListData=res.data
+            }catch (e) {
+                global.showErrorTip(e.msg,this)
             }
         }
     }

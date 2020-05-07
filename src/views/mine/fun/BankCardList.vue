@@ -20,7 +20,8 @@
     import Layout from "../../../components/Layout";
     import FlatListView from "../../../components/flatListView/FlatListView";
     import BankCardItem from "./commponents/BankCardItem";
-    import {setList} from "../../../components/flatListView";
+    import {serviceApi} from "../../../services/apis";
+    import global from "../../../components/global";
 
     export default {
         name: "BankCardList",
@@ -35,14 +36,18 @@
             goAddPage(){
                 this.$router.push('/addBankCard')
             },
-            getList(page, pageSize) {
-                return setList(page, pageSize, {
-                    name: '中国工商银行',
-                    type:'储蓄卡',
-                    number: '**** **** **** 5697',
-                    img: require('../../../assets/me/icon_gh.png')
-                })
-            }
+            async getList() {
+                const params={
+                    hasToken:true
+                }
+
+                try {
+                    const res=await  serviceApi.getMyBanksList(params)
+                    return {total:res.data.length,list:res.data}
+                }catch (e) {
+                    global.showErrorTip(e.msg,this)
+                }
+            },
         }
     }
 </script>

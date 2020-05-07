@@ -166,7 +166,7 @@ function getCommissionDetail(body,options) {
 function geBanksListData(body,options) {
   return Get(`${apiRoot}/api/index/banks?${qs.stringify(getParams(body))}`,options)
 }
-function geMyBanksList(body,options) {
+function getMyBanksList(body,options) {
   return Get(`${apiRoot}/api/index/myBankAccounts?${qs.stringify(getParams(body))}`,options)
 }
 function addBankAccount(body,options) {
@@ -189,6 +189,9 @@ function getVIPListData(body,options) {
 }
 function addFeedback(body,options) {
   return Get(`${apiRoot}/api/index/ideaFeedback?${qs.stringify(getParams(body))}`,options)
+}
+function addIdCardAuth(body,options) {
+  return Get(`${apiRoot}/api/index/idCardAuth?${qs.stringify(getParams(body))}`,options)
 }
 
 export  const serviceApi =  {
@@ -243,13 +246,14 @@ export  const serviceApi =  {
   getIntegralDetail,
   getCommissionDetail,
   geBanksListData,
-  geMyBanksList,
+  getMyBanksList,
   addBankAccount,
   getCustomerPhones,
   getActionDetail,
   setParams,
   getMyParams,
   getVIPListData,
-  addFeedback
+  addFeedback,
+  addIdCardAuth
 
 }

@@ -1,7 +1,7 @@
 <template>
-    <div class="bankcard-item">
+    <div class="bankcard-item" >
         <div class="flexRow0 ai-center">
-        <img :src="v.img" alt="">
+        <img :src="v.icon" alt="">
 
         <div class="content-wrapper flexGrow1 flexCol1 jc-sb">
 
@@ -12,8 +12,10 @@
         </div>
 
         <div class="bankcard-num">
-            {{v.number}}
+            {{v.account_no}}
         </div>
+
+<!--        <img class="bg" :src="v.image" alt="">-->
     </div>
 </template>
 
@@ -33,6 +35,7 @@
 
 <style lang="less" scoped>
     .bankcard-item {
+        position: relative;
         color: #fff;
         padding:20px;
         margin-bottom: 40px;
@@ -65,5 +68,11 @@
         font-size: 36px;
         text-align: center;
 
+    }
+    .bg{
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
     }
 </style>
