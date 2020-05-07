@@ -25,6 +25,11 @@
                 </div>
             </div>
 
+            <van-field class="input-item" name="rate" label="评分">
+                <template #input>
+                    <van-rate v-model="star" />
+                </template>
+            </van-field>
 
             <van-field
                     class="input-item"
@@ -34,14 +39,12 @@
                     type="textarea"
                     placeholder="请输入内容"
                     label-align="left"
-                    input-align="right"
             />
 
-            <van-field name="rate" label="评分">
-                <template #input>
-                    <van-rate v-model="star" />
-                </template>
-            </van-field>
+            <div class="save-btn lg-bg-red flexCol0 ai-center" @click="onSubmit">
+                <span>提 交</span>
+            </div>
+
 
         </div>
     </Layout>
@@ -72,6 +75,22 @@
             },
             goBack() {
                 this.$router.go(-1)
+            },
+            async onSubmit(){
+
+                const params = {
+                    hasToken: true,
+                    id: this.$route.params.id,
+                    content:this.comment,
+                    star:this.star
+                }
+
+                try {
+                    const res = await serviceApi.commentProduct(params)
+                    this.oplist = res.data.oplist
+                } catch (e) {
+                    global.showErrorTip(e.msg, this)
+                }
             },
             async getOrderDetail() {
 
@@ -133,5 +152,15 @@
             }
         }
     }
+    .input-item {
+        border-bottom: 1px solid #eee;
+        background: transparent;
 
+    }
+    .save-btn{
+        padding: 24px 0;
+        text-align: center;
+        margin: 0 auto;
+        margin-top: 40px;
+    }
 </style>

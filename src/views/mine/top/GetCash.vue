@@ -12,10 +12,10 @@
                 <van-cell-group>
 
                     <van-cell class="pay-methods-item  text-line-1"
-                              v-for="(v,i) in bankcardList" :title="`${v.name}  ${v.number}${v.name}  ${v.number}`" :key="i"
+                              v-for="(v,i) in data.list" :title="`${v.name} ${v.account_no}`" :key="i"
                               clickable @click=" payWay = v.id">
                         <template #icon>
-                            <img :src="v.img" alt="">
+                            <img :src="v.icon" alt="">
                         </template>
                         <template #right-icon>
                             <van-radio :name="v.id"
@@ -33,17 +33,16 @@
             <div class="input-wrap">
                 <van-field v-model="money" type="number" label="￥"
                            placeholder="提现额度不低于100元"
-                           label-align="left"
-                           input-align="right" />
+                           label-align="left"/>
             </div>
 
             <div class="input-footer text-line-1">
-                <span class="jine">可提现金额：{{jine}}元</span>  <span class="shouxufei">手续费：{{shouxufei}}元</span>
+                <span class="jine">可提现金额：{{data.balance}}元</span>  <span class="shouxufei">手续费：{{data.tixian_scale}}元</span>
             </div>
             </div>
 
 
-            <div class="save-btn lg-bg-red flexCol0 ai-center" @Click="onSubmit">
+            <div class="save-btn lg-bg-red flexCol0 ai-center" @click="onSubmit">
                 <span>立即提现</span>
             </div>
 
@@ -54,30 +53,17 @@
 
 <script>
     import Layout from "../../../components/Layout";
+    import {serviceApi} from "../../../services/apis";
+    import global from "../../../components/global";
 
     export default {
         name: "GetCash",
         components: {Layout},
         data() {
             return {
-                bankcardList: [
-                    {
-                        id: 0,
-                        name: '工商银行',
-                        number: '**** **** **** 5697',
-                        img: require('../../../assets/me/icon_gh.png')
-                    },
-                    {
-                        id: 2,
-                        name: '工商银行',
-                        number: '**** **** **** 5697',
-                        img: require('../../../assets/me/icon_gh.png')
-                    },
-                ],
-                payWay: 0,
-                money:'',
-                jine:'1326',
-                shouxufei:'2112'
+                payWay: '',
+                data:{},
+                money:''
             }
         },
         methods: {
@@ -87,11 +73,29 @@
             goPage(url) {
                 this.$router.push(url)
             },
-            onSubmit(){
-
+            async onSubmit(){
+                const params={
+                hasToken: true,
+                 id:this.payWay,
+                 money:this.money
+                }
+                try {
+                    await serviceApi.tixian(params)
+                    this.$toast('提现成功')
+                } catch (e) {
+                    global.showErrorTip(e.msg, this)
+                }
             }
         },
-
+        async beforeCreate() {
+            try {
+                const res = await serviceApi.getTixianData({hasToken: true})
+                this.data = res.data
+                this.payWay=res.data.list[0].id
+            } catch (e) {
+                global.showErrorTip(e.msg, this)
+            }
+        }
     }
 </script>
 

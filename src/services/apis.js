@@ -131,7 +131,7 @@ function delOrder(body,options) {
   return Get(`${apiRoot}/api/index/delOrder?${qs.stringify(getParams(body))}`,options)
 }
 function commentProduct(body,options) {
-  return Get(`${apiRoot}/api/index/productComment?${qs.stringify(getParams(body))}`,options)
+  return Get(`${apiRoot}/api/index/commentProduct?${qs.stringify(getParams(body))}`,options)
 }
 function getEtList(body,options) {
   return Get(`${apiRoot}/api/index/etlist?${qs.stringify(getParams(body))}`,options)
@@ -150,6 +150,9 @@ function getTixianData(body,options) {
 }
 function getTixianList(body,options) {
   return Get(`${apiRoot}/api/index/tixianlist?${qs.stringify(getParams(body))}`,options)
+}
+function tixian(body,options) {
+  return Get(`${apiRoot}/api/index/tixian?${qs.stringify(getParams(body))}`,options)
 }
 function getDistrCenterData(body,options) {
   return Get(`${apiRoot}/api/index/fx_index?${qs.stringify(getParams(body))}`,options)
@@ -244,6 +247,7 @@ export  const serviceApi =  {
   confirmEt,
   getTixianData,
   getTixianList,
+  tixian,
   getDistrCenterData,
   getDistrTeam,
   getMyInviteCode,
