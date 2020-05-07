@@ -62,13 +62,15 @@
 
 <script>
     import Layout from "../../../components/Layout";
+    import {serviceApi} from "../../../services/apis";
+    import global from "../../../components/global";
 
     export default {
         name: "Recharge",
         components: {Layout},
         data() {
             return {
-                yue:'234350.45',
+                yue:'0',
                 moneyList:['1万元','3万元','5万元','10万元'],
                 selected_color:'',
                 sdyMoney:'',
@@ -92,10 +94,24 @@
             },
             goPage(url){
                 this.$router.push(url)
-            }
+            },
+
         },
         mounted() {
             this.selected_color=this.moneyList[0]
+        },
+        async beforeCreate() {
+            const params = {
+                hasToken: true
+            }
+
+            try {
+                const res = await serviceApi.getRechargeData(params)
+                this.yue = res.data.balance
+                //this.moneyList=
+            } catch (e) {
+                global.showErrorTip(e.msg, this)
+            }
         }
     }
 </script>

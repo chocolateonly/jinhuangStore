@@ -10,7 +10,7 @@
 
                 <div class="user-info flexRow0">
                     <div class="avatar" @click="goProfilePage">
-                        <img :src="data.avatar" alt="">
+                        <img :src="data.image" alt="">
                     </div>
                     <div class="right-info flexGrow1">
                         <div class="flexRow1 jc-sb">

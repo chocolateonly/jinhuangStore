@@ -10,7 +10,7 @@
             <div class="content">
 
                 <div class="main">
-
+<!--                    <input @change="getFile" type="file">-->
                     <van-cell class="set-avatar ai-center" title="头像">
                         <template #right-icon>
                             <van-uploader :after-read="afterRead">
@@ -65,7 +65,8 @@
     import Header from "../../../components/Header";
     import {serviceApi} from "../../../services/apis";
     import global from "../../../components/global";
-
+    import {lastRecord} from "../../../utils";
+    import validator from 'validator'
     export default {
         name: "Profile",
         components: {Header},
@@ -76,25 +77,50 @@
                 email: '',
                 code: '',
                 fileList: [],
+                avatarId:''
             }
         },
         methods: {
+            getFile(e) {
+                this.fileList.push(e.target.files);
+                console.log(this.fileList)
+            },
             goBack() {
                 this.$router.go(-1)
             },
             async afterRead(file) {
+                console.log(file)
                 // 此时可以自行将文件上传至服务器
                     this.fileList = [file]
             },
             async onSave() {
+                if (!validator.isEmail(this.email)) return this.$toast.fail('邮箱格式不对')
+
                 try {
                 //1,上传头像
-                //todo
+              if (Object.keys(this.fileList[0]).includes('file')) {
+                  //upload
+                  const formData = new FormData();
+                  const {uid,token}=lastRecord
+                  formData.append('file',  this.fileList[0].file);
+                  formData.append("uid", uid);
+                  formData.append("token", token);
+                  const options = {
+                      //'Content-Type': 'multipart/form-data',
+                  };
+                  let u_res=await fetch(`http://www.jinhuang.com/api/index/uploadImg`,{
+                      method: 'POST',
+                      headers: { ...options},
+                      body:formData,
+                  })
+                  u_res=await u_res.json()
+                  this.avatarId=u_res.data.id
+              }
 
 
                 const params = {
                     hasToken: true,
-                    //avatar: avatarId,
+                    avatar: this.avatarId,
                     nickname:this.nickName,
                     email:this.email,
                 }
@@ -115,7 +141,8 @@
             try {
                 const res = await serviceApi.profile(params)
                 this.nickName = res.data.nickname
-                this.fileList = [{content: res.data.avatar}]
+                this.fileList = [{content: res.data.image,}]
+                this.avatarId=res.data.avatar
                 this.email = res.data.email
 
 

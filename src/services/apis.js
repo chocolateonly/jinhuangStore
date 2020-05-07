@@ -1,12 +1,20 @@
 import {Get} from "./index";
 import qs from 'qs'
 import {getSign, lastRecord} from "../utils";
-export const apiRoot='http://jinhuang.test.hbbeisheng.com' //'http://jinhuang.test.hbbeisheng.com' //http://www.jinhuang.com
+export const apiRoot='http://www.jinhuang.com' //'http://jinhuang.test.hbbeisheng.com' //http://www.jinhuang.com
 export const payRedirectUrl='http://localhost:8080'
 export const getParams=(body)=>{
   const timestamp = new Date().getTime().toString().substr(0,11)
   const {hasToken,...other}=body
   const {uid,token}=lastRecord
+
+/*  if (Object.keys(other).includes('formData')){
+    const {formData,...ot}=other
+    console.log(formData)
+    const params = hasToken?{...ot,timestamp,uid,token}:{...ot,timestamp}
+    const sign = getSign(params)
+    return {...params,timestamp,sign}
+  }*/
   const params = hasToken?{...other,timestamp,uid,token}:{...other,timestamp}
   const sign = getSign(params)
   return {...params,timestamp,sign}
@@ -126,6 +134,16 @@ function getOrderDetail(body,options) {
 function getMyOrderList(body,options) {
   return Get(`${apiRoot}/api/index/myOrders?${qs.stringify(getParams(body))}`,options)
 }
+function getRechargeData(body,options) {
+  return Get(`${apiRoot}/api/index/toRecharge?${qs.stringify(getParams(body))}`,options)
+}
+
+
+
+
+function upload(body,options) {
+  return Get(`${apiRoot}/api/index/uploadImg?${qs.stringify(getParams(body))}`,options)
+}
 
 export  const serviceApi =  {
   getUserAgreement,
@@ -164,6 +182,8 @@ export  const serviceApi =  {
   buyGold,
   sellOut,
   getOrderDetail,
-  getMyOrderList
+  getMyOrderList,
+  upload,
+  getRechargeData
 
 }
