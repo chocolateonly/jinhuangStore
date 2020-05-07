@@ -64,7 +64,7 @@
 
                 const params = {
                     hasToken: true,
-                    id: this.$route.params.id,
+                    id:this.v.id,
                 }
 
                 try {
@@ -75,7 +75,7 @@
                 }
             },
              goPay(){
-                this.$router.push(`/payOrder/${this.$route.params.id}`)
+                this.$router.push(`/payOrder/${this.v.id}`)
             },
             async goConfirm(){
 

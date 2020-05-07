@@ -82,12 +82,6 @@
                     {id: 2, name: '余额（0元）', img: require('../../assets/home/pay/icon_ye.png')},
                     {id: 3, name: '金豆（0）', img: require('../../assets/home/pay/icon_jindou.png')},
                 ],
-                orderInfo: {
-                    title: '周先生周先生周先生周先生周先生周先生周先生周先生周先生周先生周先生周先生周先生',
-                    money: '989.00',
-                    jindou: '2325',
-                    number: 1
-                },
                 payWay: 0,
                 oplist:[],// 订单详情
                 yue:'',
@@ -151,6 +145,7 @@
                     const res = await serviceApi.getOrderDetail(params)
                     this.oplist=res.data.oplist
                 } catch (e) {
+                    if(e.msg.includes('订单不存在')) this.$router.push('/myOrder/0')
                     global.showErrorTip(e.msg, this)
                 }
             },
