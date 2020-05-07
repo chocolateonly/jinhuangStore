@@ -37,7 +37,8 @@
             </div>
 
             <div class="input-footer text-line-1">
-                <span class="jine">可提现金额：{{data.balance}}元</span>  <span class="shouxufei">手续费：{{data.tixian_scale}}元</span>
+                <span class="jine">可提现金额：{{data.balance}}元</span>
+                <span class="shouxufei">手续费：{{data.tixian_scale}}%</span>
             </div>
             </div>
 

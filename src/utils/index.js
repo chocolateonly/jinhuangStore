@@ -32,7 +32,7 @@ function makeSign(obj) {
 
 
 //storage
-const StorageKey='BS_JINHUANG_USER';
+export const StorageKey='BS_JINHUANG_USER';
 
 export const lastRecord = (() => { // 上一把的状态
     let data = localStorage.getItem(StorageKey);

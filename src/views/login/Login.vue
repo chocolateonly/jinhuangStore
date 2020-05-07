@@ -36,7 +36,7 @@
     import FullButton from "../../components/FullButton";
     import {serviceApi} from "../../services/apis";
     import global from "../../components/global";
-    import {storageData} from "../../utils";
+    import {storageData, StorageKey} from "../../utils";
     export default {
         name: "Login",
         components: {FullButton},
@@ -73,6 +73,9 @@
             onForgot(){
                 this.$router.push('Forgot')
             }
+        },
+        mounted() {//清缓存
+            localStorage.removeItem(StorageKey);
         }
     }
 </script>

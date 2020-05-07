@@ -28,7 +28,7 @@
                         <div class="img" @click="goBuyCenter">
                             <img :src="require('../assets/home/in_sc.png')" alt="">
                         </div>
-                        <div class="img"><img :src="require('../assets/home/in_zn.png')" alt=""></div>
+                        <div class="img" @click="goAction"><img :src="require('../assets/home/in_zn.png')" alt=""></div>
                     </div>
                 </div>
 
@@ -122,6 +122,9 @@
             }
         },
         methods: {
+            goAction(){
+                this.$router.push('/instructions')
+            },
             int(val = '0.00') {
                 return val.substring(0, val.lastIndexOf('.') + 1)
             },
