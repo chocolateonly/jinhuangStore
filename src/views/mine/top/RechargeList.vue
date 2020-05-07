@@ -44,7 +44,7 @@
 
             try {
                 const res=await  serviceApi.getRechargeList(params)
-                return {total:res.data.length,list:res.data}
+                return {total:res.data.length,list:res.data.list}
             }catch (e) {
                 global.showErrorTip(e.msg,this)
             }

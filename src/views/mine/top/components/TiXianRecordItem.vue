@@ -1,12 +1,12 @@
 <template>
     <div class="record-item">
         <div class="flexRow1 ai-center jc-sb" style="margin-bottom: 5px">
-            <div class="no text-line-1">订单号：<span>{{v.no}}</span></div>
+            <div class="no text-line-1">订单号：<span>{{v.account_no}}</span></div>
             <div class="state_text text-line-1"><span>{{v.state_text}}</span></div>
         </div>
         <div class="flexRow1 ai-center jc-sb">
             <div class="create_time text-line-1"><span>{{v.create_time}}</span></div>
-            <div class="type_text text-line-1"><span>{{v.type_text}}</span></div>
+
             <div class="money text-line-1"><span>{{v.money}}</span></div>
         </div>
     </div>
@@ -14,7 +14,7 @@
 
 <script>
     export default {
-        name: "RecordItem",
+        name: "TiXianRecordItem",
         props: {
             i: Number,
             v: Object,

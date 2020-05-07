@@ -21,7 +21,7 @@
                 </div>
 
 
-                    <div class="zdy">
+                    <div class="zdy" style="border: 1px solid #fcc;">
                         <van-field v-model="sdyMoney" type="number" label="自定义"
                                    @input="val=>onChangeMoney(val)"
                                    placeholder="自定义金额不低于1万"

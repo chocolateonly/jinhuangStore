@@ -146,7 +146,7 @@ function getTixianData(body,options) {
   return Get(`${apiRoot}/api/index/toTixian?${qs.stringify(getParams(body))}`,options)
 }
 function getTixianList(body,options) {
-  return Get(`${apiRoot}/api/index/tixian?${qs.stringify(getParams(body))}`,options)
+  return Get(`${apiRoot}/api/index/tixianlist?${qs.stringify(getParams(body))}`,options)
 }
 function getDistrCenterData(body,options) {
   return Get(`${apiRoot}/api/index/fx_index?${qs.stringify(getParams(body))}`,options)
