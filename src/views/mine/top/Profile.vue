@@ -63,7 +63,7 @@
 
 <script>
     import Header from "../../../components/Header";
-    import {serviceApi} from "../../../services/apis";
+    import {apiRoot, serviceApi} from "../../../services/apis";
     import global from "../../../components/global";
     import {lastRecord} from "../../../utils";
     import validator from 'validator'
@@ -115,7 +115,7 @@
                       hasToken:true
                   }
 
-                  let u_res=await fetch(`http://www.jinhuang.com/api/index/uploadImg?${qs.stringify(getParams(body))}`,{
+                  let u_res=await fetch(`${apiRoot}/api/index/uploadImg?${qs.stringify(getParams(body))}`,{
                       method: 'POST',
                       headers: { ...options},
                       body:formData,

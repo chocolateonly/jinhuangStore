@@ -57,9 +57,10 @@
 
 <script>
     import Layout from "../../../components/Layout";
-    import {serviceApi} from "../../../services/apis";
+    import {apiRoot, getParams, serviceApi} from "../../../services/apis";
     import global from "../../../components/global";
     import {lastRecord} from "../../../utils";
+    import qs from "qs";
 
     export default {
         name: "AddBankCard",
@@ -95,12 +96,19 @@
                     const options = {
                         //'Content-Type': 'multipart/form-data',
                     };
-                    let u_res=await fetch(`http://www.jinhuang.com/api/index/uploadImg`,{
+
+                    const body={
+                        hasToken:true
+                    }
+                    let u_res=await fetch(`${apiRoot}/api/index/uploadImg?${qs.stringify(getParams(body))}`,{
                         method: 'POST',
                         headers: { ...options},
                         body:formData,
                     })
                     u_res=await u_res.json()
+                    if(u_res.code==='400'){
+                        global.showErrorTip(u_res.desc, this)
+                    }
                     return u_res.data.id
                 }catch (e) {
                     global.showErrorTip(e.msg, this)
@@ -115,10 +123,10 @@
 
                 if (Object.keys(this.idCardDown[0]).includes('file')) {
                     const id =await this.upload(this.idCardDown[0].file)
-                    this.idCardUpId=id
+                    this.idCardDownId=id
                 }
 
-                if (!this.name||!this.idCard||!this.idCardUpId||!this.idCardDownId) this.$toast('请将信息填写完整')
+                if (!this.name||!this.idCard||!this.idCardUpId||!this.idCardDownId) return this.$toast('请将信息填写完整')
                 const params = {
                     hasToken: true,
                     realname:this.name,
