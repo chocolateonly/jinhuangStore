@@ -67,6 +67,9 @@
     import global from "../../../components/global";
     import {lastRecord} from "../../../utils";
     import validator from 'validator'
+    import qs from 'qs'
+    import {getParams} from "../../../services/apis";
+
     export default {
         name: "Profile",
         components: {Header},
@@ -74,7 +77,7 @@
             return {
                 nickName: '',
                 intro: '',
-                email: '1226937462@qq.com',
+                email: '',
                 code: '',
                 fileList: [{content:''}],
                 avatarId:''
@@ -94,8 +97,6 @@
                     this.fileList = [file]
             },
             async onSave() {
-                if(!this.fileList[0].content)  return this.$toast.fail('请上传头像')
-
                 if (!validator.isEmail(this.email)) return this.$toast.fail('邮箱格式不对')
 
                 try {
@@ -110,15 +111,24 @@
                   const options = {
                       //'Content-Type': 'multipart/form-data',
                   };
-                  let u_res=await fetch(`http://www.jinhuang.com/api/index/uploadImg`,{
+                  const body={
+                      hasToken:true
+                  }
+
+                  let u_res=await fetch(`http://www.jinhuang.com/api/index/uploadImg?${qs.stringify(getParams(body))}`,{
                       method: 'POST',
                       headers: { ...options},
                       body:formData,
                   })
                   u_res=await u_res.json()
-                  this.avatarId=u_res.data.id
+                  if(u_res.code==='400'){
+                      global.showErrorTip(u_res.desc, this)
+                  }
+                 else this.avatarId=u_res.data.id
               }
 
+
+                    if(!this.avatarId)  return this.$toast.fail('请上传头像')
 
                 const params = {
                     hasToken: true,

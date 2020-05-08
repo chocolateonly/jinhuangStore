@@ -88,6 +88,7 @@
     #imageWrapper {
         width: 400px;
         height: 400px;
+        background: #fcc;
     }
 
     .code {

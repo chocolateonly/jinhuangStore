@@ -227,6 +227,8 @@
                 width: 130px;
                 height: 130px;
                 margin-right: 10px;
+                border-radius: 65px;
+                background: #fcc;
                 img {
                     width: 130px;
                     height: 130px;

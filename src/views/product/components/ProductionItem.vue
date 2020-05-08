@@ -66,6 +66,7 @@
         .img-wrap{
             width: 100%;
             height: 331px; //图片高度
+            background: #fcc;
         }
         .p-img {
             height: 331px; //图片高度
