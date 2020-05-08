@@ -1,7 +1,7 @@
 <template>
     <div class="bg flexCol1">
         <Header title="个人中心"
-                _className="me-header header flexCol0"
+                _className="me-header header "
                 :hasBorder="false"
                 :hasLeftArrow="false"></Header>
 

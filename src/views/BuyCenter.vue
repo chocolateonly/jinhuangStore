@@ -2,7 +2,7 @@
     <div class="bg flexCol1">
         <div class="header ">
             <div class="flexCol1 jc-end ai-center">
-                <div class="tabs  flexRow0  ai-center">
+                <div class="tabs  flexRow1  ai-center">
                     <div class="tab-item flexRow1 jc-center"
                          v-for="(v,i) in tabs" :key="i"
                          :class="{'active':activeTab===i}"

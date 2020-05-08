@@ -1,7 +1,7 @@
 <template>
     <div class="bg flexCol1">
 
-        <Header title="全部评论" _className="header flexCol0 clearBorder" :on-press-left="goBack"></Header>
+        <Header title="全部评论" _className="header  clearBorder" :on-press-left="goBack"></Header>
 
         <div class=" flexCol1 overflowY">
             <div class="content">

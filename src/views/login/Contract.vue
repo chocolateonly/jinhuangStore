@@ -1,6 +1,6 @@
 <template>
     <div class="register flexCol1">
-        <Header _className="header flexCol0" title="电子合约签署" :on-press-left="goBack"/>
+        <Header _className="header " title="电子合约签署" :on-press-left="goBack"/>
         <div class="flexCol1 overflowY">
             <div class="container ">
                 <div class="input_from">

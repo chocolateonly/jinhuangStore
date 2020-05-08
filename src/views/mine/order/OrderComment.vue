@@ -41,7 +41,7 @@
                     label-align="left"
             />
 
-            <div class="save-btn lg-bg-red flexCol0 ai-center" @click="onSubmit">
+            <div class="save-btn lg-bg-red  ai-center" @click="onSubmit">
                 <span>提 交</span>
             </div>
 

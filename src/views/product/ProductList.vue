@@ -1,8 +1,8 @@
 <template>
     <div class="product-list flexCol1">
-        <div class="pl-header flexCol0">
+        <div class="pl-header ">
 
-            <Header title="全部商品" _className="header flexCol0 clearBorder" :on-press-left="goBack"/>
+            <Header title="全部商品" _className="header  clearBorder" :on-press-left="goBack"/>
 
             <div class="tabs flexRow1  ai-center">
                 <div class="tab-item flexRow1 jc-center"

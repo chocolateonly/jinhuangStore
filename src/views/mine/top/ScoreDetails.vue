@@ -25,7 +25,7 @@
                                             <div class="money">{{v.integral}}</div>
                                         </div>
 
-                                        <div class="user-tiem flexCol0">
+                                        <div class="user-tiem ">
                                             <div>订单类型：{{v.type}}</div>
                                             <div >{{v.create_time}}</div>
                                         </div>

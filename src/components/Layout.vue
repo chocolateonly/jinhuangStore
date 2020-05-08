@@ -1,6 +1,6 @@
 <template>
     <div class="bg flexCol1">
-        <Header :title="title" _className="header flexCol0 clearBorder" :on-press-left="goBack">
+        <Header :title="title" _className="header  clearBorder" :on-press-left="goBack">
             <slot></slot>
         </Header>
 

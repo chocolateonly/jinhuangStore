@@ -1,9 +1,9 @@
 <template>
     <div class="bg flexCol1">
 
-        <div class="pl-header flexCol0">
+        <div class="pl-header ">
             <Header title="我的订单"
-                    _className="header flexCol0 clearBorder"
+                    _className="header  clearBorder"
                     :hasBorder="false"
                     :on-press-left="goBack"></Header>
 

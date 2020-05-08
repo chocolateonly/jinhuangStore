@@ -48,7 +48,7 @@
             </van-cell>
 
 
-            <div class="save-btn lg-bg-red flexCol0 ai-center" @click="onSave">
+            <div class="save-btn lg-bg-red  ai-center" @click="onSave">
                 <span>提 交</span>
             </div>
 

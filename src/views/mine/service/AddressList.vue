@@ -1,7 +1,7 @@
 <template>
     <div class="bg flexCol1">
 
-        <Header title="收货地址" _className="header flexCol0 clearBorder"
+        <Header title="收货地址" _className="header  clearBorder"
                 :on-press-left="goBack">
             <div class="header-right-btn" @click="goAddOrUpdateAddress">添加</div>
         </Header>

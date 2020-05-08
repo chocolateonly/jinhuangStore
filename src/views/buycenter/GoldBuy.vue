@@ -1,6 +1,6 @@
 <template>
     <div class="bg flexCol1">
-        <Header title="金条购置" _className="header flexCol0 clearBorder" :on-press-left="goBack"></Header>
+        <Header title="金条购置" _className="header  clearBorder" :on-press-left="goBack"></Header>
         <div class=" flexCol1 overflowY">
 
             <img class="banner" src="../../assets/home/banner_header.png" alt="">

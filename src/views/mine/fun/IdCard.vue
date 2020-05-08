@@ -25,7 +25,7 @@
                 <div class="img-wrap flexCol1 ai-center">
 
                     <van-uploader :after-read="afterReadUp">
-                        <div>
+                        <div class="wrap">
                             <img v-if="idCardUp.length>0" :src="idCardUp[0].content" alt="">
                             <img v-else src="../../../assets/me/idcard_up.png" alt="">
                         </div>
@@ -37,9 +37,9 @@
                 <div class="img-wrap flexCol1 ai-center">
 
                     <van-uploader :after-read="afterReadDown">
-                        <div>
-                            <img v-if="idCardUp.length>0" :src="idCardDown[0].content" alt="">
-                            <img v-else src="../../../assets/me/idcard_down.png" alt="">
+                        <div  class="wrap">
+                            <img  v-if="idCardUp.length>0" :src="idCardDown[0].content" alt="">
+                            <img  v-else src="../../../assets/me/idcard_down.png" alt="">
                         </div>
                     </van-uploader>
                     <div>身份证反面</div>
@@ -163,7 +163,12 @@
     .input-item {
         background: transparent;
     }
-
+.van-uploader{
+    width:100%;
+}
+    .wrap{
+        width:100%;
+    }
     .img-wrap {
         background: #fff;
         padding: 10px;
@@ -174,6 +179,7 @@
         img {
             width: 100%;
             height: 200px;
+            display: inline-block;
         }
     }
 

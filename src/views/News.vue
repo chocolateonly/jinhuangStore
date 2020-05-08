@@ -1,7 +1,7 @@
 <template>
     <div class="news flexCol1 flexGrow1">
 
-        <div class="flexCol0">
+        <div class="">
             <img class="header-banner" src="../assets/news/news_banner.png" alt="">
             <Notice :data="notice"/>
         </div>
