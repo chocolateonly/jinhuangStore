@@ -182,7 +182,7 @@
                     this.lastPriceInterval = setInterval(async () => {
                         try {
                             const l_res = await serviceApi.getLastPrice()
-                            this.curPrice = l_res.data.last_price
+                            this.curPrice = l_res.data.now_price
                         } catch (e) {
                             clearInterval(this.lastPriceInterval)
                             global.showErrorTip(e.msg, this)

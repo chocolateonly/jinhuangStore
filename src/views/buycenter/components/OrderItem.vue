@@ -21,12 +21,15 @@
                         </div>
                         <div class="flexRow1 ai-center text-line-1">
                             <img src="../../../assets/buycenter/icon_xian.png" alt="">
-                            <span class="text-line-1">￥{{curPrice}}</span>
+<!--       已卖出的订单现价和货币增减就不用实时变动了    现价sell_price   货币增减取  profit_money              -->
+                            <span class="text-line-1" v-if="v.state==='3'">￥{{v.sell_price}}</span>
+                            <span class="text-line-1" v-else>￥{{curPrice}}</span>
                         </div>
                     </div>
                     <!-- fixme:单价 现价-->
                     <div class="info-sub text-line-1 profit">
-                        货币增减：<span :class="isUp?'red':'green'">￥{{profit_money}}</span>
+                        货币增减：<span :class="isUp?'red':'green'"   v-if="v.state==='3'">￥{{v.profit_money}}</span>
+                        <span :class="isUp?'red':'green'"  v-else>￥{{profit_money}}</span>
                     </div>
                     <div class="info-sub text-line-1">数量：x{{v.num}}</div>
                 </div>
@@ -81,8 +84,8 @@
                 this.lastPriceInterval = setInterval(async () => {
                     try {
                         const l_res = await serviceApi.getLastPrice()
-                        this.curPrice = l_res.data.last_price
-                        this.profit_money = (Number(l_res.data.last_price) - Number(this.v.price)) * Number(this.v.num) * Number(this.v.weight).toFixed(2)
+                        this.curPrice = l_res.data.now_price
+                        this.profit_money = Number((Number(l_res.data.now_price) - Number(this.v.price)) * Number(this.v.num) * Number(this.v.weight)).toFixed(2)
                         if (Number(this.profit_money) > 0) this.isUp = true
                         else this.isUp = false
                     } catch (e) {
