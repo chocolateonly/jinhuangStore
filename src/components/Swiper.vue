@@ -33,7 +33,6 @@
 <style scoped>
     .swiper {
         background: #fcc;
-
         overflow:hidden;
     }
 

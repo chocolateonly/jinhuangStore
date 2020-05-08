@@ -6,15 +6,21 @@
             <Notice :data="notice"/>
         </div>
 
-        <div class="tabs flexRow0">
-            <div class="tab-item flexCol1 ai-center"
+<!--        <div class="tabs flexRow0 jc-center" style="overflow-x: auto">
+            <div class="tab-item ai-center"
+                 style="min-width: 200px"
                  v-for="(v,i) in tabs" :key="i"
-                 :class="{'active':activeTab===i}"
-                 @click="activeTab=i"
+                 :class="{'active':activeTab===v.id}"
+                 @click="activeTab=v.id"
             >
-                <div class="tab-item-title">{{v}}</div>
+                <div class="tab-item-title">{{v.name}}</div>
             </div>
-        </div>
+        </div>-->
+
+        <van-tabs class="tabs" v-model="activeTab" background="transparent" @click="selectTab" >
+            <van-tab class="tab"  v-for="(v,i) in tabs" :key="i" :title="v.name"  >
+            </van-tab>
+        </van-tabs>
 
         <!-- 新闻列表-->
         <div class="news-list flexGrow1 overflowY">
@@ -43,7 +49,7 @@
     components: {FlatListView, Notice, NewsItem},
     data() {
       return {
-        tabs: ['公司新闻', '行业新闻'],
+        tabs: [],
         activeTab: 0,
           notice:{}
       }
@@ -52,16 +58,19 @@
       goNewsDetails(id){
         this.$router.push(`/newsDetails/${id}`)
       },
+        selectTab(id){
+            this.activeTab=id
+        },
       async getList(page) {
-
           const params={
               page:page,
-              cls_id:this.activeTab,
+              cls_id: this.tabs.length>0?this.tabs[this.activeTab].id:0,
               hasToken:true
           }
 
           try {
               const res=await  serviceApi.getNewsList(params)
+              this.tabs=res.data.aclist
               this.notice=res.data.notice
               return {total:res.data.count,list:res.data.list}
           }catch (e) {
@@ -83,11 +92,11 @@
     }
 
     .tabs {
-        width: 508px;
         margin: 10px auto;
+      // .tab{background: transparent;}
     }
 
-    .tab-item {
+ /*   .tab-item {
         width: 254px;
         height: 32px;
         font-size: 30px;
@@ -106,7 +115,7 @@
             border-radius: 2px;
             margin-top: 5px;
         }
-    }
+    }*/
 
     .news-list {
         padding: 0 30px;

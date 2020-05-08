@@ -1,7 +1,7 @@
 <template>
 
     <div class="bg flexCol1">
-        <Header title="个人信息" _className="header flexCol0 clearBorder"
+        <Header title="个人信息" _className="header clearBorder"
                 :on-press-left="goBack">
             <div class="right-btn" @click="onSave">保存</div>
         </Header>
@@ -15,7 +15,7 @@
                         <template #right-icon>
                             <van-uploader :after-read="afterRead">
                                 <div>
-                                    <img v-if="fileList.length>0" :src="fileList[0].content" alt="">
+                                    <img v-if="fileList[0].content" :src="fileList[0].content" alt="">
                                     <img v-else src="../../../assets/me/add_img.png" alt="">
                                 </div>
                             </van-uploader>
@@ -74,9 +74,9 @@
             return {
                 nickName: '',
                 intro: '',
-                email: '',
+                email: '1226937462@qq.com',
                 code: '',
-                fileList: [],
+                fileList: [{content:''}],
                 avatarId:''
             }
         },
@@ -94,6 +94,8 @@
                     this.fileList = [file]
             },
             async onSave() {
+                if(!this.fileList[0].content)  return this.$toast.fail('请上传头像')
+
                 if (!validator.isEmail(this.email)) return this.$toast.fail('邮箱格式不对')
 
                 try {
@@ -141,9 +143,12 @@
             try {
                 const res = await serviceApi.profile(params)
                 this.nickName = res.data.nickname
-                this.fileList = [{content: res.data.image,}]
-                this.avatarId=res.data.avatar
-                this.email = res.data.email
+               if (res.data.avatar) {
+                   this.fileList = [{content: res.data.image,}]
+                   this.avatarId=res.data.avatar
+                   this.email = res.data.email
+
+               }
 
 
             } catch (e) {

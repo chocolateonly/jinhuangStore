@@ -1,7 +1,7 @@
 <template>
     <Layout title="操作指南" :go-back="goBack">
         <div class="main" slot="content">
-            {{data}}
+            <div v-html="data"></div>
         </div>
     </Layout>
 

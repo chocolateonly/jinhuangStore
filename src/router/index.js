@@ -36,7 +36,7 @@ Vue.use(VueRouter)
 
     // production
     {
-      path: '/productionList',
+      path: '/productionList/:id',
       name: 'ProductionList',
       component: () => import(/* webpackChunkName: "productionList" */ '../views/product/ProductList'),
       meta: { requiresAuth: true }

@@ -1,9 +1,14 @@
 <template>
     <div class="bg flexCol1">
-        <Header title="金条购置" _className="header  clearBorder" :on-press-left="goBack"></Header>
+        <Header title="金条购置" _className="header"
+                :hasBorder="false"
+                :on-press-left="goBack"></Header>
         <div class=" flexCol1 overflowY">
 
-            <img class="banner" src="../../assets/home/banner_header.png" alt="">
+           <!-- <img class="banner" src="../../assets/home/banner_header.png" alt="">-->
+            <div>
+                <Swiper :images="getImgs()"/>
+            </div>
 
             <div class="content">
                 <div class="gold-info">
@@ -76,7 +81,7 @@
                 </div>
 
                 <div class="other">
-                    说明规则：很多很多字说明规则：很多很多字说明规则：很多很多字说明规则：很多很多字说明规则：很多很多字说明规则
+                    {{gold.gold_deal_remark}}
                 </div>
 
             </div>
@@ -90,13 +95,14 @@
     import Header from "../../components/Header";
     import {serviceApi} from "../../services/apis";
     import global from "../../components/global";
+    import Swiper from "../../components/Swiper";
 
     export default {
         name: "GoldBuy",
-        components: {Header},
+        components: {Swiper, Header},
         data() {
             return {
-                gold: {},
+                gold: {imgs:[]},
                 selected_size: {id: ''},
                 buyNumber: 1,
                 curPrice: '',
@@ -108,6 +114,12 @@
             }
         },
         methods: {
+            getImgs(){
+               return  this.gold.imgs.reduce((acc,cur)=>{
+                   acc.push({image:cur})
+                   return acc
+               },[])
+            },
             goBack() {
                 this.$router.go(-1)
             },
@@ -150,7 +162,7 @@
                 //计算预付款:规格g*数量*后台价格
                 this.totalPrice = Number(Number(this.gold.price) * Number(this.buyNumber) * Number(this.selected_size.weight)).toFixed(2)
                 //计算实付款:
-                this.finaPrice = Number(this.totalPrice - this.servicePrice).toFixed(2)
+                this.finaPrice = Number(Number(this.totalPrice) + Number(this.servicePrice)).toFixed(2)
             },
             async getGoldDetails() {
                 const params = {

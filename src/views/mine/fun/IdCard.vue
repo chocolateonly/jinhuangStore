@@ -24,9 +24,9 @@
 
                 <div class="img-wrap flexCol1 ai-center">
 
-                    <van-uploader :after-read="afterReadUp">
+                    <van-uploader class="uploader" :after-read="afterReadUp">
                         <div class="wrap">
-                            <img v-if="idCardUp.length>0" :src="idCardUp[0].content" alt="">
+                            <img v-if="idCardUp[0].content" :src="idCardUp[0].content" alt="">
                             <img v-else src="../../../assets/me/idcard_up.png" alt="">
                         </div>
                     </van-uploader>
@@ -38,7 +38,7 @@
 
                     <van-uploader :after-read="afterReadDown">
                         <div  class="wrap">
-                            <img  v-if="idCardUp.length>0" :src="idCardDown[0].content" alt="">
+                            <img  v-if="idCardDown[0].content" :src="idCardDown[0].content" alt="">
                             <img  v-else src="../../../assets/me/idcard_down.png" alt="">
                         </div>
                     </van-uploader>
@@ -68,8 +68,8 @@
             return {
                 name: '',
                 idCard: '',
-                idCardUp: [],
-                idCardDown: [],
+                idCardUp: [{content:''}],
+                idCardDown: [{content:''}],
                 idCardUpId:'',
                 idCardDownId:'',
             }
@@ -182,7 +182,9 @@
             display: inline-block;
         }
     }
-
+     .uploader .van-uploader__input-wrapper{
+         margin: 0 auto;
+     }
     .save-btn {
         padding: 24px 0;
         border-radius: 10px;

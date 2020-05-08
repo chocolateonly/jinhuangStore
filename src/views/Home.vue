@@ -68,7 +68,7 @@
                         <TitleCore />
                         <span>热门产品</span>
                     </div>
-                    <div class="header-right" @click="$router.push('/productionList')">
+                    <div class="header-right" @click="$router.push('/productionList/0')">
                         更多
                     </div>
                 </div>

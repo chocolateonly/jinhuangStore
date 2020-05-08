@@ -7,9 +7,9 @@
             <div class="tabs flexRow1  ai-center">
                 <div class="tab-item flexRow1 jc-center"
                      v-for="(v,i) in tabs" :key="i"
-                     :class="{'active':activeTab===i}"
-                     @click="setActiveTab(i)">
-                    {{v}}
+                     :class="{'active':$route.params.id===v.id}"
+                     @click="setActiveTab(v.id)">
+                    {{v.name}}
                 </div>
             </div>
 
@@ -40,7 +40,7 @@
     name: "ProductList",
     data() {
       return {
-        tabs: ['全部', '黄金', '18K黄金', '铂金', '钻石', '珍珠'],
+        tabs: [],
         activeTab: 0
       }
     },
@@ -48,6 +48,7 @@
     methods: {
       setActiveTab(i) {
         this.activeTab = i
+        this.$router.push(`/productionList/${i}`)
       },
       goBack() {
         this.$router.go(-1)
@@ -63,12 +64,16 @@
 
         try {
          const res=await  serviceApi.getAllProducts(params)
+            this.tabs=res.data.ptlist
             return {total:res.data.count,list:res.data.data}
         }catch (e) {
             global.showErrorTip(e.msg,this)
         }
       },
-    }
+    },
+     async beforeMount() {
+         this.activeTab = this.$route.params.id
+     }
   }
 </script>
 

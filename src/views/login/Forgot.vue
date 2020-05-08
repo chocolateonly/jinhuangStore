@@ -62,7 +62,7 @@
         components: {Header, FullButton, CodeView},
         data() {
             return {
-                mobile: '13476260156',
+                mobile: '',
                 code: '',
                 password: '',
                 confirmPassword: '',

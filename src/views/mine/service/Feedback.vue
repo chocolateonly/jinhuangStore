@@ -50,9 +50,9 @@
         components: {Layout},
         data() {
             return {
-                title: 'test',
-                mobile: '13476260156',
-                feedback:'test'
+                title: '',
+                mobile: '',
+                feedback:''
             }
         },
         methods: {

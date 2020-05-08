@@ -42,7 +42,7 @@
         components: {FullButton},
         data() {
             return {
-                username: '13476260156',
+                username: '',
                 password: ''
             }
         },
@@ -75,7 +75,6 @@
             }
         },
         mounted() {//清缓存
-            console.log('清缓存--------')
             localStorage.removeItem(StorageKey);
         }
     }

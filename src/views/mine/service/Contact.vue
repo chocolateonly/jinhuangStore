@@ -1,8 +1,8 @@
 <template>
     <Layout title="联系客服" :go-back="goBack">
         <div class="main" slot="content">
-
-            <img class="banner" src="../../../assets/me/contact_banner.png" alt="">
+            <div v-html="data"></div>
+            <!--<img class="banner" src="../../../assets/me/contact_banner.png" alt="">
 
 
             <a class="user-info" :href="`tel:${data[0]}`">
@@ -23,13 +23,13 @@
                     </div>
                 </div>
 
-<!--                    <div class="right-arrow flexRow0">
+&lt;!&ndash;                    <div class="right-arrow flexRow0">
                         <van-icon name="arrow" size="40"/>
-                    </div>-->
+                    </div>&ndash;&gt;
 
                 </div>
 
-            </a>
+            </a>-->
 
         </div>
     </Layout>
