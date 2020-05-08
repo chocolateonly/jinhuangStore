@@ -52,7 +52,6 @@
                     <van-field
                             class="input"
                             autosize
-                            type="number"
                             v-model="recommendCode"
                             :left-icon="require('../../assets/login/icon_code.png')"
                             placeholder="请输入推荐码"
@@ -127,6 +126,7 @@
                     password: this.password,
                     password1: this.confirmPassword,
                     invite_code: this.recommendCode,
+                    sta:this.hasRead?'2':'1'
                 }
 
                 try {

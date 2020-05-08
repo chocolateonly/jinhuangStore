@@ -115,7 +115,7 @@
 
                     if (this.payWay===0){//微信
                         res=await res.json()
-                        const url = encodeURIComponent(`${payRedirectUrl}/#/payOrder/4`)
+                        const url = encodeURIComponent(`${payRedirectUrl}/#/myOrder/0`)
                         window.location.href = res.data+"&redirect_url="+url;
                     }
                     else if (this.payWay===1){//支付宝
@@ -127,7 +127,7 @@
                     }
                     else{
                         this.$toast(res.desc) //支付成功
-                        this.$router.push('/myOrder')
+                        this.$router.push('/myOrder/0')
                     }
 
                 } catch (e) {

@@ -19,7 +19,7 @@
             <van-icon name="arrow-down"/>
         </div>-->
 
-        <div class=" flexCol1 overflowY">
+        <div class=" flexCol1 overflowY" >
             <div class="content">
 
                 <FlatListView :key="activeTab" :getList="(page,pageSize)=>getList(page,pageSize)">
@@ -33,9 +33,14 @@
             </div>
         </div>
         <!--        金条购置按钮-->
+
         <div class="jtgz-btn">
-            <full-button _class-name="sq-btn" title="金条购置" :on-click="goBuyPage"/>
+            <full-button  v-if="show==='1'"   _class-name="sq-btn" title="金条购置" :on-click="goBuyPage"/>
+
+            <full-button  v-else _class-name="sq-btn gray" title="金条购置" />
         </div>
+
+
 
         <!--        日期选择弹框-->
         <van-popup v-model="showPicker" position="bottom">
@@ -73,6 +78,7 @@
                 currentDate: moment().toDate(),  //for pop
                 showPicker: false,
                 selectedDate: this.formatDate(),  //for selected val
+                show:''
             }
         },
         components: {FlatListView, OrderItem, FullButton},
@@ -102,6 +108,7 @@
                 }
                 try {
                     const res = await serviceApi.getBuyCenterList(params)
+                    this.show=res.data.switch
                     return {total: res.data.count, list: res.data.data}
                 } catch (e) {
                     global.showErrorTip(e.msg, this)
@@ -160,6 +167,9 @@
         .sq-btn {
             background: url("../assets/common/sq_full_btn.png") no-repeat;
             background-size: cover;
+            &.gray{
+                background: #ccc;
+            }
         }
     }
 
