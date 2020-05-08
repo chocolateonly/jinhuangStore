@@ -32,10 +32,10 @@
                 <div class="user-money">
                     <div class="item-money text-line-1">
                         <label>资产总额：</label>
-                        <span>{{data.balance}}</span>
+                        <span>{{all_money}}</span>
                     </div>
                     <div class="item-money text-line-1">
-                        <span class="yue">(可用余额：{{kyyue}})</span>
+                        <span class="yue">(可用余额：{{data.balance}})</span>
                     </div>
                     <div class="item-money flexRow0 jc-sb ai-center" style="margin-top:10px">
                         <div class="flexGrow1  text-line-1">
@@ -126,7 +126,8 @@
           {nav:'联系客服',img:require('../assets/me/service4.png')},
          ],
           data:{},
-          kyyue:''
+          all_money:'',
+          lastPriceInterval:''
       }
     },
     methods: {
@@ -199,11 +200,24 @@
 
           try {
               const res = await serviceApi.profile(params)
-              //this.kyyue=Number(res.data.balance)
               this.data=res.data
+
+              //实时获取资产总额
+              this.lastPriceInterval=setInterval(async ()=>{
+                  try {
+                      const all_money=await serviceApi.getAllMoney(params)
+                      this.all_money=all_money.data
+                  }catch (e) {
+                      clearInterval(this.lastPriceInterval)
+                      global.showErrorTip(e.msg, this)
+                  }
+              },1000)
           } catch (e) {
               global.showErrorTip(e.msg, this)
           }
+      },
+      destroyed() {
+          clearInterval(this.lastPriceInterval)
       }
   }
 </script>
@@ -311,7 +325,7 @@
                 text-align: left;
             }
             .menu-item{
-                padding: 10px 0;
+                padding: 20px 0;
                 img{
                     width: 72px;
                     height:72px;
