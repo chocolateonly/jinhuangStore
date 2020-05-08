@@ -60,7 +60,7 @@
                         username: this.username,
                         password: this.password
                     })
-                    storageData(res.data)
+                    await storageData(res.data);
                     this.$router.push('/tab/home')
                 } catch (e) {
                     global.showErrorTip(e.msg, this)
@@ -75,6 +75,7 @@
             }
         },
         mounted() {//清缓存
+            console.log('清缓存--------')
             localStorage.removeItem(StorageKey);
         }
     }

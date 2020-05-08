@@ -88,7 +88,7 @@
                 try {
                     //upload
                     const formData = new FormData();
-                    const {uid,token}=lastRecord
+                    const {uid,token}=lastRecord()
                     formData.append('file',  file);
                     formData.append("uid", uid);
                     formData.append("token", token);

@@ -34,7 +34,7 @@ function makeSign(obj) {
 //storage
 export const StorageKey='BS_JINHUANG_USER';
 
-export const lastRecord = (() => { // 上一把的状态
+export const lastRecord = () => { // 上一把的状态
     let data = localStorage.getItem(StorageKey);
     if (!data) {
         return false;
@@ -52,12 +52,18 @@ export const lastRecord = (() => { // 上一把的状态
         return false;
     }
     return data;
-})();
+};
 export const storageData=info =>{
             let data  = JSON.stringify(info);
             data = encodeURIComponent(data);
             if (window.btoa) {
                 data = btoa(data);
             }
-            localStorage.setItem(StorageKey, data);
+            try {
+
+                localStorage.setItem(StorageKey, data);
+            }
+            catch (e) {
+                console.log('error storage--')
+            }
 };

@@ -2,11 +2,11 @@ import {Get} from "./index";
 import qs from 'qs'
 import {getSign, lastRecord} from "../utils";
 export const apiRoot='http://jinhuang.test.hbbeisheng.com' //'http://jinhuang.test.hbbeisheng.com' //http://www.jinhuang.com
-export const payRedirectUrl='http://jinhuang.test.hbbeisheng.com'
+export const payRedirectUrl='http://jinhuang.test.hbbeisheng.com/wap'
 export const getParams=(body)=>{
   const timestamp = new Date().getTime().toString().substr(0,11)
   const {hasToken,...other}=body
-  const {uid,token}=lastRecord
+  const {uid,token}=lastRecord()
 
   const params = hasToken?{...other,timestamp,uid,token}:{...other,timestamp}
   const sign = getSign(params)

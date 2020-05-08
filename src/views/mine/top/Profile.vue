@@ -101,7 +101,7 @@
               if (Object.keys(this.fileList[0]).includes('file')) {
                   //upload
                   const formData = new FormData();
-                  const {uid,token}=lastRecord
+                  const {uid,token}=lastRecord()
                   formData.append('file',  this.fileList[0].file);
                   formData.append("uid", uid);
                   formData.append("token", token);
