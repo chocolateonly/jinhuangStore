@@ -16,7 +16,7 @@
                 <div class="summary">￥ {{v.price}}</div>
             </div>
 
-            <van-stepper v-model="v.num" min="1" :max="v.stock" @plus="onChangeNumber(v,1)" @minus="onChangeNumber(v,0)" />
+            <van-stepper v-model="v.num" min="1" :max="v.stock" disable-input @plus="onChangeNumber(v,1)" @minus="onChangeNumber(v,0)" />
         </div>
 
         <div class="delete-icon">

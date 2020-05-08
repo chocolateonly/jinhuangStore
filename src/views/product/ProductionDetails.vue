@@ -132,7 +132,7 @@
                     <div class="set-number flexRow0 jc-sb ai-center">
                         <div class="set-number-title">购买数量</div>
                         <div class="set-number-wrap">
-                            <van-stepper v-model="buyNumber" min="1" max="8"/>
+                            <van-stepper v-model="buyNumber" min="1" max="8" disable-input/>
                         </div>
                     </div>
 

@@ -1,10 +1,10 @@
 <template>
     <div class="home flexCol1">
 
-        <img :src="require('./../assets/home/banner_header.png')" class="header-banner"/>
-<!--        <div>
+<!--        <img :src="require('./../assets/home/banner_header.png')" class="header-banner"/>-->
+        <div>
         <Swiper :images="images"/>
-        </div>-->
+        </div>
 
         <Notice v-show="data.notice.title" :data="data.notice"/>
 
@@ -37,8 +37,9 @@
 
                         <div class="gnjj text-line-1">今日交易量</div>
                         <div class="top-left color3 text-line-1">
-                            <span class="font50">{{data.today_num}}</span>
-
+                            <span>￥</span>
+                            <span class="font50">{{int(data.today_num)}}</span>
+                            <span>{{dec(data.today_num)}}</span>
                         </div>
 
                     </div>
@@ -49,7 +50,9 @@
 
                         <div class="gnjj text-line-1">历史交易量</div>
                         <div class="top-left color3 text-line-1">
-                            <span class="font50">{{data.nums}}</span>
+                            <span>￥</span>
+                            <span class="font50">{{int(data.nums)}}</span>
+                            <span>{{dec(data.nums)}}</span>
                         </div>
 
                     </div>
@@ -101,10 +104,12 @@
     import Notice from "../components/Notice";
     import {serviceApi} from "../services/apis";
     import global from "../components/global";
+    import Swiper from "../components/Swiper";
     //import Swiper from "../components/Swiper";
     export default {
         name: 'Home',
         components: {
+            Swiper,
             //Swiper,
             Notice, ProductionItem,TitleCore},
         data() {
@@ -154,7 +159,7 @@
                 this.lastPriceInterval=setInterval(async ()=>{
                     try {
                         const l_res=await serviceApi.getLastPrice()
-                        this.last_price=l_res.data.last_price
+                        this.last_price=l_res.data.long_price
                     }catch (e) {
                         clearInterval(this.lastPriceInterval)
                         global.showErrorTip(e.msg, this)

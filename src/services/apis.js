@@ -13,6 +13,9 @@ export const getParams=(body)=>{
   return {...params,timestamp,sign}
 }
 //登录
+function getSplash(body,options) {
+  return Get(`${apiRoot}/api/publics/lunbotu?${qs.stringify(getParams(body))}`,options)
+}
 function register (body,options) {
   return Get(`${apiRoot}/api/publics/register?${qs.stringify(getParams(body))}`,options)
 }
@@ -204,6 +207,7 @@ function addIdCardAuth(body,options) {
 }
 
 export  const serviceApi =  {
+  getSplash,
   getUserAgreement,
   register,
   sendMsg,

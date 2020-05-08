@@ -2,7 +2,11 @@
     <div class="news flexCol1 flexGrow1">
 
         <div class="">
-            <img class="header-banner" src="../assets/news/news_banner.png" alt="">
+           <!-- <img class="header-banner" src="../assets/news/news_banner.png" alt="">-->
+            <div>
+                <Swiper :images="images"/>
+            </div>
+
             <Notice :data="notice"/>
         </div>
 
@@ -43,15 +47,17 @@
   import FlatListView from "../components/flatListView/FlatListView";
   import {serviceApi} from "../services/apis";
   import global from "../components/global";
+  import Swiper from "../components/Swiper";
 
   export default {
     name: 'News',
-    components: {FlatListView, Notice, NewsItem},
+    components: {Swiper, FlatListView, Notice, NewsItem},
     data() {
       return {
         tabs: [],
         activeTab: 0,
-          notice:{}
+          notice:{},
+          images:[]
       }
     },
     methods: {
@@ -78,7 +84,20 @@
           }
 
       },
-    }
+    },
+      async beforeCreate() {
+          try {
+              //基础数据
+              const res=await serviceApi.getHomeData({hasToken:true})
+              this.data={...this.data,...res.data}
+              this.images=res.data.sliderlist.reduce((acc,cur)=>{
+                  acc.push({...cur,image:cur.cover})
+                  return acc
+              },[])
+          }catch (e) {
+              global.showErrorTip(e.msg, this)
+          }
+      },
   }
 </script>
 <style lang="less" scoped>

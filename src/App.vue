@@ -40,7 +40,7 @@
         }
 
         .font50 {
-            font-size: 50px;
+            font-size: 40px;
         }
 
         .color3 {

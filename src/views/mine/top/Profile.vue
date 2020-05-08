@@ -14,7 +14,7 @@
                     <van-cell class="set-avatar ai-center" title="头像">
                         <template #right-icon>
                             <van-uploader :after-read="afterRead">
-                                <div>
+                                <div class="img-wrap">
                                     <img v-if="fileList[0].content" :src="fileList[0].content" alt="">
                                     <img v-else src="../../../assets/me/add_img.png" alt="">
                                 </div>
@@ -198,7 +198,13 @@
         background: transparent;
         border-bottom: 1px solid #eee;
     }
+.img-wrap{
 
+    width: 124px;
+    height: 124px;
+    border-radius: 62px;
+    background: #fcc;
+}
     img {
         width: 124px;
         height: 124px;
