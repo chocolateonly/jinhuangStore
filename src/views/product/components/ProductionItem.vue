@@ -1,6 +1,8 @@
 <template>
     <div class="production" :class="i%2===0?'mr':'ml'" @click="handleClick">
+        <div class="img-wrap">
         <img class="p-img" :src="v.image" alt="">
+        </div>
 
         <div class="content text-line-2">
             {{v.name}}
@@ -60,6 +62,10 @@
             .money {
                 color: #FF204A;
             }
+        }
+        .img-wrap{
+            width: 100%;
+            height: 331px; //图片高度
         }
         .p-img {
             height: 331px; //图片高度

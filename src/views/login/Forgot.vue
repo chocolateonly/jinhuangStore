@@ -1,6 +1,6 @@
 <template>
     <div class="register flexCol1">
-        <Header _className="header flexCol0" title="忘记密码" :on-press-left="goBack"/>
+        <Header _className="header " title="忘记密码" :on-press-left="goBack"/>
         <div class="flexCol1 overflowY">
         <div class="container">
             <div class="input_from">
@@ -126,7 +126,7 @@
 
         .input {
             background: transparent;
-            border-bottom: 1px solid #333;
+            border-bottom: 2px solid #333;
             padding-right: 0;
             padding-left: 0;
             width: auto;

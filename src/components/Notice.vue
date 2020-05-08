@@ -1,7 +1,9 @@
 <template>
-    <van-notice-bar class="notice" left-icon="volume-o" mode="closeable" :scrollable="true">
+    <div >
+    <van-notice-bar class="notice"  left-icon="volume-o" mode="closeable" :scrollable="true">
         {{data.title}}
     </van-notice-bar>
+    </div>
 </template>
 
 <script>

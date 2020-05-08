@@ -3,7 +3,7 @@
         <div class="flexCol1">
         <router-view/>
         </div>
-        <div class="tab flexCol0">
+        <div class="tab">
         <TabBar/>
         </div>
     </div>
@@ -19,9 +19,6 @@
 </script>
 
 <style scoped>
-    .tab{
-        height: 300px;
-    }
     .tab-view{
         height: 100%;
     }

@@ -48,9 +48,7 @@
                 <!--产品详情-->
                 <div>
                     <h4>产品详情</h4>
-                    <p>{{data.describe}}</p>
-                    <img v-for="(item,i) in data.imglist" :key="i" :src="item.image"
-                         style="width:100%">
+                    <p v-html="data.describe"></p>
 
                 </div>
             </div>

@@ -12,7 +12,7 @@
             <!--info-->
             <div class="info flexCol0">
 
-                <div class="flexRow1 jc-sb">
+                <div class="flexRow1 jc-sb ai-start">
                     <div class="flexCol1 mr5">
 
                         <div class="gnjj text-line-1">国内金价</div>
@@ -24,7 +24,7 @@
 
                     </div>
 
-                    <div class="flexCol0">
+                    <div class="">
                         <div class="img" @click="goBuyCenter">
                             <img :src="require('../assets/home/in_sc.png')" alt="">
                         </div>

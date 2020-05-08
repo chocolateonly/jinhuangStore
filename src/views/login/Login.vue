@@ -115,7 +115,7 @@
         }
         .input {
             background: transparent;
-            border-bottom: 1px solid #333;
+            border-bottom: 2px solid #333;
             padding-right: 0;
             padding-left: 0;
             width: auto;
