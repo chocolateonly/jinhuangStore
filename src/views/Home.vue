@@ -24,11 +24,9 @@
 
                     </div>
 
-                    <div class="">
-                        <div class="img" @click="goBuyCenter">
-                            <img :src="require('../assets/home/in_sc.png')" alt="">
-                        </div>
-                        <div class="img" @click="goAction"><img :src="require('../assets/home/in_zn.png')" alt=""></div>
+                    <div class="img flexCol0">
+                        <img :src="require('../assets/home/in_sc.png')" alt="" @click="goBuyCenter">
+                        <img :src="require('../assets/home/in_zn.png')" alt="" @click="goAction">
                     </div>
                 </div>
 
@@ -204,7 +202,9 @@
                 }
 
                 .img img {
+                    margin-bottom: 10px;
                     height: 40px;
+                    display: inline-block;
                 }
 
                 .sp {
