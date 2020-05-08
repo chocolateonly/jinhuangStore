@@ -4,7 +4,8 @@
 
             <div class="user-info flexRow0">
                 <div class="avatar">
-                    <img :src="data.avatar" alt="">
+                    <img v-if="data.avatar" :src="data.avatar" alt="">
+                    <img v-else src="../../../assets/common/user_logo.png" alt="">
                 </div>
                 <div class="right-info flexGrow1">
 
@@ -20,7 +21,8 @@
 
 
             <div class="vip-item" v-for="(v,i) in data.list" :key="i"
-            :class="selected_vip.id===v.id?'active':''">
+                 v-show="data.levelname!==v.name"
+            :class="selected_vip.id===v.id?'active':''" @click="selected_vip=v">
                 <div class="flexRow1 jc-sb">
                     <span class="level">{{v.name}}</span>
                     <span class="scale">特惠价￥ <span>{{v.money}}</span></span>
@@ -78,7 +80,7 @@
               {id: 0, name: '微信支付', img: require('../../../assets/home/pay/icon_wx.png')},
               {id: 1, name: '支付宝支付', img: require('../../../assets/home/pay/icon_zfb.png')},
           ],
-          payWay: 0
+          payWay: 0,
       }
     },
     methods: {
@@ -97,7 +99,7 @@
 
                 if (this.payWay===0){//微信
                     res=await res.json()
-                    const url = encodeURIComponent(`${payRedirectUrl}/#/payOrder/4`)
+                    const url = encodeURIComponent(`${payRedirectUrl}/#/tab/mine`)
                     window.location.href = res.data+"&redirect_url="+url;
                 }
                 else if (this.payWay===1){//支付宝
@@ -109,7 +111,7 @@
                 }
                 else{
                     this.$toast(res.desc) //支付成功
-                    this.$router.push('/myOrder')
+                    this.$router.push('/tab/mine')
                 }
 
             } catch (e) {
@@ -150,6 +152,8 @@
         .avatar {
             width: 100px;
             height: 100px;
+            border-radius: 50px;
+            background: #fcc;
             margin-right: 10px;
 
             img {

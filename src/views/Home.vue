@@ -10,9 +10,9 @@
 
         <div class="container">
             <!--info-->
-            <div class="info flexCol0">
+            <div class="info">
 
-                <div class="flexRow1 jc-sb ai-start">
+                <div class="info-top flexRow1 jc-sb ai-start" >
                     <div class="flexCol1 mr5">
 
                         <div class="gnjj text-line-1">国内金价</div>
@@ -32,7 +32,7 @@
                     </div>
                 </div>
 
-                <div class="flexRow1 jc-sb ai-center">
+                <div class="info-bottom flexRow1 jc-sb ai-center">
                     <div class="flexCol1 ">
 
                         <div class="gnjj text-line-1">今日交易量</div>
@@ -61,7 +61,7 @@
             </div>
             <!--banner-->
             <div class="banner">
-                <img src="../assets/home/banner.png" class="banner">
+                <img src="../assets/home/banner.png" class="banner" @click="$router.push('/tab/buyCenter')">
             </div>
 
             <!--hot productions-->
@@ -105,7 +105,6 @@
     import {serviceApi} from "../services/apis";
     import global from "../components/global";
     import Swiper from "../components/Swiper";
-    //import Swiper from "../components/Swiper";
     export default {
         name: 'Home',
         components: {
@@ -188,13 +187,13 @@
 
             .info {
                 margin-top: 30px;
-                height: 3rem;
+                height: 200px;
                 padding: 30px;
                 background: url("../assets/home/info_bg.png") no-repeat;
                 background-size: cover;
 
                 .gnjj {
-                    font-size: 30px;
+                    font-size: 26px;
                     color: rgba(102, 102, 102, 1);
                     text-align: left;
                 }
@@ -205,7 +204,7 @@
                 }
 
                 .img img {
-                    width: 150px;
+                    height: 40px;
                 }
 
                 .sp {
@@ -273,5 +272,11 @@
                 color: #fff;
             }
         }
+    }
+    .info-top{
+        height: 100px;
+    }
+    .info-bottom{
+        height: 100px;
     }
 </style>

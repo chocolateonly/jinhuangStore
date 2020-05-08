@@ -1,5 +1,5 @@
 <template>
-    <Layout :title="this.$route.params.type==='add'?'添加地址':'修改地址'" :go-back="goBack">
+    <Layout :title="this.$route.params.id==='add'?'添加地址':'修改地址'" :go-back="goBack">
 
         <div class="main" slot="content">
             <van-field
@@ -118,7 +118,7 @@
                 }
 
                 try {
-                    if (this.$route.params.type === 'add') {
+                    if (this.$route.params.id === 'add') {
                         await serviceApi.addAddress(params)
                     }else{
                         await serviceApi.updateAddress(params)

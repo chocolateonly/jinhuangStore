@@ -55,15 +55,9 @@
         </div>
 
         <!--底部购物车-->
-        <van-goods-action v-if="show" class="jiagou  jc-sb" :style="show?'z-index:2020':''">
 
-            <van-button style="flex:1;margin:0 20px;" round color="linear-gradient(to right,#ffd01e,#ee0a24)"
-                        @click="handleAddOrPay">确认
-            </van-button>
 
-        </van-goods-action>
-
-        <van-goods-action class="jiagou  jc-sb" v-else>
+        <van-goods-action class="jiagou  jc-sb" v-show="!show" >
 
             <div class="left-btn">
                 <!--<van-goods-action-icon class="collect"
@@ -86,59 +80,66 @@
 
                 <div class="number-header flexRow0 flexGrow1">
 
-                    <div class="number-header-left">
-                        <img :src="specs.image" alt="">
-                    </div>
-
-                    <div class="number-header-right ">
-                        <div class="number-header-title text-line-2">
-                            {{specs.name}}
+                        <div class="number-header-left">
+                            <img :src="specs.image" alt="">
                         </div>
 
-                        <div class="number-header-money">
-                            <div class="flexRow1 flexGrow1 ai-center text-line-1">
-                                <div class="money">
-                                    <span>￥</span>
-                                    <span class="font50">{{int(specs.price)}}</span>
-                                    <span>{{dec(specs.price)}}</span>
+                        <div class="number-header-right ">
+                            <div class="number-header-title text-line-2">
+                                {{specs.name}}
+                            </div>
 
-                                    <span class="jindou">金豆{{specs.integral}}</span>
+                            <div class="number-header-money">
+                                <div class="flexRow1 flexGrow1 ai-center text-line-1">
+                                    <div class="money">
+                                        <span>￥</span>
+                                        <span class="font50">{{int(specs.price)}}</span>
+                                        <span>{{dec(specs.price)}}</span>
+
+                                        <span class="jindou">金豆{{specs.integral}}</span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
                 <div class=" flexGrow1">
 
 
-                    <div class="guige-select" v-for="(spec,index) in specs.pslist" :key="index">
-                        <div class="guige-title-wrap">
-                            <div class="guige-select-title">
-                                {{spec.name}}
+                        <div class="guige-select" v-for="(spec,index) in specs.pslist" :key="index">
+                            <div class="guige-title-wrap">
+                                <div class="guige-select-title">
+                                    {{spec.name}}
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="guige-select-content">
+                            <div class="guige-select-content">
                         <span class="guige-select-tag" v-for="(v,i) in spec.list" :key="i">
                             <van-tag v-if="selected[spec.id]===v.id" type="primary" color="#BC0203"
                                      @click="setSpecs(spec.id,v.id)" size="large">{{v.name}}</van-tag>
                             <van-tag v-else plain type="primary" color="#323232" @click="setSpecs(spec.id,v.id)"
                                      size="large">{{v.name}}</van-tag>
                         </span>
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="set-number flexRow0 jc-sb ai-center">
-                        <div class="set-number-title">购买数量</div>
-                        <div class="set-number-wrap">
-                            <van-stepper v-model="buyNumber" min="1" max="8" disable-input/>
+                        <div class="set-number flexRow0 jc-sb ai-center">
+                            <div class="set-number-title">购买数量</div>
+                            <div class="set-number-wrap">
+                                <van-stepper v-model="buyNumber" min="1" max="8" disable-input/>
+                            </div>
                         </div>
-                    </div>
 
                 </div>
 
             </div>
+            <van-goods-action v-show="show" class="jiagou  jc-sb" :style="show?'z-index:2020':''">
+
+                <van-button style="flex:1;margin:0 20px;" round color="linear-gradient(to right,#ffd01e,#ee0a24)"
+                            @click="handleAddOrPay">确认
+                </van-button>
+
+            </van-goods-action>
         </van-popup>
 
         <!--        <van-share-sheet
@@ -236,16 +237,16 @@
                     }
                     if (this.goCarOrPay === 0) {//加入购物车
                         await serviceApi.addShoppingCart(params)
-                        this.show=false
+                        this.show = false
                         this.$toast('已加入购物车')
                     } else {//去支付
-                        const res=await serviceApi.buyNow(params)
-                        this.show=false
+                        const res = await serviceApi.buyNow(params)
+                        this.show = false
                         this.$router.push(`/payOrder/${res.data.order_id}`)
                     }
 
                 } catch (e) {
-                    this.show=false
+                    this.show = false
                     global.showErrorTip(e.msg, this)
                 }
 
@@ -280,7 +281,7 @@
                 const res = await serviceApi.getProductDetails({id: this.$route.params.id})
                 this.data = res.data
             } catch (e) {
-                global.showErrorTip(e.msg,this)
+                global.showErrorTip(e.msg, this)
             }
 
         },
@@ -345,13 +346,13 @@
     .number-select-box {
         background: url("../../assets/common/_bg.png") no-repeat;
         background-size: cover;
-        padding-bottom: 90px;
 
         .number-header {
             .number-header-left {
                 width: 200px;
                 height: 200px;
                 margin-right: 20px;
+                background: #fcc;
             }
 
             .number-header-title {
@@ -414,6 +415,7 @@
     }
 
     .jiagou {
+        position: fixed;
         width: 100%;
         background: url("../../assets/common/_bg.png") no-repeat;
         background-size: cover;

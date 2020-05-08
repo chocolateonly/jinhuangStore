@@ -17,18 +17,18 @@
                     <div class="info-sub flexRow1">
                         <div class="flexRow1 ai-center text-line-1">
                             <img src="../../../assets/buycenter/icon_gou.png" alt="">
-                            <span class="text-line-1">￥{{v.price}}</span>
+                            <span class="text-line-1">￥{{v.buy_price}}</span>
                         </div>
                         <div class="flexRow1 ai-center text-line-1">
                             <img src="../../../assets/buycenter/icon_xian.png" alt="">
 <!--       已卖出的订单现价和货币增减就不用实时变动了    现价sell_price   货币增减取  profit_money              -->
-                            <span class="text-line-1" v-if="v.state==='3'">￥{{v.sell_price}}</span>
+                            <span class="text-line-1" v-if="type===1">￥{{v.sell_price}}</span>
                             <span class="text-line-1" v-else>￥{{curPrice}}</span>
                         </div>
                     </div>
                     <!-- fixme:单价 现价-->
                     <div class="info-sub text-line-1 profit">
-                        货币增减：<span :class="isUp?'red':'green'"   v-if="v.state==='3'">￥{{v.profit_money}}</span>
+                        货币增减：<span :class="isUp?'red':'green'"   v-if="type===1">￥{{v.profit_money}}</span>
                         <span :class="isUp?'red':'green'"  v-else>￥{{profit_money}}</span>
                     </div>
                     <div class="info-sub text-line-1">数量：x{{v.num}}</div>
@@ -38,8 +38,8 @@
         <!--state: 0已取消  1待付款  2进行中  3已卖出-->
         <div class="item-footer flexRow0 jc-sb ai-center">
             <div class="order-money text-line-1"> 预付款金额：￥{{v.buy_money}}</div>
-            <div class="order-btn lg-bg-red" v-show="type===0&&v.state==='2'" @click="onBuyOut">全部卖出</div>
-            <div class="order-btn lg-bg-yellow buy-again" v-show="type===1&&v.state==='2'" @click="onBuyAgain">再次购买
+            <div class="order-btn lg-bg-red" v-show="type===0" @click="onBuyOut">全部卖出</div>
+            <div class="order-btn lg-bg-yellow buy-again" v-show="type===1" @click="onBuyAgain">再次购买
             </div>
         </div>
 
@@ -85,7 +85,7 @@
                     try {
                         const l_res = await serviceApi.getLastPrice()
                         this.curPrice = l_res.data.now_price
-                        this.profit_money = Number((Number(l_res.data.now_price) - Number(this.v.price)) * Number(this.v.num) * Number(this.v.weight)).toFixed(2)
+                        this.profit_money = Number((Number(l_res.data.now_price) - Number(this.v.buy_price)) * Number(this.v.num) * Number(this.v.weight)).toFixed(2)
                         if (Number(this.profit_money) > 0) this.isUp = true
                         else this.isUp = false
                     } catch (e) {

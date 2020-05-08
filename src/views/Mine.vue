@@ -10,7 +10,8 @@
 
                 <div class="user-info flexRow0">
                     <div class="avatar" @click="goProfilePage">
-                        <img :src="data.image" alt="">
+                        <img v-if="data.image" :src="data.image" alt="">
+                        <img v-else src="../assets/common/user_logo.png" alt="">
                     </div>
                     <div class="right-info flexGrow1">
                         <div class="flexRow1 jc-sb">
@@ -32,7 +33,9 @@
                     <div class="item-money text-line-1">
                         <label>资产总额：</label>
                         <span>{{data.balance}}</span>
-<!--                        <span class="yue">(可用余额：{{data.balance}})</span>-->
+                    </div>
+                    <div class="item-money text-line-1">
+                        <span class="yue">(可用余额：{{kyyue}})</span>
                     </div>
                     <div class="item-money flexRow0 jc-sb ai-center" style="margin-top:10px">
                         <div class="flexGrow1  text-line-1">
@@ -122,7 +125,8 @@
           {nav:'收货地址',img:require('../assets/me/service3.png')},
           {nav:'联系客服',img:require('../assets/me/service4.png')},
          ],
-          data:{}
+          data:{},
+          kyyue:''
       }
     },
     methods: {
@@ -195,6 +199,7 @@
 
           try {
               const res = await serviceApi.profile(params)
+              //this.kyyue=Number(res.data.balance)
               this.data=res.data
           } catch (e) {
               global.showErrorTip(e.msg, this)
