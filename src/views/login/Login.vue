@@ -1,6 +1,6 @@
 <template>
     <div class="login">
-
+         <div class="login_bg"></div>
         <div class="logo">
             <van-image class="logo_img" :src="require('../../assets/logo.png')"/>
         </div>
@@ -82,11 +82,21 @@
 </script>
 
 <style lang="less" scoped>
-    .login {
-        width: 100%;
-        height: 100%;
+    .login_bg{
         background: url("../../assets/login/login_bg.png") no-repeat;
         background-size: cover;
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        z-index: -1;
+    }
+    .login {
+        position: relative;
+        width: 100%;
+        height: 100%;
+
 
         .logo {
             padding-top: 212px;
