@@ -132,6 +132,7 @@
                     hasToken: true,
                     order_id: this.$route.params.orderId,
                     type: this.payWay + 1,
+                    addr_id:this.address.id
                 }
 
                 try {
@@ -148,7 +149,7 @@
                         document.body.appendChild(div);
                         document.forms[0].submit();
                     } else {
-                        this.$toast(res.desc) //支付成功
+                        this.$toast(res.data.desc) //支付成功
                         this.$router.push('/myOrder/0')
                     }
                     this.selectAddress({})

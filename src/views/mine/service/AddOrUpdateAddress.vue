@@ -123,7 +123,7 @@
                     }else{
                         await serviceApi.updateAddress(params)
                     }
-                    this.$router.push('/addressList')
+                    this.goBack()
                 } catch (e) {
                     global.showErrorTip(e.msg, this)
                 }

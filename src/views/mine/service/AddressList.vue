@@ -13,7 +13,7 @@
                         <div v-for="(v,i) in list.data" :key="i">
                             <div class="flexRow0 ai-center">
 
-                                <div class="select-box">
+                                <div class="select-box" v-show="$route.params.type==='select'">
                                     <van-radio :name="v" class="read-content" v-model="selected" icon-size="18px"
                                                   checked-color="#BC0203" @click="()=>onSelected(v)">
                                     </van-radio>

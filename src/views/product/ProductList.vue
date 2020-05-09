@@ -54,11 +54,9 @@
     },
     components: {FlatListView, Header, ProductionItem},
     methods: {
-      setActiveTab(name,title) {
-          console.log('ii')
-          console.log(name,title)
-        //this.activeTab = i
-        //this.$router.push(`/productionList/${i}`)
+      setActiveTab(i) {
+        this.activeTab = i
+        this.$router.push(`/productionList/${i}`)
       },
       goBack() {
         this.$router.go(-1)
@@ -74,7 +72,7 @@
 
         try {
          const res=await  serviceApi.getAllProducts(params)
-            this.tabs=[...res.data.ptlist,...res.data.ptlist]
+            this.tabs=res.data.ptlist
             return {total:res.data.count,list:res.data.data}
         }catch (e) {
             global.showErrorTip(e.msg,this)

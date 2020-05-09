@@ -152,7 +152,7 @@
                 break;
             }
             case 2: {
-                that.$router.push(`/addressList`);
+                that.$router.push(`/addressList/list`);
                 break;
             }
           case 3: {
@@ -160,7 +160,7 @@
             break;
           }
           default : {
-            that.$router.push(`/addressList`)
+            that.$router.push(`/addressList/list`)
           }
         }
       },
