@@ -47,7 +47,7 @@
         }
 
         .content {
-            font-size: 14px;
+            font-size:20px;
             text-align: left;
             margin: 6px;
             font-weight: 400;

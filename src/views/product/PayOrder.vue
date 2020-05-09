@@ -7,7 +7,7 @@
             <div class="content">
                 <div class="time-tip">支付剩余时间</div>
 
-                <TimeCountDown :onFinish="onFinish" />
+                <TimeCountDown :onFinish="onFinish"/>
 
 
                 <div class="order-info flexRow0 " v-for="(v,i) in oplist" :key="i">
@@ -34,6 +34,26 @@
                     </div>
                 </div>
 
+                <!--收货地址-->
+                <div class="address-title">选择收货地址</div>
+                <div class=" address-info flexRow0 ai-center" @click="$router.push('/addressList/select')">
+                    <div class="address-img">
+                        <img src="../../assets/common/order_d_dz.png" alt="">
+                    </div>
+                    <div class="flexGrow1">
+                        <div class="flexRow0">
+                            <div class="order-title  text-line-1">
+                                {{address.name}} <span class="order-num">{{address.phone}}</span>
+                            </div>
+                        </div>
+                        <div class="money">
+                            {{address.address}}
+                        </div>
+                    </div>
+                    <div class="arr-img">
+                        <img src="../../assets/common/arrow_r.png" alt="">
+                    </div>
+                </div>
 
                 <!-- 支付方式-->
                 <van-radio-group class="pay-methods-list" v-model="payWay">
@@ -67,9 +87,11 @@
     import Header from "../../components/Header";
     import TimeCountDown from "../../components/TimeCountDown";
     import FullButton from "../../components/FullButton";
-    import {apiRoot, getParams, serviceApi,payRedirectUrl} from "../../services/apis";
+    import {apiRoot, getParams, serviceApi, payRedirectUrl} from "../../services/apis";
     import global from "../../components/global";
     import qs from "qs";
+    import {mapActions, mapGetters} from 'vuex'
+    import _ from 'lodash'
 
     export default {
         name: "PayOrder",
@@ -83,12 +105,13 @@
                     {id: 3, name: '金豆（0）', img: require('../../assets/home/pay/icon_jindou.png')},
                 ],
                 payWay: 0,
-                oplist:[],// 订单详情
-                yue:'',
-                jindou:''
+                oplist: [],// 订单详情
+                yue: '',
+                jindou: '',
             }
         },
         methods: {
+            ...mapActions(['selectAddress']),
             int(val = '0.00') {
                 return val.substring(0, val.lastIndexOf('.') + 1)
             },
@@ -98,54 +121,55 @@
             goBack() {
                 this.$router.go(-1)
             },
-            onFinish(){
-              this.$toast({message:'您已超时',forbidClick:true})
-                setTimeout(()=>{this.$router.push('/myOrder/0')},1000)
+            onFinish() {
+                this.$toast({message: '您已超时', forbidClick: true})
+                setTimeout(() => {
+                    this.$router.push('/myOrder/0')
+                }, 1000)
             },
             async onPay() {
                 const params = {
                     hasToken: true,
-                    order_id:this.$route.params.orderId,
-                    type:this.payWay+1,
-
+                    order_id: this.$route.params.orderId,
+                    type: this.payWay + 1,
                 }
 
                 try {
                     let res = await fetch(`${apiRoot}/api/index/surePay?${qs.stringify(getParams(params))}`)
 
-                    if (this.payWay===0){//微信
-                        res=await res.json()
+                    if (this.payWay === 0) {//微信
+                        res = await res.json()
                         const url = encodeURIComponent(`${payRedirectUrl}/#/myOrder/0`)
-                        window.location.href = res.data+"&redirect_url="+url;
-                    }
-                    else if (this.payWay===1){//支付宝
-                        res=await res.text()
+                        window.location.href = res.data + "&redirect_url=" + url;
+                    } else if (this.payWay === 1) {//支付宝
+                        res = await res.text()
                         const div = document.createElement('div');
-                        div.innerHTML =res;
+                        div.innerHTML = res;
                         document.body.appendChild(div);
                         document.forms[0].submit();
-                    }
-                    else{
+                    } else {
                         this.$toast(res.desc) //支付成功
                         this.$router.push('/myOrder/0')
                     }
+                    this.selectAddress({})
 
                 } catch (e) {
                     global.showErrorTip(e.msg, this)
                 }
             },
-            async getOrderDetail(){
+            async getOrderDetail() {
 
                 const params = {
                     hasToken: true,
-                    id:this.$route.params.orderId
+                    id: this.$route.params.orderId
                 }
 
                 try {
                     const res = await serviceApi.getOrderDetail(params)
-                    this.oplist=res.data.oplist
+                    this.oplist = res.data.oplist
+                 if (_.isEmpty(this.address))  this.selectAddress(res.data.receivingAddrs)
                 } catch (e) {
-                    if(e.msg.includes('订单不存在')) this.$router.push('/myOrder/0')
+                    if (e.msg.includes('订单不存在')) this.$router.push('/myOrder/0')
                     global.showErrorTip(e.msg, this)
                 }
             },
@@ -156,18 +180,19 @@
 
                 try {
                     const res = await serviceApi.profile(params)
-                    this.yue=res.data.balance
-                    this.jindou=res.data.integral
-                    this.payMethods[2].name=`余额（${res.data.balance}元）`
-                    this.payMethods[3].name=`金豆（${res.data.integral}）`
+                    this.yue = res.data.balance
+                    this.jindou = res.data.integral
+                    this.payMethods[2].name = `余额（${res.data.balance}元）`
+                    this.payMethods[3].name = `金豆（${res.data.integral}）`
                 } catch (e) {
                     global.showErrorTip(e.msg, this)
                 }
             }
         },
-         mounted() {
+        computed:mapGetters(['address']),
+        mounted() {
             this.getProfile()
-             this.getOrderDetail()
+            this.getOrderDetail()
         }
     }
 </script>
@@ -216,6 +241,29 @@
         text-align: left;
     }
 
+    .address-info {
+        padding: 20px;
+
+        .order-title {
+            font-size: 30px;
+        }
+
+        .order-num {
+            color: #666;
+        }
+
+        .money {
+            color: #333;
+        }
+    }
+
+    .address-title {
+        text-align: left;
+       padding-left: 20px;
+        font-size: 20px;
+        color: #999;
+    }
+
     .money {
         margin-right: 10px;
         color: #FD2049;
@@ -246,6 +294,18 @@
         .pay-methods-item {
             background: transparent;
         }
+    }
+
+    .arr-img img {
+        width: 20px;
+        height: auto;
+        margin-left: 10px;
+    }
+
+    .address-img img {
+        width: 60px;
+        height: auto;
+        margin-right: 10px;
     }
 
     .btn {

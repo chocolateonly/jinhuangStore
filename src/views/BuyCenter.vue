@@ -2,12 +2,12 @@
     <div class="bg flexCol1">
         <div class="header ">
             <div class="flexCol1 jc-end ai-center">
-                <div class="tabs  flexRow1  ai-center">
+                <div class="tabs  flexRow0">
                     <div class="tab-item flexRow1 jc-center"
                          v-for="(v,i) in tabs" :key="i"
                          :class="{'active':activeTab===i}"
                          @click="setActiveTab(i)">
-                        {{v}}
+                        <span>{{v}}</span>
                     </div>
                 </div>
             </div>
@@ -145,7 +145,8 @@
             &.active:after {
                 content: '';
                 width: 60px;
-                border-bottom: 2px solid #fff;
+                height: 2px;
+                background:  #fff;
                 position: absolute;
                 bottom: 0px;
             }

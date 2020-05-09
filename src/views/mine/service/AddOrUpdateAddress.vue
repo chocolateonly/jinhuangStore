@@ -1,5 +1,5 @@
 <template>
-    <Layout :title="this.$route.params.id==='add'?'添加地址':'修改地址'" :go-back="goBack">
+    <Layout :title="this.$route.params.id==='add'?'添加地址':'修改地址'" :goBack="goBack">
 
         <div class="main" slot="content">
             <van-field
@@ -87,7 +87,7 @@
                 city: {},
                 area: {},
                 addressDetails: '',
-                isDefault: true
+                isDefault: false
             }
         },
         methods: {

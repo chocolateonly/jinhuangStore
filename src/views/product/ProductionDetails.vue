@@ -2,7 +2,7 @@
     <div class="bg flexCol1">
         <div class="pl-header ">
 
-            <Header title="详细信息" _className="header  clearBorder" :on-press-left="goBack">
+            <Header title="详细信息" _className="header" :hasBorder="false" :on-press-left="goBack">
                 <!--                <img class="header-right-icon" @click="showShare = true" src="../../assets/common/icon_share.png"-->
                 <!--                     alt="">-->
             </Header>

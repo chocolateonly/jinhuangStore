@@ -206,7 +206,7 @@ Vue.use(VueRouter)
       meta: { requiresAuth: true }
     },
     {
-      path: '/addressList',
+      path: '/addressList/:type',
       name: 'AddressList',
       component: () => import(/* webpackChunkName: "addressList" */ '../views/mine/service/AddressList'),
       meta: { requiresAuth: true }

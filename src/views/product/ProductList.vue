@@ -2,7 +2,7 @@
     <div class="product-list flexCol1">
         <div class="pl-header ">
 
-            <Header title="全部商品" _className="header  clearBorder" :on-press-left="goBack"/>
+            <Header title="全部商品" _className="header" :hasBorder="false" :on-press-left="goBack"/>
 
             <div class="tabs flexRow1  ai-center">
                 <div class="tab-item flexRow1 jc-center"
@@ -12,6 +12,14 @@
                     {{v.name}}
                 </div>
             </div>
+
+<!--            <van-tabs class="tabs" v-model="activeTab" background="transparent"
+                      title-inactive-color="#fff" title-active-color="#fff"
+                      color="#fff"  :border="false" @click="(name,title)=>setActiveTab(name,title)">
+                <van-tab class="tab"  v-for="(v,i) in tabs" :key="i" :title="v.name" >
+                </van-tab>
+            </van-tabs>-->
+
 
         </div>
         <div class="content flexCol1 overflowY">
@@ -46,9 +54,11 @@
     },
     components: {FlatListView, Header, ProductionItem},
     methods: {
-      setActiveTab(i) {
-        this.activeTab = i
-        this.$router.push(`/productionList/${i}`)
+      setActiveTab(name,title) {
+          console.log('ii')
+          console.log(name,title)
+        //this.activeTab = i
+        //this.$router.push(`/productionList/${i}`)
       },
       goBack() {
         this.$router.go(-1)
@@ -64,7 +74,7 @@
 
         try {
          const res=await  serviceApi.getAllProducts(params)
-            this.tabs=res.data.ptlist
+            this.tabs=[...res.data.ptlist,...res.data.ptlist]
             return {total:res.data.count,list:res.data.data}
         }catch (e) {
             global.showErrorTip(e.msg,this)
@@ -93,12 +103,13 @@
         border: none;
     }
 
+
     .tabs {
         background: rgba(0, 0, 0, 0.1);
         padding: 10px 30px;
 
         .tab-item {
-            font-size: 14px;
+            font-size: 30px;
             color: #fff;
             text-align: center;
             position: relative;
