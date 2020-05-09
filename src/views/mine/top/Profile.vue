@@ -48,6 +48,7 @@
                             input-align="right"
                     />
                                 <van-field
+                                        :disabled="this.invite_code"
                                         class="input-item"
                                         v-model="code"
                                         label="推广码"
@@ -80,7 +81,8 @@
                 email: '',
                 code: '',
                 fileList: [{content:''}],
-                avatarId:''
+                avatarId:'',
+                invite_code:''
             }
         },
         methods: {
@@ -158,7 +160,8 @@
                    this.fileList = [{content: res.data.image,}]
                    this.avatarId=res.data.avatar
                    this.email = res.data.email
-
+                   this.code=res.data.invite_code
+                   this.invite_code=res.data.invite_code
                }
 
 
