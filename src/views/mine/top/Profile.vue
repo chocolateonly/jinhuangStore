@@ -48,7 +48,7 @@
                             input-align="right"
                     />
                                 <van-field
-                                        :disabled="this.invite_code"
+                                        :readonly="invite_code!==''"
                                         class="input-item"
                                         v-model="code"
                                         label="推广码"
