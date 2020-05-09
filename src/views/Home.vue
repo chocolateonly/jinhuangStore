@@ -1,12 +1,12 @@
 <template>
-    <div class="home flexCol1">
+    <div class="home flexCol1 flexGrow1">
 
 <!--        <img :src="require('./../assets/home/banner_header.png')" class="header-banner"/>-->
         <div>
         <Swiper :images="images"/>
         </div>
 
-        <Notice v-show="data.notice.title" :data="data.notice"/>
+        <Notice :data="data.notice"/>
 
         <div class="container">
             <!--info-->

@@ -19,7 +19,7 @@
   .notice{
       margin: 0 60px;
       background: #fff;
-      height: 40px;
+      height: 100px;
       border-radius: 40px;
       padding: 20px;
       margin-top: -40px;

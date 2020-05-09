@@ -47,14 +47,14 @@
                             label-align="left"
                             input-align="right"
                     />
-                    <!--            <van-field
+                                <van-field
                                         class="input-item"
                                         v-model="code"
-                                        label="分销码"
-                                        placeholder="请输入分销码"
+                                        label="推广码"
+                                        placeholder="请输入推广码"
                                         label-align="left"
                                         input-align="right"
-                                />-->
+                                />
                 </div>
             </div>
         </div>
@@ -135,6 +135,7 @@
                     avatar: this.avatarId,
                     nickname:this.nickName,
                     email:this.email,
+                    invite_code:this.code
                 }
 
                //2,修改

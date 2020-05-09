@@ -14,7 +14,7 @@
             </div>
 
             <van-tabs class="tabs flexGrow1" v-model="selectedTab">
-                <van-tab v-for="index in 3" :title="index+'级团队'" :key="index" >
+                <van-tab v-for="index in 2" :title="index+'级团队'" :key="index" >
                 </van-tab>
             </van-tabs>
 

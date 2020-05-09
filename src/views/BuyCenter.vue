@@ -1,15 +1,15 @@
 <template>
     <div class="bg flexCol1">
-        <div class="header ">
-            <div class="flexCol1 jc-end ai-center">
-                <div class="tabs  flexRow0">
-                    <div class="tab-item flexRow1 jc-center"
-                         v-for="(v,i) in tabs" :key="i"
-                         :class="{'active':activeTab===i}"
-                         @click="setActiveTab(i)">
-                        <span>{{v}}</span>
-                    </div>
+        <div class="header">
+            <div class="flexCol1 jc-center ai-center">
+            <div class="tabs flexRow0  ai-center jc-center">
+                <div class="tab-item flexRow1 jc-center"
+                     v-for="(v,i) in tabs" :key="i"
+                     :class="{'active':activeTab===i}"
+                     @click="setActiveTab(i)">
+                    <span>{{v}}</span>
                 </div>
+            </div>
             </div>
 
         </div>
@@ -132,7 +132,8 @@
     }
 
     .tabs {
-        padding: 10px 30px;
+        width:400px;
+        padding: 30px 30px;
 
         .tab-item {
             font-size: 30px;
@@ -140,7 +141,7 @@
             text-align: center;
             position: relative;
             padding-bottom: 6px;
-            margin: 0 20px;
+            margin: 0 auto;
 
             &.active:after {
                 content: '';
