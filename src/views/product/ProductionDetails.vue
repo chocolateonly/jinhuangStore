@@ -46,9 +46,9 @@
                 </div>
 
                 <!--产品详情-->
-                <div>
+                <div class="p-detail">
                     <h4>产品详情</h4>
-                    <p v-html="data.describe"></p>
+                    <p class="detail" v-html="data.describe"></p>
 
                 </div>
             </div>
@@ -438,5 +438,8 @@
             flex-direction: row;
             flex: 2;
         }
+    }
+    .p-detail .detail{
+        text-align: left;
     }
 </style>
