@@ -1,18 +1,18 @@
 <template>
     <div class="home flexCol1 flexGrow1">
 
-<!--        <img :src="require('./../assets/home/banner_header.png')" class="header-banner"/>-->
+        <!--        <img :src="require('./../assets/home/banner_header.png')" class="header-banner"/>-->
         <div>
-        <Swiper :images="images"/>
+            <Swiper :images="images"/>
         </div>
-
-        <Notice :data="data.notice"/>
-
+        <div>
+            <Notice v-show="data.notice.title"  :data="data.notice"/>
+        </div>
         <div class="container">
             <!--info-->
             <div class="info">
 
-                <div class="info-top flexRow1 jc-sb ai-start" >
+                <div class="info-top flexRow1 jc-sb ai-start">
                     <div class="flexCol1 mr5">
 
                         <div class="gnjj text-line-1">国内金价</div>
@@ -66,7 +66,7 @@
             <div class="hot-productions">
                 <div class="hot-header flexRow0 jc-sb ai-center">
                     <div class="header-left">
-                        <TitleCore />
+                        <TitleCore/>
                         <span>热门产品</span>
                     </div>
                     <div class="header-right" @click="$router.push('/productionList/0')">
@@ -75,7 +75,7 @@
                 </div>
                 <!-- productions-->
 
-                <van-empty v-if="data.hotlist.length===0" description="没有数据" />
+                <van-empty v-if="data.hotlist.length===0" description="没有数据"/>
 
                 <div class="productions flexRow1" v-else>
                     <div class="production-wrapper" v-for="(v,i) in data.hotlist" :key="i">
@@ -89,8 +89,8 @@
         <!-- shopping cart-->
         <div class="shopping-cart-btn" @click="goShoppingCart">
             <div class="wrapper">
-            <img src="../assets/home/shpping-cart.png" alt="">
-            <span class="badge" v-show="data.num!=='0'">{{data.num}}</span>
+                <img src="../assets/home/shpping-cart.png" alt="">
+                <span class="badge" v-show="data.num!=='0'">{{data.num}}</span>
             </div>
         </div>
     </div>
@@ -103,28 +103,30 @@
     import {serviceApi} from "../services/apis";
     import global from "../components/global";
     import Swiper from "../components/Swiper";
+
     export default {
         name: 'Home',
         components: {
             Swiper,
             //Swiper,
-            Notice, ProductionItem,TitleCore},
+            Notice, ProductionItem, TitleCore
+        },
         data() {
             return {
-                data:{
-                    notice:{},
-                    nums:'',
-                    today_num:'',
-                    hotlist:[],
-                    num:'0'//购物车数量
+                data: {
+                    notice: {},
+                    nums: '',
+                    today_num: '',
+                    hotlist: [],
+                    num: '0'//购物车数量
                 },
-                last_price:'',
-                lastPriceInterval:null,
-                images:[]
+                last_price: '',
+                lastPriceInterval: null,
+                images: []
             }
         },
         methods: {
-            goAction(){
+            goAction() {
                 this.$router.push('/instructions')
             },
             int(val = '0.00') {
@@ -146,23 +148,23 @@
         async beforeCreate() {
             try {
                 //基础数据
-                const res=await serviceApi.getHomeData({hasToken:true})
-                this.data={...this.data,...res.data}
-                this.images=res.data.sliderlist.reduce((acc,cur)=>{
-                    acc.push({...cur,image:cur.cover})
+                const res = await serviceApi.getHomeData({hasToken: true})
+                this.data = {...this.data, ...res.data}
+                this.images = res.data.sliderlist.reduce((acc, cur) => {
+                    acc.push({...cur, image: cur.cover})
                     return acc
-                },[])
+                }, [])
                 //实时获取金价
-                this.lastPriceInterval=setInterval(async ()=>{
+                this.lastPriceInterval = setInterval(async () => {
                     try {
-                        const l_res=await serviceApi.getLastPrice()
-                        this.last_price=l_res.data.now_price
-                    }catch (e) {
+                        const l_res = await serviceApi.getLastPrice()
+                        this.last_price = l_res.data.now_price
+                    } catch (e) {
                         clearInterval(this.lastPriceInterval)
                         global.showErrorTip(e.msg, this)
                     }
-                },1000)
-            }catch (e) {
+                }, 1000)
+            } catch (e) {
                 global.showErrorTip(e.msg, this)
             }
         },
@@ -235,6 +237,7 @@
                 }
             }
         }
+
         .productions {
             flex: 2;
             flex-direction: row;
@@ -244,8 +247,9 @@
                 width: 50%;
             }
         }
+
         .shopping-cart-btn {
-            .wrapper{
+            .wrapper {
 
                 width: 147px;
                 height: 147px;
@@ -253,11 +257,13 @@
                 bottom: 120px;
                 right: 20px;
             }
+
             img {
                 width: 147px;
                 height: 147px;
             }
-            .badge{
+
+            .badge {
                 position: absolute;
                 right: 5px;
                 font-size: 14px;
@@ -273,10 +279,12 @@
             }
         }
     }
-    .info-top{
+
+    .info-top {
         height: 100px;
     }
-    .info-bottom{
+
+    .info-bottom {
         height: 100px;
     }
 </style>
