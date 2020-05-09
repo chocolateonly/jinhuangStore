@@ -1,9 +1,9 @@
 <template>
-    <div >
-    <van-notice-bar class="notice"  left-icon="volume-o" mode="closeable" :scrollable="true">
-        {{data.title}}
+
+    <van-notice-bar class="notice"  left-icon="volume-o" mode="closeable" :scrollable="true" :text="data.title">
+
     </van-notice-bar>
-    </div>
+
 </template>
 
 <script>
