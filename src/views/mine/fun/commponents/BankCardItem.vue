@@ -3,12 +3,11 @@
         <div class="flexRow0 ai-center">
         <img :src="v.icon" alt="">
 
-        <div class="content-wrapper flexGrow1 flexCol1 jc-sb">
-
+        <div class="content-wrapper flexGrow1 flexRow1 jc-sb">
                     <div class="user">{{v.name}}</div>
-                    <div class="create">{{v.type}}</div>
-
+                    <div class="create" @click="deleteCard">删除</div>
         </div>
+
         </div>
 
         <div class="bankcard-num">
@@ -20,6 +19,9 @@
 </template>
 
 <script>
+    import {serviceApi} from "../../../../services/apis";
+    import global from "../../../../components/global";
+
     export default {
         name: "BankCardItem",
         props: {
@@ -28,6 +30,16 @@
             handleClick: {
                 type: Function,
                 default: () => null
+            }
+        },
+        methods:{
+            async deleteCard(){
+                try {
+                   await serviceApi.deleteBankAccount({hasToken:true,id:this.v.id})
+                    this.$router.go(0)
+                }catch (e) {
+                    global.showErrorTip(e.msg,this)
+                }
             }
         }
     }

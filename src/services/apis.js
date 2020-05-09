@@ -184,6 +184,9 @@ function getMyBanksList(body,options) {
 function addBankAccount(body,options) {
   return Get(`${apiRoot}/api/index/addBankAccount?${qs.stringify(getParams(body))}`,options)
 }
+function deleteBankAccount(body,options) {
+  return Get(`${apiRoot}/api/index/delBank?${qs.stringify(getParams(body))}`,options)
+}
 function getCustomerPhones(body,options) {
   return Get(`${apiRoot}/api/index/customerPhones?${qs.stringify(getParams(body))}`,options)
 }
@@ -267,6 +270,7 @@ export  const serviceApi =  {
   geBanksListData,
   getMyBanksList,
   addBankAccount,
+  deleteBankAccount,
   getCustomerPhones,
   getActionDetail,
   setParams,

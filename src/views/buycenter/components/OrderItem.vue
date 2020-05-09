@@ -13,6 +13,7 @@
             <div class="item-info flexCol1 jc-sb">
                 <div class="info-title text-line-1">{{v.gold_name}}</div>
                 <div class="info-content">
+                    <div class="info-sub text-line-1">购买方式：{{v.type_text}}</div>
                     <div class="info-sub text-line-1">规格：{{v.weight}} g</div>
                     <div class="info-sub flexRow1">
                         <div class="flexRow1 ai-center text-line-1">
