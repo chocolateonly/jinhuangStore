@@ -265,11 +265,11 @@
 
             .badge {
                 position: absolute;
-                right: 5px;
-                font-size: 14px;
-                top: 5px;
+                right: 10px;
+                font-size: 16px;
+                top: 10px;
                 background: #f24949;
-                height: 40px;
+                height: 30px;
                 align-items: center;
                 display: flex;
                 justify-content: center;

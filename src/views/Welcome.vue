@@ -32,11 +32,10 @@
               let data=await localStorage.getItem(StorageKey)
               data=JSON.parse(data)
               //alert(data)
-console.log(data&&data.token)
                 if (data&&data.token){
-                    this.$router.push('/tab/home')
+                    this.$router.replace('/tab/home')
                 }
-               else this.$router.push('/login')
+               else this.$router.replace('/login')
             }, 2000)
         },
         destroyed() {

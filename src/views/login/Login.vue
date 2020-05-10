@@ -61,7 +61,7 @@
                         password: this.password
                     })
                     await storageData(res.data);
-                    this.$router.push('/tab/home')
+                    this.$router.replace('/tab/home')
                 } catch (e) {
                     global.showErrorTip(e.msg, this)
                 }

@@ -32,7 +32,7 @@
 
 <style scoped>
     .swiper {
-        background: #fcc;
+        background: #000;
         overflow:hidden;
     }
 
