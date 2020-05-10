@@ -59,7 +59,7 @@
     import Layout from "../../../components/Layout";
     import {apiRoot, getParams, serviceApi} from "../../../services/apis";
     import global from "../../../components/global";
-    import {lastRecord} from "../../../utils";
+    import { StorageKey} from "../../../utils";
     import qs from "qs";
 
     export default {
@@ -89,7 +89,9 @@
                 try {
                     //upload
                     const formData = new FormData();
-                    const {uid,token}=lastRecord()
+
+                  let data=await localStorage.getItem(StorageKey)
+                  const {uid,token}=JSON.parse(data)
                     formData.append('file',  file);
                     formData.append("uid", uid);
                     formData.append("token", token);

@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import {lastRecord} from "../utils";
+import {StorageKey} from "../utils";
 Vue.use(VueRouter)
 
   const routes = [
@@ -270,14 +270,17 @@ const router = new VueRouter({
     return { x: 0, y: 0}
   }
 })
-router.beforeEach( (to, from, next) => {
+router.beforeEach(async (to, from, next) => {
   // console.log('lastRecord.token--------------')
   // console.log(lastRecord().token)
+  let data=await localStorage.getItem(StorageKey)
+  data=JSON.parse(data)
   //验证是否登录
   if (to.matched.some(record => record.meta.requiresAuth)) {
     // this route requires auth, check if logged in
     // if not, redirect to login page.
-    if (!lastRecord().token) {
+
+    if (!data.token) {
       next({
         path: '/login',
         //query: { redirect: to.fullPath }

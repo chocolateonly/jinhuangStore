@@ -9,7 +9,7 @@ module.exports = {
     hot:true,//hot loader------start
     open : true,
     port : 8080,
-    host : "localhost",//hot loader----end
+    host : "0.0.0.0",//hot loader----end
 
     //proxy:{'/api':{}},代理器中设置/api,项目中请求路径为/api的替换为target
     // proxy:{

@@ -66,7 +66,7 @@
     import Header from "../../../components/Header";
     import {apiRoot, serviceApi} from "../../../services/apis";
     import global from "../../../components/global";
-    import {lastRecord} from "../../../utils";
+    import { StorageKey} from "../../../utils";
     import validator from 'validator'
     import qs from 'qs'
     import {getParams} from "../../../services/apis";
@@ -106,7 +106,8 @@
               if (Object.keys(this.fileList[0]).includes('file')) {
                   //upload
                   const formData = new FormData();
-                  const {uid,token}=lastRecord()
+                  let data=await localStorage.getItem(StorageKey)
+                  const {uid,token}=JSON.parse(data)
                   formData.append('file',  this.fileList[0].file);
                   formData.append("uid", uid);
                   formData.append("token", token);

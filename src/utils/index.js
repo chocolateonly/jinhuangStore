@@ -36,29 +36,29 @@ export const StorageKey='BS_JINHUANG_USER';
 
 export const lastRecord = () => { // 上一把的状态
     let data = localStorage.getItem(StorageKey);
-    if (!data) {
+/*    if (!data) {
         return false;
     }
     try {
         if (window.btoa) {
             data = atob(data);
         }
-        data = decodeURIComponent(data);
+        data = decodeURIComponent(data);*/
         data = JSON.parse(data);
-    } catch (e) {
+ /*   } catch (e) {
         if (window.console || window.console.error) {
             window.console.error('读取记录错误:', e);
         }
         return false;
-    }
+    }*/
     return data;
 };
-export const storageData=info =>{
+export const storageData=async info =>{
             let data  = JSON.stringify(info);
-            data = encodeURIComponent(data);
+/*            data = encodeURIComponent(data);
             if (window.btoa) {
                 data = btoa(data);
-            }
+            }*/
             try {
 
                 localStorage.setItem(StorageKey, data);

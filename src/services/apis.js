@@ -1,12 +1,13 @@
 import {Get} from "./index";
 import qs from 'qs'
-import {getSign, lastRecord} from "../utils";
+import {getSign, StorageKey} from "../utils";
 export const apiRoot='http://jinhuang.test.hbbeisheng.com' //'http://jinhuang.test.hbbeisheng.com' //http://www.jinhuang.com
 export const payRedirectUrl='http://jinhuang.test.hbbeisheng.com/wap'
-export const getParams=(body)=>{
+export const getParams= (body)=>{
   const timestamp = new Date().getTime().toString().substr(0,11)
   const {hasToken,...other}=body
-  const {uid,token}=lastRecord()
+  let data=localStorage.getItem(StorageKey)
+  const {uid='',token=''}=JSON.parse(data)||{}
 
   const params = hasToken?{...other,timestamp,uid,token}:{...other,timestamp}
   const sign = getSign(params)

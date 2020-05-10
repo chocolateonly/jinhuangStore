@@ -8,7 +8,7 @@
 <script>
     import global from "../components/global";
     import {serviceApi} from "../services/apis";
-    import {lastRecord} from "../utils";
+    import {StorageKey} from "../utils";
 
     export default {
         name: 'Welcome',
@@ -27,9 +27,13 @@
                 global.showErrorTip(e.msg, this)
             }
         },
-        created() {
-            this.timer = setTimeout(() => {
-                if (lastRecord().token){
+        mounted() {
+            this.timer = setTimeout(async () => {
+              let data=await localStorage.getItem(StorageKey)
+              data=JSON.parse(data)
+              //alert(data)
+console.log(data&&data.token)
+                if (data&&data.token){
                     this.$router.push('/tab/home')
                 }
                else this.$router.push('/login')
@@ -37,6 +41,7 @@
         },
         destroyed() {
             console.log('destroyed')
+          clearInterval(this.timer)
         }
     }
 </script>
