@@ -4,7 +4,7 @@ import {getSign, StorageKey} from "../utils";
 export const apiRoot='http://jinhuang.test.hbbeisheng.com' //'http://jinhuang.test.hbbeisheng.com' //http://www.jinhuang.com
 export const payRedirectUrl='http://jinhuang.test.hbbeisheng.com/wap'
 export const getParams= (body)=>{
-  const timestamp = new Date().getTime().toString().substr(0,11)
+  const timestamp = new Date().getTime().toString().substr(0,10)
   const {hasToken,...other}=body
   let data=localStorage.getItem(StorageKey)
   const {uid='',token=''}=JSON.parse(data)||{}

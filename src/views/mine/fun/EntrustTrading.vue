@@ -12,17 +12,22 @@
                 <template scope="list">
                     <div v-for="(v,i) in list.data" :key="i" class="item flexRow0 jc-sb ai-center">
                         <img :src="v.icon" alt="">
+                        <div class="text-line-1" style="width:60px"><span>{{v.name}}</span></div>
 
-                        <div class="flexCol1 text-line-1">{{v.name}}</div>
-
-                        <div class="flexCol1 jc-sb">
-                            <div  class=" text-line-1">周期</div>
-                            <div class=" text-line-1">{{v.cycle}}个月</div>
+                        <div class="flexCol1">
+                            <div  class=" text-line-1" style="text-align: center">周期</div>
+                            <div class=" text-line-1"  style="text-align: center">{{v.cycle}}个月</div>
                         </div>
 
-                        <div>
+                        <div style="width:80px">
+                        <div class="" v-show="onShow(list.data)">
                         <div class="order-btn lg-bg-red" v-show="v.is_check==='1'" @click="()=>onConfirm(v)">确认选择</div>
                         </div>
+                        <div class="" v-show="!onShow(list.data)">
+                            <div class="order-btn" v-show="v.is_check==='2'">已选择</div>
+                        </div>
+                        </div>
+
                     </div>
                 </template>
             </FlatListView>
@@ -38,7 +43,7 @@
     import FlatListView from "../../../components/flatListView/FlatListView";
     import {serviceApi} from "../../../services/apis";
     import global from "../../../components/global";
-
+    import _ from 'lodash'
     export default {
         name: "EntrustTrading",
         components: {FlatListView, TitleCore, Layout},
@@ -46,6 +51,11 @@
             return {}
         },
         methods: {
+            onShow(list){
+               const data=list.find(item=>item.is_check==='2')
+                //console.log(!_.isEmpty(data))
+                return _.isEmpty(data)
+            },
             goBack() {
                 this.$router.go(-1)
             },
@@ -105,5 +115,6 @@
         padding: 10px 20px;
         min-width: 100px;
         border-radius: 40px;
+        text-align: center;
     }
 </style>
