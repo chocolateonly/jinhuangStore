@@ -150,7 +150,7 @@
                         document.forms[0].submit();
                     } else {
                         this.$toast('支付成功') //支付成功
-                        this.$router.push('/myOrder/0')
+                        this.$router.replace('/myOrder/0')
                     }
                     this.selectAddress({})
 

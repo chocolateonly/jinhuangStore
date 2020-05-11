@@ -36,7 +36,7 @@
     import FullButton from "../../components/FullButton";
     import {serviceApi} from "../../services/apis";
     import global from "../../components/global";
-    import {storageData, StorageKey} from "../../utils";
+    import {storageData} from "../../utils";
     export default {
         name: "Login",
         components: {FullButton},
@@ -75,7 +75,7 @@
             }
         },
         mounted() {//清缓存
-            localStorage.removeItem(StorageKey);
+            //localStorage.removeItem(StorageKey);
         }
     }
 </script>

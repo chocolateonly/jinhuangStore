@@ -10,7 +10,7 @@
             <div class="flexCol1  flexGrow1 ai-center " style="margin-top: 60px">
 
                 <img id="imageWrapper" :src="data.erweima" alt="">
-                <div style="margin-top: 10px">(长按图片即可保存)</div>
+                <!--<div style="margin-top: 10px">(长按图片即可保存)</div>-->
             </div>
 
 
