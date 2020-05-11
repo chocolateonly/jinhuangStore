@@ -93,8 +93,8 @@
                                 <div class="flexRow1 flexGrow1 ai-center text-line-1">
                                     <div class="money">
                                         <span>￥</span>
-                                        <span class="font50">{{int(specs.price)}}</span>
-                                        <span>{{dec(specs.price)}}</span>
+                                        <span class="font50">{{int(price)}}</span>
+                                        <span>{{dec(price)}}</span>
 
                                         <span class="jindou">金豆{{specs.integral}}</span>
                                     </div>
@@ -106,7 +106,7 @@
                 <div class=" flexGrow1">
 
 
-                        <div class="guige-select" v-for="(spec,index) in specs.pslist" :key="index">
+                        <div class="guige-select" v-show="specs.pslist.length>0"  v-for="(spec,index) in specs.pslist" :key="index" >
                             <div class="guige-title-wrap">
                                 <div class="guige-select-title">
                                     {{spec.name}}
@@ -114,7 +114,7 @@
                             </div>
 
                             <div class="guige-select-content">
-                        <span class="guige-select-tag" v-for="(v,i) in spec.list" :key="i">
+                        <span class="guige-select-tag" v-for="(v,i) in spec.list" :key="i" >
                             <van-tag v-if="selected[spec.id]===v.id" type="primary" color="#BC0203"
                                      @click="setSpecs(spec.id,v.id)" size="large">{{v.name}}</van-tag>
                             <van-tag v-else plain type="primary" color="#323232" @click="setSpecs(spec.id,v.id)"
@@ -126,7 +126,7 @@
                         <div class="set-number flexRow0 jc-sb ai-center">
                             <div class="set-number-title">购买数量</div>
                             <div class="set-number-wrap">
-                                <van-stepper v-model="buyNumber" min="1" max="8" disable-input/>
+                                <van-stepper v-model="buyNumber" min="1" max="8" disable-input @change="changNumber"/>
                             </div>
                         </div>
 
@@ -158,7 +158,7 @@
     import CommentItem from "./components/CommentItem";
     import global from "../../components/global";
     import {serviceApi} from "../../services/apis";
-
+   import _ from 'lodash'
     export default {
         name: "ProductionDetails",
         data() {
@@ -196,6 +196,20 @@
             goCommentPage() {
                 this.$router.push(`/comment/${this.$route.params.id}`)
             },
+            async getPrice(){
+                if (!_.isEmpty(this.selected)&&Object.values(this.selected).includes('')) return this.$toast('请选择属性')
+                try {
+                    //获取产品价格spa_id
+                    const compose = Object.entries(this.selected).map((item) => item.join(':')).join(',')
+                    const res = await serviceApi.getPriceBySpecs({
+                        id: this.$route.params.id,
+                        compose
+                    })
+                    this.price=res.data.price
+                }catch (e) {
+                    global.showErrorTip(e.msg, this)
+                }
+            },
             // shareToQQ() {
             //   //fixme:此处分享链接内无法携带图片
             //   const share = {
@@ -218,8 +232,13 @@
             //   this.shareToQQ()
             //
             // },
-            setSpecs(listId, specId) {
+            async setSpecs(listId, specId) {
                 this.selected[listId] = specId
+                await this.getPrice()
+            },
+            changNumber(){
+                console.log('sss')
+                this.getPrice()
             },
             async handleAddOrPay() {//确认
                 if (Object.values(this.selected).includes('')) return this.$toast('请选择规格属性')
