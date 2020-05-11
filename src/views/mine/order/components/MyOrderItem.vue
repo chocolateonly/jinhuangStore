@@ -38,6 +38,14 @@
         <div class="item-footer flexRow0 jc-sb ai-center" v-else-if="v.status==='2'">
             <div class=" flexRow1 text-line-1"></div>
             <div class="right-btn flexRow1  ai-center">
+                <div class="order-btn" style="color:#e67717">待发货</div>
+            </div>
+
+        </div>
+
+        <div class="item-footer flexRow0 jc-sb ai-center" v-else-if="v.status==='3'">
+            <div class=" flexRow1 text-line-1"></div>
+            <div class="right-btn flexRow1  ai-center">
                 <div class="order-btn lg-bg-red" @click="goConfirm">确认收货</div>
             </div>
 

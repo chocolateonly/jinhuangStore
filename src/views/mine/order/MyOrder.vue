@@ -10,6 +10,7 @@
             <div class="tabs flexRow1  ai-center">
                 <div class="tab-item flexRow1 jc-center"
                      v-for="(v,i) in tabs" :key="i"
+                     v-show="v!=='待发货'"
                      :class="{'active':activeTab===i}"
                      @click="setActiveTab(i)">
                     {{v}}
@@ -45,7 +46,7 @@
     components: {MyOrderItem, FlatListView, Header},
     data() {
       return {
-        tabs: ['全部', '待付款', '待收货', '待评价'],
+        tabs: ['全部', '待付款','待发货', '待收货', '待评价'],
         activeTab: 0,
       }
     },
