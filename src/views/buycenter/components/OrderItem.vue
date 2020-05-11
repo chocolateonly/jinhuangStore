@@ -70,7 +70,7 @@
                 try {
                     await serviceApi.sellOut({id:this.v.id,hasToken:true})
                     this.$toast('成功卖出')
-                    this.$router.push('/tab/buyCenter')
+                    this.$router.go(0)
                 } catch (e) {
                     global.showErrorTip(e.msg, this)
                 }
@@ -87,8 +87,14 @@
                         const l_res = await serviceApi.getLastPrice()
                         this.curPrice = l_res.data.now_price
                         this.profit_money = Number((Number(l_res.data.now_price) - Number(this.v.buy_price)) * Number(this.v.num) * Number(this.v.weight)).toFixed(2)
-                        if (Number(this.profit_money) > 0) this.isUp = true
-                        else this.isUp = false
+                        if (Number(this.profit_money) > 0) {
+                            this.isUp = this.v.type_text !== '回购'
+                            this.profit_money=this.isUp?`${Math.abs(Number(this.profit_money))}`:`-${Math.abs(Number(this.profit_money))}`
+                        }
+                        else {
+                            this.isUp = this.v.type_text === '回购'
+                            this.profit_money=this.isUp?`${Math.abs(Number(this.profit_money))}`:`-${Math.abs(Number(this.profit_money))}`
+                        }
                     } catch (e) {
                         clearInterval(this.lastPriceInterval)
                         global.showErrorTip(e.msg, this)

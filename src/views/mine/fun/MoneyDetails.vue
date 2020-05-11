@@ -18,7 +18,7 @@
             </van-tabs>
 
             <div class=" flexGrow1">
-                <FlatListView :getList="(page,pageSize)=>getList(page,pageSize)">
+                <FlatListView :key="selectedTab" :getList="(page,pageSize)=>getList(page,pageSize)">
                     <template scope="list">
                         <div class="user-info" v-for="(v,i) in list.data" :key="i">
                             <div class="flexRow0">

@@ -117,6 +117,7 @@
             width: 100px;
             height: 100px;
             margin-right: 10px;
+            border-radius: 50px;
             background: #fcc;
             img {
                 width: 100px;

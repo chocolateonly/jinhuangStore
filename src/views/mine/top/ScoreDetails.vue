@@ -1,14 +1,14 @@
 <template>
-    <Layout title="积分明细" :go-back="goBack">
+    <Layout title="金豆明细" :go-back="goBack">
         <div class="main" slot="content">
             <div class="main" slot="content">
                 <div class="team-header flexRow0 ">
                     <div class="left-content flexCol1 ai-center">
-                        <div>累计积分</div>
+                        <div>累计金豆</div>
                         <div class="num">{{data.total_integral}}</div>
                     </div>
                     <div class="left-content  flexCol1 ai-center">
-                        <div>可用积分</div>
+                        <div>可用金豆</div>
                         <div class="num">{{data.may_integral}}</div>
                     </div>
                 </div>
