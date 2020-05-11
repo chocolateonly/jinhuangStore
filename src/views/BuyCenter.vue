@@ -7,7 +7,7 @@
                      v-for="(v,i) in tabs" :key="i"
                      :class="{'active':activeTab===i}"
                      @click="setActiveTab(i)">
-                    <span>{{v}}</span>
+                    <div>{{v}}</div>
                 </div>
             </div>
             </div>
@@ -146,7 +146,7 @@
             &.active:after {
                 content: '';
                 width: 60px;
-                height: 2px;
+                height: 4px;
                 background:  #fff;
                 position: absolute;
                 bottom: 0px;

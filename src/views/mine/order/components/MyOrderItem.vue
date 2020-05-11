@@ -102,7 +102,7 @@
 
                 const params = {
                     hasToken: true,
-                    id: this.$route.params.id,
+                    id: this.v.id,
                 }
 
                 try {
