@@ -66,6 +66,7 @@
     import {apiRoot, getParams, serviceApi,payRedirectUrl} from "../../../services/apis";
     import global from "../../../components/global";
     import qs from "qs";
+    import axios from 'axios'
 
     export default {
         name: "Recharge",
@@ -106,26 +107,32 @@
                 }
 
                 try {
-                    let res = await fetch(`${apiRoot}/api/index/recharge?${qs.stringify(getParams(params))}`)
+
+/*                    axios.post(`${apiRoot}/api/index/recharge?${qs.stringify(getParams(params))}`)
+                    .then(res=>{
+                        console.log(res)
+                    }).catch(e=>console.log(e))*/
+
+                    let res = await axios.post(`${apiRoot}/api/index/recharge?${qs.stringify(getParams(params))}`)
+                    if(res.data.code==='400') return  global.showErrorTip(res.data.desc, this)
 
                     if (this.payWay===0){//微信
-                        res=await res.json()
                         const url = encodeURIComponent(`${payRedirectUrl}/#/tab/mine`)
-                        window.location.href = res.data+"&redirect_url="+url;
+                        window.location.href = res.data.data+"&redirect_url="+url;
                     }
                     else if (this.payWay===1){//支付宝
-                        res=await res.text()
                         const div = document.createElement('div');
-                        div.innerHTML =res;
+                        div.innerHTML =res.data;
                         document.body.appendChild(div);
                         document.forms[0].submit();
                     }
                     else{
-                        this.$toast(res.desc) //支付成功
+                        this.$toast('充值成功') //支付成功
                         this.$router.push('/tab/mine')
                     }
 
                 } catch (e) {
+                    console.log(e)
                     global.showErrorTip(e.msg, this)
                 }
             },

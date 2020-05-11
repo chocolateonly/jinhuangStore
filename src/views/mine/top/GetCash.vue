@@ -75,6 +75,8 @@
                 this.$router.push(url)
             },
             async onSubmit(){
+                if (this.data.list.length===0)  return this.$toast('无提现账户')
+                if(!this.money) return this.$toast('请输入提现金额')
                 const params={
                 hasToken: true,
                  id:this.payWay,
@@ -92,7 +94,7 @@
             try {
                 const res = await serviceApi.getTixianData({hasToken: true})
                 this.data = res.data
-                this.payWay=res.data.list[0].id
+               if(res.data.list.length>0) this.payWay=res.data.list[0].id
             } catch (e) {
                 global.showErrorTip(e.msg, this)
             }

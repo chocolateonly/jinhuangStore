@@ -92,6 +92,7 @@
     import qs from "qs";
     import {mapActions, mapGetters} from 'vuex'
     import _ from 'lodash'
+    import axios from 'axios'
 
     export default {
         name: "PayOrder",
@@ -136,16 +137,17 @@
                 }
 
                 try {
-                    let res = await fetch(`${apiRoot}/api/index/surePay?${qs.stringify(getParams(params))}`)
+                    let res =  await axios.post(`${apiRoot}/api/index/surePay?${qs.stringify(getParams(params))}`)
+                    if(res.data.code==='400') return  global.showErrorTip(res.data.desc, this)
 
                     if (this.payWay === 0) {//微信
                         res = await res.json()
                         const url = encodeURIComponent(`${payRedirectUrl}/#/myOrder/0`)
-                        window.location.href = res.data + "&redirect_url=" + url;
+                        window.location.href = res.data.data + "&redirect_url=" + url;
                     } else if (this.payWay === 1) {//支付宝
                         res = await res.text()
                         const div = document.createElement('div');
-                        div.innerHTML = res;
+                        div.innerHTML = res.data;
                         document.body.appendChild(div);
                         document.forms[0].submit();
                     } else {
