@@ -4,7 +4,8 @@
             <div class="order-num">订单号：{{v.parent_sn}}</div>
             <div class="order-time">{{v.create_time}}</div>
         </div>
-
+<!---->
+        <div v-show="v.status!=='4'">
         <div class="item-content flexRow0" v-for="(child,index) in v.plist" :key="`c_${index}`">
             <div class="item-img">
                 <img :src="child.image" alt="">
@@ -18,7 +19,7 @@
             </div>
         </div>
 
-        <!--status  -1删除订单 1待付款  2待收货  3待评价-->
+        <!--status  -1删除订单 1待付款  2待发货 3待收货  4待评价-->
         <div class="item-footer flexRow0 jc-sb ai-center" v-if="v.status==='-1'">
             <div class=" flexRow1 text-line-1"></div>
             <div class="right-btn flexRow1  ai-center">
@@ -50,15 +51,30 @@
             </div>
 
         </div>
-
-        <div class="item-footer flexRow0 jc-sb ai-center" v-else-if="v.status==='4'">
-            <div class=" flexRow1 text-line-1"></div>
-            <div class="right-btn flexRow1  ai-center">
-                <div class="order-btn lg-bg-red" @click="goComment">去评价</div>
-            </div>
-
         </div>
 
+        <div v-show="v.status==='4'" v-for="(child,index) in v.plist" :key="`c_${index}`">
+            <div class="item-content flexRow0" >
+                <div class="item-img">
+                    <img :src="child.image" alt="">
+                </div>
+                <div class="item-info flexCol1 jc-sb">
+                    <div class="info-title text-line-1">{{child.product_name}}</div>
+                    <div class="info-content flexRow1 jc-sb">
+                        <div class="info-sub text-line-1">数量：x{{child.num}}</div>
+                        <div class="order-money text-line-1">￥{{child.price}}</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="item-footer flexRow0 jc-sb ai-center" v-show="child.status==='4'&&child.is_comment==='1'">
+                <div class=" flexRow1 text-line-1"></div>
+                <div class="right-btn flexRow1  ai-center">
+                    <div class="order-btn lg-bg-red" @click="goComment">去评价</div>
+                </div>
+
+            </div>
+        </div>
     </div>
 </template>
 

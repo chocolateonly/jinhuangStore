@@ -1,7 +1,9 @@
 <template>
     <Layout title="评价订单" :go-back="goBack">
         <div class="main" slot="content">
-            <div class="order-info flexRow0 " v-for="(v,i) in oplist" :key="i">
+
+            <div v-for="(v,i) in oplist" :key="i">
+            <div class="order-info flexRow0 ">
                 <div class="prod-img">
                     <img :src="v.image" alt="">
                 </div>
@@ -27,19 +29,23 @@
 
             <van-field class="input-item" name="rate" label="评分">
                 <template #input>
-                    <van-rate v-model="star" />
+                    <van-rate v-model="v.star" @change="(val)=>changeStar(val,i)"/>
                 </template>
             </van-field>
 
             <van-field
                     class="input-item"
-                    v-model="comment"
+                    v-model="v.comment"
+                    @change="(val)=>changeComment(val,i)"
                     label="评价"
                     autosize
                     type="textarea"
                     placeholder="请输入内容"
                     label-align="left"
             />
+
+            </div>
+
 
             <div class="save-btn lg-bg-red  ai-center" @click="onSubmit">
                 <span>提 交</span>
@@ -62,8 +68,6 @@
         data() {
             return {
                 oplist:[],
-                comment:'',
-                star:0
             }
         },
         methods: {
@@ -76,18 +80,33 @@
             goBack() {
                 this.$router.go(-1)
             },
-            async onSubmit(){
-
-                const params = {
-                    hasToken: true,
-                    id: this.$route.params.id,
-                    content:this.comment,
-                    star:this.star
-                }
-
+            changeStar(val,i){
+               this.oplist[i].star=val
+            },
+            changeComment(e,i){
+                console.log(e.target.value,i)
+                this.oplist[i].comment=e.target.value
+            },
+            async onComment(params){
                 try {
-                    const res = await serviceApi.commentProduct(params)
-                    this.oplist = res.data.oplist
+                     await serviceApi.commentProduct(params)
+
+                } catch (e) {
+                    global.showErrorTip(e.msg, this)
+                }
+            },
+            async onSubmit(){
+                try {
+                   await this.oplist.forEach(item=>{
+                         this.onComment({
+                             hasToken: true,
+                             id: item.id,
+                             content:item.comment,
+                             star:item.star
+                         })
+                    })
+
+                    this.$router.replace('/myOrder/0')
                 } catch (e) {
                     global.showErrorTip(e.msg, this)
                 }
@@ -101,13 +120,18 @@
 
                 try {
                     const res = await serviceApi.getOrderDetail(params)
-                    this.oplist = res.data.oplist
+                    const data=res.data.oplist
+                    this.oplist = data.reduce((acc,cur)=>{
+                        acc.push({...cur,comment:'',star:0})
+                        return acc
+                    },[])
                 } catch (e) {
                     global.showErrorTip(e.msg, this)
                 }
             },
         },
         mounted() {
+
             this.getOrderDetail()
         }
     }

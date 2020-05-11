@@ -1,6 +1,7 @@
 <template>
     <div class="comment-item flexRow0">
-        <img :src="v.avatar" alt="">
+        <img v-if="v.avatar" :src="v.avatar" alt="">
+        <img v-else src="../../../assets/common/user_logo.png" alt="">
 
         <div class="content-wrapper flexGrow1">
             <div class="flexRow1 jc-sb">
