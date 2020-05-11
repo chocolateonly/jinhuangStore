@@ -174,7 +174,8 @@
                 buyNumber: 1,
                 data: {},
                 selected: {},
-                goCarOrPay: ''
+                goCarOrPay: '',
+                price:''
             }
         },
         components: {CommentItem, TitleCore, Swiper, Header},
@@ -280,6 +281,7 @@
             try {
                 const res = await serviceApi.getProductDetails({id: this.$route.params.id})
                 this.data = res.data
+                this.price=res.data.price
             } catch (e) {
                 global.showErrorTip(e.msg, this)
             }
@@ -441,5 +443,6 @@
     }
     .p-detail .detail{
         text-align: left;
+        word-break: break-word;
     }
 </style>

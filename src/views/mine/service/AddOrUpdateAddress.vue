@@ -106,21 +106,31 @@
 
                 if (!validator.isMobilePhone(this.mobile)) return this.$toast.fail('请输入正确的手机号')
 
-                const params = {
-                    hasToken: true,
-                    name: this.name,
-                    phone: this.mobile,
-                    province_id: this.province.code,
-                    city_id: this.city.code,
-                    area_id: this.area.code,
-                    address: this.addressDetails,
-                    is_default: this.isDefault ? '2' : '1' //2默认
-                }
-
                 try {
                     if (this.$route.params.id === 'add') {
+                        const params = {
+                            hasToken: true,
+                            name: this.name,
+                            phone: this.mobile,
+                            province_id: this.province.code,
+                            city_id: this.city.code,
+                            area_id: this.area.code,
+                            address: this.addressDetails,
+                            is_default: this.isDefault ? '2' : '1' //2默认
+                        }
                         await serviceApi.addAddress(params)
                     }else{
+                        const params = {
+                            hasToken: true,
+                            id:this.$route.params.id,
+                            name: this.name,
+                            phone: this.mobile,
+                            province_id: this.province.code,
+                            city_id: this.city.code,
+                            area_id: this.area.code,
+                            address: this.addressDetails,
+                            is_default: this.isDefault ? '2' : '1' //2默认
+                        }
                         await serviceApi.updateAddress(params)
                     }
                     this.goBack()

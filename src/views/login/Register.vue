@@ -131,6 +131,7 @@
 
                 try {
                     await serviceApi.register(params)
+                    this.$toast('注册成功')
                     this.goBack()
                 } catch (e) {
                     global.showErrorTip(e.msg, this)

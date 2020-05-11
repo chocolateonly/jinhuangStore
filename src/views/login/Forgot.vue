@@ -97,6 +97,7 @@
 
                 try {
                     await serviceApi.forgot(params)
+                    this.$toast('修改成功')
                     this.goBack()
                 } catch (e) {
                     global.showErrorTip(e.msg, this)

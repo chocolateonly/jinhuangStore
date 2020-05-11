@@ -93,7 +93,6 @@
                 this.sdyMoney=''
             },
             onChangeMoney(){
-                this.sdyMoney=Number(this.sdyMoney).toFixed('2')
                 if (Number(this.sdyMoney)>0){this.selected=''}
                 else{
                     this.sdyMoney=''
