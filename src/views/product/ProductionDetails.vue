@@ -237,8 +237,8 @@
                 await this.getPrice()
             },
             changNumber(){
-                console.log('sss')
-                this.getPrice()
+              /*  console.log('sss')
+                this.getPrice()*/
             },
             async handleAddOrPay() {//确认
                 if (Object.values(this.selected).includes('')) return this.$toast('请选择规格属性')

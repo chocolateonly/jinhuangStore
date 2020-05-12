@@ -1,5 +1,6 @@
 import {Toast} from "vant";
 import {payRedirectUrl} from "./apis";
+import {StorageKey} from "../utils";
 
 const defaultConfig = {
   headers: {'Content-Type': 'application/json; charset=UTF-8'},
@@ -87,6 +88,8 @@ async function parseJson(res) {
   if (resJson.code === '401'){ //throw {message:resJson.desc,code:resJson.code}
     window.location.replace(`${payRedirectUrl}/#/login`)
     //window.location.replace(`http://localhost:8080/#/login`)
+    localStorage.removeItem(StorageKey)
+    localStorage.removeItem('BS_JINHUANG_IP')
     Toast(resJson.desc)
     //throw {message: resJson.desc};
   }
@@ -98,6 +101,6 @@ function handleRes(res) {
   if (res.isOk) {
     return res.data;
   }
-  throw {message: res.data.desc}
+  throw {...res.data,message: res.data.desc}
 }
 

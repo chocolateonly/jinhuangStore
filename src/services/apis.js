@@ -11,7 +11,7 @@ export const getParams= (body)=>{
 
   const params = hasToken?{...other,timestamp,uid,token}:{...other,timestamp}
   const sign = getSign(params)
-  const ipO=hasToken?{ip:localStorage.getItem('BS_JINHUANG_IP')}:{}
+  const ipO={ip:localStorage.getItem('BS_JINHUANG_IP')}
   return {...params,...ipO,timestamp,sign}
 }
 //登录
