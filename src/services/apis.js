@@ -11,7 +11,8 @@ export const getParams= (body)=>{
 
   const params = hasToken?{...other,timestamp,uid,token}:{...other,timestamp}
   const sign = getSign(params)
-  return {...params,timestamp,sign}
+  const ipO=hasToken?{ip:localStorage.getItem('BS_JINHUANG_IP')}:{}
+  return {...params,...ipO,timestamp,sign}
 }
 //登录
 function getSplash(body,options) {

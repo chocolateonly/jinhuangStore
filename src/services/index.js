@@ -1,8 +1,5 @@
-const langPackage = {
-  unauthorized: 'unauthorized',
-  gatewayTimeout: 'gateway Timeout'
-}
-const {unauthorized} = langPackage
+import {Toast} from "vant";
+import {payRedirectUrl} from "./apis";
 
 const defaultConfig = {
   headers: {'Content-Type': 'application/json; charset=UTF-8'},
@@ -21,7 +18,7 @@ export async function Post(url, body, options = {}) {
     res = await handleRes(res);
     return res;
   } catch (e) {
-    await Promise.reject({msg: e.message});
+    await Promise.reject({msg: e.message,code:e.code});
   }
 }
 
@@ -35,7 +32,7 @@ export async function Get(url) {
     res = await handleRes(res);
     return res;
   } catch (e) {
-    await Promise.reject({msg: e.message});
+    await Promise.reject({msg: e.message,code:e.code});
   }
 }
 
@@ -52,7 +49,7 @@ export async function Put(url, body, options = {}) {
     res = await handleRes(res);
     return res;
   } catch (e) {
-    await Promise.reject({msg: e.message});
+    await Promise.reject({msg: e.message,code:e.code});
   }
 }
 
@@ -68,7 +65,7 @@ export async function Delete(url, options = {}) {
     res = await handleRes(res);
     return res;
   } catch (e) {
-    await Promise.reject({msg: e.message});
+    await Promise.reject({msg: e.message,code:e.code});
   }
 
 }
@@ -79,7 +76,6 @@ function getStatus(res) {
 }
 
 async function parseJson(res) {
-  if (res.status === 401) throw {message: unauthorized};
   if (res.status === 500) {
     throw {message: resJson.msg};
   }
@@ -87,9 +83,15 @@ async function parseJson(res) {
   console.log('from api-----------------');
   console.log(resJson);
   //alert('error???:'+JSON.stringify(resJson))
-  if (resJson.code === '400') throw {message: resJson.desc};
-
+  if (resJson.code === '400') throw {message: resJson.desc,code:resJson.code};
+  if (resJson.code === '401'){ //throw {message:resJson.desc,code:resJson.code}
+    window.location.replace(`${payRedirectUrl}/#/login`)
+    //window.location.replace(`http://localhost:8080/#/login`)
+    Toast(resJson.desc)
+    //throw {message: resJson.desc};
+  }
   return {isOk: res.isOk, data: resJson};
+
 }
 
 function handleRes(res) {

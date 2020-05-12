@@ -76,6 +76,9 @@
         },
         mounted() {//清缓存
             //localStorage.removeItem(StorageKey);
+            /*const ipO=require('http://pv.sohu.com/cityjson?ie=utf-8')
+            console.log(ipO)*/
+            window.saveIp()
         }
     }
 </script>

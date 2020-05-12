@@ -56,6 +56,11 @@
                                         label-align="left"
                                         input-align="right"
                                 />
+
+
+                    <div class="save-btn lg-bg-red flexCol0 ai-center" @click="onLoginOut">
+                        <span>退 出</span>
+                    </div>
                 </div>
             </div>
         </div>
@@ -89,6 +94,11 @@
             getFile(e) {
                 this.fileList.push(e.target.files);
                 console.log(this.fileList)
+            },
+            onLoginOut(){
+                this.$router.replace('/login')
+                localStorage.removeItem(StorageKey)
+                localStorage.removeItem('BS_JINHUANG_IP')
             },
             goBack() {
                 this.$router.go(-1)
@@ -214,5 +224,11 @@
         width: 124px;
         height: 124px;
         border-radius: 62px;
+    }
+    .save-btn{
+        width: 610px;
+        padding: 24px 0;
+        text-align: center;
+        margin: 0 auto;
     }
 </style>

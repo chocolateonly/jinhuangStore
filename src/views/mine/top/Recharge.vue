@@ -24,7 +24,7 @@
                     <div class="zdy" style="border: 1px solid #fcc;">
                         <van-field v-model="sdyMoney" type="number" label="自定义"
                                    @input="val=>onChangeMoney(val)"
-                                   placeholder="自定义金额不低于1万"
+                                   :placeholder="`自定义金额不低于${moneyList.length>0?moneyList[0].money:0}`"
                                    label-align="left"
                                    input-align="right" />
                     </div>
@@ -108,11 +108,6 @@
 
                 try {
 
-/*                    axios.post(`${apiRoot}/api/index/recharge?${qs.stringify(getParams(params))}`)
-                    .then(res=>{
-                        console.log(res)
-                    }).catch(e=>console.log(e))*/
-
                     let res = await axios.post(`${apiRoot}/api/index/recharge?${qs.stringify(getParams(params))}`)
                     if(res.data.code==='400') return  global.showErrorTip(res.data.desc, this)
 
@@ -148,9 +143,6 @@
                 this.$router.push(url)
             },
 
-        },
-        mounted() {
-            this.selected_color=this.moneyList[0]
         },
         async beforeCreate() {
             const params = {

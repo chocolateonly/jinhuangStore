@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <link rel="icon" href="<%= BASE_URL %>favicon.ico">
-    <title>锦煌APP</title>
+    <title>锦煌</title>
     <style>
       html{
         /*font-size: 4.266667vw;*/
@@ -29,5 +29,13 @@
     <div id="app"></div>
     <!-- built files will be auto injected -->
     <script type="text/javascript" src='https://res2.wx.qq.com/open/js/jweixin-1.4.0.js'></script>
+    <script src="http://pv.sohu.com/cityjson?ie=utf-8"></script>
+  <script>
+    function saveIp(){
+      window.localStorage.setItem('BS_JINHUANG_IP',returnCitySN["cip"])
+      console.log(returnCitySN["cip"])
+    }
+  saveIp()
+  </script>
   </body>
 </html>
