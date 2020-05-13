@@ -46,7 +46,7 @@
                     </div>
 
                     <div class="gold-item-info flexRow0 jc-sb ai-center">
-                        <label class="text-line-1">预付款</label>
+                        <label class="text-line-1">金价预付款</label>
                         <div class="text-line-1">￥{{totalPrice}}</div>
                     </div>
 
@@ -58,11 +58,11 @@
 
                     <div class="gold-item-info flexRow0 jc-sb ai-center">
                         <label class="text-line-1">促销活动</label>
-                        <div class="text-line-1" style="color:#FA5454">返还金豆{{gold.integral}}个</div>
+                        <div class="text-line-1" style="color:#FA5454">返还金豆{{scoreNumber}}个</div>
                     </div>
 
                     <div class="gold-item-info flexRow0 jc-sb ai-center">
-                        <label class="text-line-1">实付款</label>
+                        <label class="text-line-1">实付预付款</label>
                         <div class="text-line-1">{{finaPrice}}</div>
                     </div>
                     <div class="gold-item-info flexRow0 jc-sb ai-center">
@@ -159,9 +159,9 @@
                 this.scoreNumber = Number(this.computedPre() * Number(this.gold.integral)).toFixed(2)
                 //计算服务费:判断是否为VIP，获取手续费*每手
                 this.servicePrice = Number(this.computedPre() * Number(this.gold.service_harge)).toFixed(2)
-                //计算预付款:规格g*数量*后台价格
-                this.totalPrice = Number(Number(this.gold.price) * Number(this.buyNumber) * Number(this.selected_size.weight)).toFixed(2)
-                //计算实付款:
+                //计算金价预付款:规格g*数量*价格
+                this.totalPrice = Number(Number(this.curPrice) * Number(this.buyNumber) * Number(this.selected_size.weight)).toFixed(2)
+                //计算实付预付款:
                 this.finaPrice = Number(Number(this.totalPrice) + Number(this.servicePrice)).toFixed(2)
             },
             async getGoldDetails() {
@@ -183,6 +183,7 @@
                         try {
                             const l_res = await serviceApi.getLastPrice()
                             this.curPrice = l_res.data.now_price
+                            this.getPrice()
                         } catch (e) {
                             clearInterval(this.lastPriceInterval)
                             global.showErrorTip(e.msg, this)

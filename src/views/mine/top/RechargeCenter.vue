@@ -34,7 +34,7 @@
             </div>
 
 
-            <van-radio-group class="pay-methods-list" v-model="payWay">
+            <!--<van-radio-group class="pay-methods-list" v-model="payWay">
                 <van-cell-group>
 
                     <van-cell class="pay-methods-item"
@@ -50,7 +50,7 @@
                     </van-cell>
 
                 </van-cell-group>
-            </van-radio-group>
+            </van-radio-group>-->
 
 
             <div class="save-btn lg-bg-red flexCol0 ai-center" @click="onSubmit">
@@ -64,9 +64,8 @@
 
 <script>
   import Layout from "../../../components/Layout";
-  import {apiRoot, getParams, payRedirectUrl, serviceApi} from "../../../services/apis";
+  import {serviceApi} from "../../../services/apis";
   import global from "../../../components/global";
-  import qs from "qs";
 
   export default {
     name: "RechargeCenter",
@@ -90,12 +89,14 @@
         async onPay() {
             const params = {
                 hasToken: true,
-                money:this.selected_vip.money,
-                type:this.payWay+1,
+                id:this.selected_vip.id
             }
 
             try {
-                let res = await fetch(`${apiRoot}/api/index/recharge?${qs.stringify(getParams(params))}`)
+                await serviceApi.setUpLevel(params)
+                this.$toast('升级成功')
+                this.$router.push('/tab/mine')
+/*                let res = await fetch(`${apiRoot}/api/index/recharge?${qs.stringify(getParams(params))}`)
 
                 if (this.payWay===0){//微信
                     res=await res.json()
@@ -112,7 +113,7 @@
                 else{
                     this.$toast(res.desc) //支付成功
                     this.$router.push('/tab/mine')
-                }
+                }*/
 
             } catch (e) {
                 global.showErrorTip(e.msg, this)

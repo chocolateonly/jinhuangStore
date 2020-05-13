@@ -138,6 +138,7 @@
         this.$router.push('/profile')
       },
       goOrderPage(i){
+          if (i===2) return this.$router.replace(`/myOrder/${3}`)
         this.$router.push(`/myOrder/${i}`)
       },
       goServicePage(i){

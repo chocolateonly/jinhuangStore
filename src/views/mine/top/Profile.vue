@@ -109,7 +109,9 @@
                     this.fileList = [file]
             },
             async onSave() {
-                if (!validator.isEmail(this.email)) return this.$toast.fail('邮箱格式不对')
+                if (this.email){
+                    if (!validator.isEmail(this.email)) return this.$toast.fail('邮箱格式不对')
+                }
 
                 try {
                 //1,上传头像
@@ -230,5 +232,6 @@
         padding: 24px 0;
         text-align: center;
         margin: 0 auto;
+        margin-top: 30px;
     }
 </style>

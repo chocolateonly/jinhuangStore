@@ -213,6 +213,9 @@ function addIdCardAuth(body,options) {
 function getAllMoney(body,options) {
   return Get(`${apiRoot}/api/index/ziCan?${qs.stringify(getParams(body))}`,options)
 }
+function setUpLevel(body,options) {
+  return Get(`${apiRoot}/api/index/upLevel?${qs.stringify(getParams(body))}`,options)
+}
 
 export  const serviceApi =  {
   getSplash,
@@ -280,6 +283,6 @@ export  const serviceApi =  {
   getVIPListData,
   addFeedback,
   addIdCardAuth,
-  getAllMoney
-
+  getAllMoney,
+  setUpLevel
 }

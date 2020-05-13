@@ -19,6 +19,18 @@
             </div>
         </div>
 
+
+            <div class="item-info flexCol1 jc-sb" style="margin-top:5px" v-show="v.status==='3'">
+                <div class="info-content flexRow1 jc-sb">
+                    <div class="info-sub text-line-1">
+                        <span class="order-money text-line-1">{{v.plist[0].logistics_name}}</span>
+                         快递单号：{{v.plist[0].logistics_no}}</div>
+
+                </div>
+            </div>
+
+
+
         <!--status  -1删除订单 1待付款  2待发货 3待收货  4待评价-->
         <div class="item-footer flexRow0 jc-sb ai-center" v-if="v.status==='-1'">
             <div class=" flexRow1 text-line-1"></div>

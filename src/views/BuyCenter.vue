@@ -14,15 +14,15 @@
 
         </div>
 
-<!--        <div class="select_date" @click="showPicker = true">
+        <div class="select_date" @click="showPicker = true">
             {{selectedDate}}
             <van-icon name="arrow-down"/>
-        </div>-->
+        </div>
 
         <div class=" flexCol1 overflowY" >
             <div class="content">
 
-                <FlatListView :key="activeTab" :getList="(page,pageSize)=>getList(page,pageSize)">
+                <FlatListView :key="`${activeTab}_${selectedDate}`" :getList="(page,pageSize)=>getList(page,pageSize)">
                     <template scope="list">
                         <div class="order" v-for="(v,i) in list.data" :key="i">
                             <OrderItem :v="v" :type="activeTab"/>
@@ -35,7 +35,7 @@
         <!--        金条购置按钮-->
 
         <div class="jtgz-btn">
-            <full-button  v-if="show==='1'"   _class-name="sq-btn" title="金条购置" :on-click="goBuyPage"/>
+            <full-button  v-if="true"   _class-name="sq-btn" title="金条购置" :on-click="goBuyPage"/>
 
             <full-button  v-else _class-name="sq-btn gray" title="金条购置" />
         </div>
@@ -46,7 +46,7 @@
         <van-popup v-model="showPicker" position="bottom">
             <van-datetime-picker
                     v-model="currentDate"
-                    type="date"
+                    type="year-month"
                     :min-date="minDate"
                     :max-date="maxDate"
                     @confirm="onConfirm"
@@ -94,7 +94,7 @@
                 this.showPicker = false;
             },
             formatDate(date) {
-                return moment(date).format('YYYY-MM-DD')
+                return moment(date).format('YYYY-MM')
             },
             goBuyPage() {
                 this.$router.push('/goldBuy')
@@ -104,7 +104,8 @@
                 const params = {
                     page: page,
                     sta: this.activeTab + 1,
-                    hasToken: true
+                    hasToken: true,
+                    month:this.selectedDate
                 }
                 try {
                     const res = await serviceApi.getBuyCenterList(params)

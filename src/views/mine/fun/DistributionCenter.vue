@@ -27,13 +27,11 @@
             </div>
 
 
-            <div class="flexRow1">
-                <div class="center-item flexCol1 ai-center" v-for="(v,i) in menu" :key="i" @click="goPage(i)">
+            <div class="">
+                <div class="center-item flexRow0 ai-center" v-for="(v,i) in menu" :key="i" @click="goPage(i)">
 
-                    <div>
                         <img :src="v.img" alt="">
-                    </div>
-                    <span>{{v.name}}</span>
+                    <div>{{v.name}}</div>
                 </div>
 
             </div>
@@ -161,13 +159,15 @@
         }
     }
     .center-item{
-        margin-top: 50px;
+        padding: 30px 0;
+        border-bottom: 1px solid #eee;
         img{
-            width: 80px;
-            height: 80px;
+            width: 40px;
+            height: 40px;
+            margin-right: 10px;
         }
         span{
-            font-size:28px;
+            font-size:24px;
             font-weight:400;
             color:rgba(35,35,35,1);
         }
