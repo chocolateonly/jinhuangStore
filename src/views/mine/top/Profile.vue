@@ -58,9 +58,7 @@
                                 />
 
 
-                    <div class="save-btn lg-bg-red flexCol0 ai-center" @click="onLoginOut">
-                        <span>退 出</span>
-                    </div>
+<PageBtn title="退 出" :on-click="onLoginOut" />
                 </div>
             </div>
         </div>
@@ -75,10 +73,11 @@
     import validator from 'validator'
     import qs from 'qs'
     import {getParams} from "../../../services/apis";
+    import PageBtn from "../../../components/PageBtn";
 
     export default {
         name: "Profile",
-        components: {Header},
+        components: {PageBtn, Header},
         data() {
             return {
                 nickName: '',

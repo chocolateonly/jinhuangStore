@@ -47,10 +47,7 @@
                 </van-checkbox>
             </van-cell>
 
-
-            <div class="save-btn lg-bg-red  ai-center" @click="onSave">
-                <span>提 交</span>
-            </div>
+            <PageBtn title="提 交" :on-click="onSave" />
 
         </div>
 
@@ -71,10 +68,11 @@
     import {serviceApi} from "../../../services/apis";
     import global from "../../../components/global";
     import validator from 'validator'
+    import PageBtn from "../../../components/PageBtn";
 
     export default {
         name: "AddOrUpdateAddress",
-        components: {Layout},
+        components: {PageBtn, Layout},
         data() {
             return {
                 showArea: false,

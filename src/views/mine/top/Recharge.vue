@@ -69,11 +69,7 @@
                 </van-radio-group>
 
 
-                <div class="save-btn lg-bg-red flexCol0 ai-center" @click="onSubmit">
-                    <span>充 值</span>
-                </div>
-
-
+                <PageBtn title="充 值" :on-click="onSubmit" />
             </div>
 
         </div>
@@ -87,10 +83,11 @@
     import global from "../../../components/global";
     import qs from "qs";
     import axios from 'axios'
+    import PageBtn from "../../../components/PageBtn";
 
     export default {
         name: "Recharge",
-        components: {Layout},
+        components: {PageBtn, Layout},
         data() {
             return {
                 yue: '0',
@@ -262,7 +259,7 @@
 
             .money-text {
                 margin: 10px;
-                padding: 50px 0;
+                padding: 40px 0;
                 border-radius: 25px;
                 border: 2px solid #fcc;
                 input{

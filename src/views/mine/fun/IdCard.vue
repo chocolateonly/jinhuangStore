@@ -47,9 +47,8 @@
                 </div>
 
             </div>
-            <div class="save-btn lg-bg-red " @click="onSubmit">
-                <span>保存</span>
-            </div>
+
+            <PageBtn title="保 存" :on-click="onSubmit" />
         </div>
     </Layout>
 
@@ -61,10 +60,11 @@
     import global from "../../../components/global";
     import { StorageKey} from "../../../utils";
     import qs from "qs";
+    import PageBtn from "../../../components/PageBtn";
 
     export default {
         name: "AddBankCard",
-        components: {Layout},
+        components: {PageBtn, Layout},
         data() {
             return {
                 name: '',

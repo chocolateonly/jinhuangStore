@@ -43,10 +43,7 @@
             </div>
 
 
-            <div class="save-btn lg-bg-red flexCol0 ai-center" @click="onSubmit">
-                <span>立即提现</span>
-            </div>
-
+            <PageBtn title="立即提现" :on-click="onSubmit" />
         </div>
     </Layout>
 
@@ -56,10 +53,11 @@
     import Layout from "../../../components/Layout";
     import {serviceApi} from "../../../services/apis";
     import global from "../../../components/global";
+    import PageBtn from "../../../components/PageBtn";
 
     export default {
         name: "GetCash",
-        components: {Layout},
+        components: {PageBtn, Layout},
         data() {
             return {
                 payWay: '',

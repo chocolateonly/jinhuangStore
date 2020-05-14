@@ -30,10 +30,7 @@
                 </template>
             </van-field>
 
-            <div class="save-btn lg-bg-red " @click="onSubmit">
-                <span>保存</span>
-            </div>
-
+            <PageBtn title="保 存" :on-click="onSubmit" />
         </div>
     </Layout>
 
@@ -43,10 +40,11 @@
   import Layout from "../../../components/Layout";
   import {serviceApi} from "../../../services/apis";
   import global from "../../../components/global";
+  import PageBtn from "../../../components/PageBtn";
 
   export default {
     name: "SetParams",
-    components: {Layout},
+    components: {PageBtn, Layout},
     data() {
       return {
           yinli:'',

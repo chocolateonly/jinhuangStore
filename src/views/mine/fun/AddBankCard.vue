@@ -40,9 +40,8 @@
                     input-align="right"
 
             />
-            <div class="save-btn lg-bg-red " @click="onSubmit">
-                <span>绑定</span>
-            </div>
+
+            <PageBtn title="绑 定" :on-click="onSubmit" />
 
             <div class="tip">
                 请正确将你的银行卡卡号输入，这样您的收益才会到达您的个 人账户里。
@@ -67,9 +66,10 @@
     import {serviceApi} from "../../../services/apis";
     import global from "../../../components/global";
     import validator from 'validator'
+    import PageBtn from "../../../components/PageBtn";
     export default {
         name: "AddBankCard",
-        components: {Layout},
+        components: {PageBtn, Layout},
         data() {
             return {
                 name: '',

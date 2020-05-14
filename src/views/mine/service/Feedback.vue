@@ -30,11 +30,8 @@
                     label-align="left"
 
             />
-            <div class="save-btn lg-bg-red " @click="onSubmit">
-                <span>提 交</span>
-            </div>
 
-
+            <PageBtn title="提 交" :on-click="onSubmit" />
         </div>
     </Layout>
 
@@ -45,9 +42,10 @@
     import {serviceApi} from "../../../services/apis";
     import global from "../../../components/global";
     import validator from 'validator'
+    import PageBtn from "../../../components/PageBtn";
     export default {
         name: "Feedback",
-        components: {Layout},
+        components: {PageBtn, Layout},
         data() {
             return {
                 title: '',
@@ -71,6 +69,9 @@
                 try {
                     await  serviceApi.addFeedback(params)
                     this.$toast('提交成功')
+                    this.title='';
+                        this.mobile='';
+                        this.feedback='';
                 }catch (e) {
                     global.showErrorTip(e.msg,this)
                 }
