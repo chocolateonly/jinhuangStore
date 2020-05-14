@@ -39,7 +39,7 @@
         </div>
 
         <van-submit-bar class="footer-bar" :price="finPrice*100" button-text="提交订单" @submit="onSubmit">
-            <van-checkbox v-model="checkedAll" checked-color="#BC0203" @change="onCheckedAll">全选</van-checkbox>
+            <van-checkbox v-model="checkedAll" checked-color="#BC0203" @click="onCheckedAll">全选</van-checkbox>
         </van-submit-bar>
 
     </div>
@@ -145,6 +145,10 @@
                     }
                     return acc
                 }, [])
+
+                const notSelectedDta=this.list.find(item=>!item.selected)
+                if (!notSelectedDta) this.checkedAll=true
+                else  this.checkedAll=false
 
                 this.finPrice = finally_money
             },
