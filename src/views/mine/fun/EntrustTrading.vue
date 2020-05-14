@@ -19,12 +19,12 @@
                             <div class=" text-line-1"  style="text-align: center">{{v.cycle}}个月</div>
                         </div>
 
-
+<!--确认-->
                         <div class="order-btn lg-bg" v-show="onShow(list.data)&&v.is_check==='1'" @click="()=>onConfirm(v)"></div>
-
+<!--灰色-->
                         <div class="order-btn over" v-show="!onShow(list.data)&&v.is_check==='1'"></div>
-<!--fixme:已选择-->
-                        <div class="order-btn over" v-show="!onShow(list.data)&&v.is_check==='2'">已选择</div>
+<!--已选择-->
+                        <div class="order-btn has" v-show="!onShow(list.data)&&v.is_check==='2'"></div>
                     </div>
                 </template>
             </FlatListView>
@@ -108,27 +108,32 @@
         }
     }
     .btn-wrap{
-        width:180px
+        width:150px
     }
     .order-btn {
-        margin-left: 10px;
-        padding: 10px 20px;
+        margin:0 10px;
+/*        padding: 10px 20px;
         min-width: 100px;
         border-radius: 40px;
-        text-align: center;
+        text-align: center;*/
 
-
+        &.has{
+            background: url("../../../assets/me/wtjy_has_btn.jpg") no-repeat;
+            background-size: cover;
+            width:150px;
+            height: 50px;
+        }
         &.over{
             background: url("../../../assets/me/wtjy_over_btn.png") no-repeat;
             background-size: cover;
-            width:180px;
-            height: 60px;
+            width:150px;
+            height: 50px;
         }
         &.lg-bg{
                 background: url("../../../assets/me/wtjy_btn.jpg") no-repeat;
                 background-size: cover;
-                width:180px;
-                height: 60px;
+                width:150px;
+                height: 50px;
         }
     }
 

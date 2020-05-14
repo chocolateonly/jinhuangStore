@@ -304,6 +304,9 @@
                 }
                 .set-btn{
                     background: linear-gradient(#F24949, #C40D0E);
+                    border: 0.06rem solid;
+                    -o-border-image: linear-gradient(-45deg, #a35d09, #fbd8ad, #8c4e03, #fbdcb3) 4 4;
+                    border-image: linear-gradient(-45deg, #a35d09, #fbd8ad, #8c4e03, #fbdcb3) 4 4;
                     color: #fff;
                     padding: 10px;
                     min-width: 140px;
