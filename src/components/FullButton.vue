@@ -26,8 +26,9 @@
 
 <style lang="less" scoped>
     .full_btn {
-        width: 100%;
+        width: 610px;
         height: 89px;
+        margin:0 auto;
         background: url("../assets/common/full_btn.png") no-repeat;
         background-size: contain;
         color: #fff;

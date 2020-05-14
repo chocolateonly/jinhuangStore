@@ -33,9 +33,8 @@
             </div>
         </div>
         <!--        金条购置按钮-->
-
         <div class="jtgz-btn">
-            <full-button  v-if="true"   _class-name="sq-btn" title="金条购置" :on-click="goBuyPage"/>
+            <full-button  v-if="show==='1'"  _class-name="sq-btn" title="金条购置" :on-click="goBuyPage"/>
 
             <full-button  v-else _class-name="sq-btn gray" title="金条购置" />
         </div>
@@ -167,13 +166,11 @@
     .jtgz-btn {
         padding: 0 0.4rem;
 
-        .sq-btn {
-            background: url("../assets/common/sq_full_btn.png") no-repeat;
-            background-size: cover;
-            &.gray{
+
+            .gray{
                 background: #ccc;
             }
-        }
+
     }
 
 </style>

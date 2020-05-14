@@ -162,7 +162,7 @@
                 //计算金价预付款:规格g*数量*价格
                 this.totalPrice = Number(Number(this.curPrice) * Number(this.buyNumber) * Number(this.selected_size.weight)).toFixed(2)
                 //计算实付预付款:
-                this.finaPrice = Number(Number(this.totalPrice) + Number(this.servicePrice)).toFixed(2)
+                this.finaPrice = Number(Number(this.gold.price) * Number(this.buyNumber) * Number(this.selected_size.weight)).toFixed(2)
             },
             async getGoldDetails() {
                 const params = {
@@ -311,7 +311,9 @@
 
     .btn {
         margin: 20px;
-
+        border: 0.06rem solid;
+        -o-border-image: linear-gradient(-45deg, #a35d09, #fbd8ad, #8c4e03, #fbdcb3) 4 4;
+        border-image: linear-gradient(-45deg, #a35d09, #fbd8ad, #8c4e03, #fbdcb3) 4 4;
         div {
             padding: 16px;
         }

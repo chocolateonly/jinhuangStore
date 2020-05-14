@@ -1,13 +1,8 @@
 <template>
     <Layout title="我的推广码" :go-back="goBack">
         <div class="main flexCol1" slot="content">
-            <van-password-input
-                    class="code"
-                    :value="data.invite_code"
-                    :mask="false"
-                    :show="false"
-            />
-            <div class="flexCol1  flexGrow1 ai-center " style="margin-top: 60px">
+
+            <div class="img-wrap" >
 
                 <img id="imageWrapper" :src="data.erweima" alt="">
                 <!--<div style="margin-top: 10px">(长按图片即可保存)</div>-->
@@ -15,6 +10,14 @@
 
 
             <!--            <button @click="toSave">保存图片</button>-->
+
+            <van-password-input
+                    class="code"
+                    :value="data.invite_code"
+                    :mask="false"
+                    :show="false"
+            />
+
         </div>
     </Layout>
 
@@ -83,8 +86,12 @@
 <style lang="less" scoped>
     .main {
         text-align: left;
+        background: url("../../../assets/me/qrcode_bg.png") no-repeat;
+        background-size: cover;
     }
-
+.img-wrap{
+    margin: 80px auto
+}
     #imageWrapper {
         width: 400px;
         height: 400px;
