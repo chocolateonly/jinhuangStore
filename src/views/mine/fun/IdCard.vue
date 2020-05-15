@@ -48,7 +48,7 @@
 
             </div>
 
-            <PageBtn title="保 存" :on-click="onSubmit" />
+            <PageBtn v-show="is_name" title="保 存" :on-click="onSubmit" />
         </div>
     </Layout>
 
@@ -73,6 +73,7 @@
                 idCardDown: [{content:''}],
                 idCardUpId:'',
                 idCardDownId:'',
+                is_name:true
             }
         },
         methods: {
@@ -154,6 +155,7 @@
                 this.idCardDown=[{content: res.data.id_card_verso,}]
                 this.name=res.data.realname
                 this.idCard=res.data.id_card
+                this.is_name=res.data.is_name!=='2'  //为2 认证成功
             }catch (e) {
                 global.showErrorTip(e.msg,this)
             }

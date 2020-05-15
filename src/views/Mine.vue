@@ -24,7 +24,7 @@
                         <div class="user-level flexRow0">
                             <!--todo:会员等级-->
                             <div v-if="data.mlname==='普通会员'" @click="goPage('/rechargeCenter')">开通会员</div>
-                            <div v-else @click="goPage('/rechargeCenter')"><span>V</span>{{data.mlname}}</div>
+                            <div class="vip-level" v-else @click="goPage('/rechargeCenter')"><span>{{data.mlname}}</span></div>
                         </div>
                     </div>
                 </div>
@@ -272,18 +272,20 @@
             }
             .user-level {
                 div {
-                    padding: 10px 20px;
+/*                    padding: 10px 20px;
                     background: #fff;
-                    border-radius: 20px;
+                    border-radius: 20px;*/
                     color: #C91415;
+                    font-size: 15px;
                     span {
-                        display: inline-block;
+                        margin-left: 8px;
+/*                        display: inline-block;
                         width: 30px;
                         height: 30px;
                         margin-right: 10px;
                         background: #C91415;
                         color: #fff;
-                        border-radius: 20px;
+                        border-radius: 20px;*/
                     }
                 }
             }
@@ -340,5 +342,13 @@
                 }
             }
         }
+    }
+
+    .vip-level{
+        background: url("./../assets/me/vip-level.png") no-repeat;
+        background-size: cover;
+        width: 140px;
+        height: 40px;
+        line-height: 40px;
     }
 </style>

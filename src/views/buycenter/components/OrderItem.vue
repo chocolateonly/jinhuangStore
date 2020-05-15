@@ -38,7 +38,7 @@
         </div>
         <!--state: 0已取消  1待付款  2进行中  3已卖出-->
         <div class="item-footer flexRow0 jc-sb ai-center">
-            <div class="order-money text-line-1"> 预付款金额：￥{{v.buy_money}}</div>
+            <div class="order-money text-line-1"> 预付款金额：￥{{Number(Number(v.buy_money)-Number(v.service_money)).toFixed(2)}}</div>
             <div class="order-btn lg-bg-red" v-show="type===0" @click="onBuyOut">全部卖出</div>
             <div class="order-btn lg-bg-yellow buy-again" v-show="type===1" @click="onBuyAgain">再次购买
             </div>
@@ -87,13 +87,14 @@
                         const l_res = await serviceApi.getLastPrice()
                         this.curPrice = l_res.data.now_price
                         this.profit_money = Number((Number(l_res.data.now_price) - Number(this.v.buy_price)) * Number(this.v.num) * Number(this.v.weight)).toFixed(2)
+
                         if (Number(this.profit_money) > 0) {
                             this.isUp = this.v.type_text !== '回购'
-                            this.profit_money=this.isUp?`${Math.abs(Number(this.profit_money))}`:`-${Math.abs(Number(this.profit_money))}`
+                            this.profit_money=Number(this.profit_money)===0?0:this.isUp?`${Math.abs(Number(this.profit_money))}`:`-${Math.abs(Number(this.profit_money))}`
                         }
                         else {
                             this.isUp = this.v.type_text === '回购'
-                            this.profit_money=this.isUp?`${Math.abs(Number(this.profit_money))}`:`-${Math.abs(Number(this.profit_money))}`
+                            this.profit_money=Number(this.profit_money)===0?0:this.isUp?`${Math.abs(Number(this.profit_money))}`:`-${Math.abs(Number(this.profit_money))}`
                         }
                     } catch (e) {
                         clearInterval(this.lastPriceInterval)
@@ -179,6 +180,9 @@
             .order-btn {
                 padding: 10px 20px;
                 min-width: 100px;
+                border: 0.06rem solid;
+                -o-border-image: linear-gradient(-45deg, #a35d09, #fbd8ad, #8c4e03, #fbdcb3) 4 4;
+                border-image: linear-gradient(-45deg, #a35d09, #fbd8ad, #8c4e03, #fbdcb3) 4 4;
             }
         }
 

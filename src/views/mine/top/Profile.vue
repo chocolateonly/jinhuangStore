@@ -86,7 +86,8 @@
                 code: '',
                 fileList: [{content:''}],
                 avatarId:'',
-                invite_code:''
+                invite_code:'',
+                is_name:false
             }
         },
         methods: {

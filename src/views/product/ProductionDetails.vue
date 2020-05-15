@@ -158,7 +158,7 @@
     import CommentItem from "./components/CommentItem";
     import global from "../../components/global";
     import {serviceApi} from "../../services/apis";
-   //import _ from 'lodash'
+    import _ from 'lodash'
     export default {
         name: "ProductionDetails",
         data() {
@@ -197,7 +197,7 @@
                 this.$router.push(`/comment/${this.$route.params.id}`)
             },
             async getPrice(){
-                //if (!_.isEmpty(this.selected)&&Object.values(this.selected).includes('')) return this.$toast('请选择属性')
+                if (!_.isEmpty(this.selected)&&Object.values(this.selected).includes('')) return;
                 try {
                     //获取产品价格spa_id
                     const compose = Object.entries(this.selected).map((item) => item.join(':')).join(',')

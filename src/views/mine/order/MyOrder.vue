@@ -96,7 +96,7 @@
         padding: 10px 30px;
 
         .tab-item {
-            font-size: 20px;
+            font-size: 30px;
             color: #fff;
             text-align: center;
             position: relative;
