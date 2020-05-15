@@ -108,7 +108,7 @@
         background: url("../../../assets/common/header_bg.png") no-repeat;
         background-size: cover;
         border-radius: 20px;
-        padding: 20px;
+        padding: 40px;
         color: #fff;
 
         .avatar {

@@ -93,7 +93,7 @@
         text-align: left;
     }
     .team-header {
-        padding: 30px;
+        padding: 40px;
         background: url("../../../assets/common/header_bg.png") no-repeat;
         background-size: cover;
         border-radius: 10px;
