@@ -1,22 +1,19 @@
 <template>
     <Layout title="我的推广码" :go-back="goBack">
         <div class="main flexCol1" slot="content">
-
-            <div class="img-wrap" >
-
-                <img id="imageWrapper" :src="data.erweima" alt="">
-                <!--<div style="margin-top: 10px">(长按图片即可保存)</div>-->
-            </div>
-
-
-            <!--            <button @click="toSave">保存图片</button>-->
-
             <van-password-input
                     class="code"
                     :value="data.invite_code"
                     :mask="false"
                     :show="false"
             />
+            <div class="img-wrap" >
+                <img id="imageWrapper" :src="data.erweima" alt="">
+                <!--<div style="margin-top: 10px">(长按图片即可保存)</div>-->
+            </div>
+
+
+            <!--            <button @click="toSave">保存图片</button>-->
 
         </div>
     </Layout>
@@ -86,8 +83,8 @@
 <style lang="less" scoped>
     .main {
         text-align: left;
-        background: url("../../../assets/me/qrcode_bg.png") no-repeat;
-        background-size: cover;
+        background: url("../../../assets/me/qrcode_bg2.png") no-repeat;
+        background-size: 100%;
     }
 .img-wrap{
     margin: 80px auto
@@ -99,6 +96,6 @@
     }
 
     .code {
-
+        margin-top: 50px;
     }
 </style>
