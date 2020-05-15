@@ -85,7 +85,7 @@
 
 <style lang="less" scoped>
     .login_bg{
-        background: url("../../assets/login/login_bg.png") no-repeat;
+        background: url("../../assets/login/login_bg2.png") no-repeat;
         background-size: cover;
         position: absolute;
         top: 0;
