@@ -56,7 +56,7 @@
         this.$router.go(-1)
       },
         async onSubmit(){
-          if (this.yinli||this.kuisun) return this.$toast('所有字段必填')
+          if (!this.yinli||!this.kuisun) return this.$toast('所有字段必填')
             const params={
                 hasToken:true,
                 profit_scale:this.yinli,

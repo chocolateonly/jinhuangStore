@@ -40,7 +40,7 @@
         <div class="item-footer flexRow0 jc-sb ai-center">
             <div class="order-money text-line-1"> 预付款金额：￥{{Number(Number(v.buy_money)-Number(v.service_money)).toFixed(2)}}</div>
             <div class="order-btn lg-bg-red" v-show="type===0" @click="onBuyOut">全部卖出</div>
-            <div class="order-btn lg-bg-yellow buy-again" v-show="type===1" @click="onBuyAgain">再次购买
+            <div class="order-btn lg-bg-red buy-again" v-show="type===1" @click="onBuyAgain">再次购买
             </div>
         </div>
 
