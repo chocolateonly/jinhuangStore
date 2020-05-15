@@ -344,7 +344,7 @@
 
         .yishou {
             align-self: center;
-            font-size: 14px;
+            font-size: 15px;
             color: #666;
         }
 
