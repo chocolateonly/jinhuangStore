@@ -83,6 +83,7 @@
             }
         },
         mounted() {
+
             try {
                 //实时获取金价
                 this.lastPriceInterval = setInterval(async () => {

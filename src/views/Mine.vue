@@ -35,7 +35,10 @@
                         <span>{{all_money}}</span>
                     </div>
                     <div class="item-money text-line-1">
-                        <span class="yue">(可用余额：{{data.balance}})</span>
+                        <span class="yue">(可用余额：{{Number(Number(data.balance)-Number(data.clock_money)).toFixed(2)}})</span>
+                    </div>
+                    <div class="item-money text-line-1">
+                        <span class="yue">(锁定金额：{{data.clock_money}})</span>
                     </div>
                     <div class="item-money flexRow0 jc-sb ai-center" style="margin-top:10px">
                         <div class="flexGrow1  text-line-1">
@@ -139,6 +142,7 @@
       },
       goOrderPage(i){
           if (i===2) return this.$router.replace(`/myOrder/${3}`)
+          if (i===3) return this.$router.replace(`/myOrder/${4}`)
         this.$router.push(`/myOrder/${i}`)
       },
       goServicePage(i){

@@ -65,7 +65,7 @@
 
             try {
                 await  serviceApi.setParams(params)
-
+                this.$toast('参数已设置成功')
             }catch (e) {
                 global.showErrorTip(e.msg,this)
             }

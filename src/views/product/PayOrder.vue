@@ -183,7 +183,7 @@
                     const res = await serviceApi.profile(params)
                     this.yue = res.data.balance
                     this.jindou = res.data.integral
-                    this.payMethods[2].name = `余额（${res.data.balance}元）`
+                    this.payMethods[2].name = `余额（${Number(Number(res.data.balance)-Number(res.data.clock_money)).toFixed(2)}元）`
                     this.payMethods[3].name = `金豆（${res.data.integral}）`
                 } catch (e) {
                     global.showErrorTip(e.msg, this)
