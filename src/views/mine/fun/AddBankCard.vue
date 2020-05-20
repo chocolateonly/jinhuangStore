@@ -111,8 +111,10 @@
 
                 try {
                     await  serviceApi.addBankAccount(params)
-
+                    await this.$toast('绑定成功')
+                    this.$router.go(-1)
                 }catch (e) {
+                    console.log(e)
                     global.showErrorTip(e.msg,this)
                 }
             }

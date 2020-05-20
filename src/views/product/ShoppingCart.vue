@@ -173,7 +173,7 @@
                     await serviceApi.deleteGoods({id: item.id, hasToken: true})
                     this.list = _.difference(this.list, item)
                     this.getFinPrice()
-                    this.$router.go(0)
+                    this.onRefresh()
                 } catch (e) {
                     global.showErrorTip(e.msg, this)
                 }
