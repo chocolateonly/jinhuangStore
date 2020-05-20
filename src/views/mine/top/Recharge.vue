@@ -97,7 +97,7 @@
 
                 payMethods: [
                     {id: 0, name: '微信支付', img: require('../../../assets/home/pay/icon_wx.png')},
-                    {id: 1, name: '支付宝支付', img: require('../../../assets/home/pay/icon_zfb.png')},
+                    /*{id: 1, name: '支付宝支付', img: require('../../../assets/home/pay/icon_zfb.png')},*/
                 ],
                 payWay: 0
             }

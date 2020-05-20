@@ -101,7 +101,7 @@
             return {
                 payMethods: [
                     {id: 0, name: '微信支付', img: require('../../assets/home/pay/icon_wx.png')},
-                    {id: 1, name: '支付宝支付', img: require('../../assets/home/pay/icon_zfb.png')},
+                   /* {id: 1, name: '支付宝支付', img: require('../../assets/home/pay/icon_zfb.png')},*/
                     {id: 2, name: '余额（0元）', img: require('../../assets/home/pay/icon_ye.png')},
                     {id: 3, name: '金豆（0）', img: require('../../assets/home/pay/icon_jindou.png')},
                 ],
