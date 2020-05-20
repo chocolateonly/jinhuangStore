@@ -280,9 +280,9 @@
                     background: #fff;
                     border-radius: 20px;*/
                     color: #C91415;
-                    font-size: 15px;
                     span {
-                        margin-left: 8px;
+                        font-size: 0.4rem;
+                        margin-left: 17px;
 /*                        display: inline-block;
                         width: 30px;
                         height: 30px;
@@ -350,9 +350,9 @@
 
     .vip-level{
         background: url("./../assets/me/vip-level.png") no-repeat;
-        background-size: cover;
-        width: 140px;
-        height: 40px;
-        line-height: 40px;
+        background-size: contain;
+        width: 2.4rem;
+        height: 0.7rem;
+        line-height: 0.7rem;
     }
 </style>
