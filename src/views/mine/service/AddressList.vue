@@ -8,7 +8,7 @@
 
         <div class=" flexCol1 overflowY">
             <div class="content">
-                <FlatListView :getList="(page,pageSize)=>getList(page,pageSize)">
+                <FlatListView :key="refreshing" :getList="(page,pageSize)=>getList(page,pageSize)">
                     <template scope="list">
                         <div v-for="(v,i) in list.data" :key="i">
                             <div class="flexRow0 ai-center">
@@ -20,7 +20,7 @@
                                 </div>
 
                                 <div class="flexGrow1">
-                                    <AddressItem :v="v" :i="i" />
+                                    <AddressItem :v="v" :i="i" :deleteAddress="deleteAddress"/>
                                 </div>
                             </div>
                         </div>
@@ -46,7 +46,8 @@
         components: {Header, AddressItem, FlatListView},
         data() {
             return {
-                selected:{}
+                selected:{},
+                refreshing:false
             }
         },
         computed:mapGetters(['address']),
@@ -54,6 +55,19 @@
             ...mapActions(['selectAddress']),
             goBack() {
                 this.$router.go(-1)
+            },
+            async deleteAddress(v){
+
+                try {
+                    await serviceApi.deleteAddress({id:v.id,hasToken: true})
+                    //this.$router.go(0)
+                    this.refreshing=true
+                    this.$nextTick(()=>{
+                        this.refreshing=false
+                    })
+                } catch (e) {
+                    global.showErrorTip(e.msg, this)
+                }
             },
             async getList() {
                 const params = {

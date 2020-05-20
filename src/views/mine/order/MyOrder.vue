@@ -20,10 +20,10 @@
 
         <div class=" flexCol1 overflowY">
             <div class="content">
-                <FlatListView :key="activeTab" :getList="getList">
+                <FlatListView :key="`${activeTab}_${refreshing}`" :getList="getList">
                     <template scope="list">
                         <div class="item" v-for="(v,i) in list.data" :key="i">
-                            <MyOrderItem :v="v" :i="i"/>
+                            <MyOrderItem :v="v" :i="i" :cancelOrder="cancelOrder" :delOrder="delOrder" :goConfirm="goConfirm"/>
                         </div>
                     </template>
                 </FlatListView>
@@ -48,6 +48,7 @@
       return {
         tabs: ['全部', '待付款','待发货', '待收货', '待评价'],
         activeTab: 0,
+          refreshing:false
       }
     },
     methods: {
@@ -59,6 +60,60 @@
       goBack() {
         this.$router.go(-1)
       },
+        async cancelOrder(v){
+
+            const params = {
+                hasToken: true,
+                id:v.id,
+            }
+
+            try {
+                await serviceApi.cancelOrder(params)
+                //this.$router.go(0)
+                this.refreshing=true
+                this.$nextTick(()=>{
+                    this.refreshing=false
+                })
+            } catch (e) {
+                global.showErrorTip(e.msg, this)
+            }
+        },
+        async delOrder(v){
+
+            const params = {
+                hasToken: true,
+                id:v.id,
+            }
+
+            try {
+                await serviceApi.delOrder(params)
+                //this.$router.go(0)
+                this.refreshing=true
+                this.$nextTick(()=>{
+                    this.refreshing=false
+                })
+            } catch (e) {
+                global.showErrorTip(e.msg, this)
+            }
+        },
+        async goConfirm(v){
+
+            const params = {
+                hasToken: true,
+                id: v.id,
+            }
+
+            try {
+                await serviceApi.confirmOrder(params)
+                //this.$router.go(0)
+                this.refreshing=true
+                this.$nextTick(()=>{
+                    this.refreshing=false
+                })
+            } catch (e) {
+                global.showErrorTip(e.msg, this)
+            }
+        },
       async getList(page) {
        try {
            const params={

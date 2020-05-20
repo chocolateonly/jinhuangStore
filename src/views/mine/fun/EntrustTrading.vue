@@ -8,7 +8,7 @@
                 <div class="rule" @click="goRule">委托交易规则</div>
             </div>
 
-            <FlatListView  :getList="(page,pageSize)=>getList(page,pageSize)">
+            <FlatListView :key="refreshing"  :getList="(page,pageSize)=>getList(page,pageSize)">
                 <template scope="list">
                     <div v-for="(v,i) in list.data" :key="i" class="item flexRow0 jc-sb ai-center">
                         <img :src="v.icon" alt="">
@@ -45,7 +45,9 @@
         name: "EntrustTrading",
         components: {FlatListView, TitleCore, Layout},
         data() {
-            return {}
+            return {
+                refreshing:false
+            }
         },
         methods: {
             onShow(list){
@@ -67,7 +69,11 @@
 
                 try {
                     await  serviceApi.confirmEt(params)
-                    this.$router.go(0)
+                    //this.$router.go(0)
+                    this.refreshing=true
+                    this.$nextTick(()=>{
+                        this.refreshing=false
+                    })
                 }catch (e) {
                     global.showErrorTip(e.msg,this)
                 }

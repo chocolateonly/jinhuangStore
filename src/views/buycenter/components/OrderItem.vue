@@ -42,7 +42,7 @@
             <div class="order-money text-line-1">
                 预付款金额：￥{{Number(Number(v.buy_money)-Number(v.service_money)).toFixed(2)}}
             </div>
-            <div class="order-btn lg-bg-red" v-show="type===0" @click="onBuyOut">全部卖出</div>
+            <div class="order-btn lg-bg-red" v-show="type===0" @click="()=>onBuyOut(v)">全部卖出</div>
             <div class="order-btn lg-bg-red buy-again" v-show="type===1" @click="onBuyAgain">再次购买
             </div>
         </div>
@@ -58,7 +58,8 @@
         name: "OrderItem",
         props: {
             v: Object,
-            type: Number
+            type: Number,
+            onBuyOut:Function
         },
         data() {
             return {
@@ -69,15 +70,7 @@
             }
         },
         methods: {
-            async onBuyOut() {
-                try {
-                    await serviceApi.sellOut({id: this.v.id, hasToken: true})
-                    this.$toast('成功卖出')
-                    this.$router.go(0)
-                } catch (e) {
-                    global.showErrorTip(e.msg, this)
-                }
-            },
+
             onBuyAgain() {
                 this.$router.push('/goldBuy')
             }

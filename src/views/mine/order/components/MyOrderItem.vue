@@ -35,14 +35,14 @@
         <div class="item-footer flexRow0 jc-sb ai-center" v-if="v.status==='-1'">
             <div class=" flexRow1 text-line-1"></div>
             <div class="right-btn flexRow1  ai-center">
-                <div class="order-btn lg-bg-gray buy-again" @click="delOrder">删除订单</div>
+                <div class="order-btn lg-bg-gray buy-again" @click="()=>delOrder(v)">删除订单</div>
             </div>
 
         </div>
         <div class="item-footer flexRow0 jc-sb ai-center" v-if="v.status==='1'">
             <div class=" flexRow1 text-line-1"></div>
             <div class="right-btn flexRow1  ai-center">
-                <div class="order-btn lg-bg-gray buy-again" @click="cancelOrder">取消订单</div>
+                <div class="order-btn lg-bg-gray buy-again" @click="()=>cancelOrder(v)">取消订单</div>
                 <div class="order-btn lg-bg-red" @click="goPay">去付款</div>
             </div>
 
@@ -59,7 +59,7 @@
         <div class="item-footer flexRow0 jc-sb ai-center" v-else-if="v.status==='3'">
             <div class=" flexRow1 text-line-1"></div>
             <div class="right-btn flexRow1  ai-center">
-                <div class="order-btn lg-bg-red" @click="goConfirm">确认收货</div>
+                <div class="order-btn lg-bg-red" @click="()=>goConfirm(v)">确认收货</div>
             </div>
 
         </div>
@@ -91,62 +91,24 @@
 </template>
 
 <script>
-    import {serviceApi} from "../../../../services/apis";
-    import global from "../../../../components/global";
-
     export default {
         name: "MyOrderItem",
         props: {
             v: Object,
+            cancelOrder:Function,
+            delOrder:Function,
+            goConfirm:Function
+        },
+        data(){
+          return {
+          }
         },
         methods:{
             goComment(){
                 this.$router.push(`/orderComment/${this.v.id}`)
             },
-            async cancelOrder(){
-
-                const params = {
-                    hasToken: true,
-                    id:this.v.id,
-                }
-
-                try {
-                    await serviceApi.cancelOrder(params)
-                    this.$router.go(0)
-                } catch (e) {
-                    global.showErrorTip(e.msg, this)
-                }
-            },
-            async delOrder(){
-
-                const params = {
-                    hasToken: true,
-                    id:this.v.id,
-                }
-
-                try {
-                    await serviceApi.delOrder(params)
-                    this.$router.go(0)
-                } catch (e) {
-                    global.showErrorTip(e.msg, this)
-                }
-            },
              goPay(){
                 this.$router.push(`/payOrder/${this.v.id}`)
-            },
-            async goConfirm(){
-
-                const params = {
-                    hasToken: true,
-                    id: this.v.id,
-                }
-
-                try {
-                    await serviceApi.confirmOrder(params)
-                    this.$router.go(0)
-                } catch (e) {
-                    global.showErrorTip(e.msg, this)
-                }
             },
         }
     }

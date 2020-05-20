@@ -17,7 +17,7 @@
                 <div class="btn flexRow1 ai-center"  @click="goAddOrUpdateAddress">
                     <span>编辑</span><img src="./../../../../assets/me/icon_edit.png" alt="">
                 </div>
-                <div class="btn flexRow1 ai-center" @click="deleteAddress">
+                <div class="btn flexRow1 ai-center" @click="()=>deleteAddress(v)">
                     <span>删除</span><img src="./../../../../assets/me/icon_delete.png" alt="">
                 </div>
             </div>
@@ -27,8 +27,6 @@
 </template>
 
 <script>
-  import {serviceApi} from "../../../../services/apis";
-  import global from "../../../../components/global";
 
   export default {
     name: "AddressItem",
@@ -38,22 +36,16 @@
       handleClick: {
         type: Function,
         default: () => null
-      }
+      },
+        deleteAddress: {
+            type: Function,
+            default: () => null
+        }
     },
       methods:{
           goAddOrUpdateAddress(){
               this.$router.push(`/addOrUpdateAddress/${this.v.id}`)
           },
-          async deleteAddress(){
-
-              try {
-                  await serviceApi.deleteAddress({id:this.v.id,hasToken: true})
-                  this.$router.go(0)
-
-              } catch (e) {
-                  global.showErrorTip(e.msg, this)
-              }
-          }
       }
   }
 </script>

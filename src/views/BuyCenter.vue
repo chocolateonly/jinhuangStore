@@ -22,10 +22,10 @@
         <div class=" flexCol1 overflowY" >
             <div class="content">
 
-                <FlatListView :key="`${activeTab}_${selectedDate}`" :getList="(page,pageSize)=>getList(page,pageSize)">
+                <FlatListView :key="`${activeTab}_${selectedDate}_${refreshing}`" :getList="(page,pageSize)=>getList(page,pageSize)">
                     <template scope="list">
                         <div class="order" v-for="(v,i) in list.data" :key="i">
-                            <OrderItem :v="v" :type="activeTab"/>
+                            <OrderItem :v="v" :type="activeTab" :onBuyOut="onBuyOut"/>
                         </div>
                     </template>
                 </FlatListView>
@@ -77,11 +77,25 @@
                 currentDate: moment().toDate(),  //for pop
                 showPicker: false,
                 selectedDate: this.formatDate(),  //for selected val
-                show:''
+                show:'',
+                refreshing:false
             }
         },
         components: {FlatListView, OrderItem, FullButton},
         methods: {
+            async onBuyOut(item) {
+                try {
+                    await serviceApi.sellOut({id: item.id, hasToken: true})
+                    this.$toast('成功卖出')
+                    //this.$router.go(0)
+                    this.refreshing=true
+                    this.$nextTick(()=>{
+                        this.refreshing=false
+                    })
+                } catch (e) {
+                    global.showErrorTip(e.msg, this)
+                }
+            },
             goBack() {
                 this.$router.go(-1)
             },
