@@ -11,7 +11,9 @@ module.exports = ({ file }) => {
                 rootValue: remUnit,
                 propList: ['*']
             },
-            'autoprefixer': {}
+            'autoprefixer': {
+                overrideBrowserslist: ['last 20 versions']  //自动加前缀配置
+            }
         }
     }
 }
