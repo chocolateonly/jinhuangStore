@@ -42,8 +42,8 @@
         components: {FullButton},
         data() {
             return {
-                username: '',
-                password: ''
+                username: '13476260156',
+                password: '123456'
             }
         },
         methods:{

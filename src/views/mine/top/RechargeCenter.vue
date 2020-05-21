@@ -34,25 +34,6 @@
             </div>
 
 
-            <!--<van-radio-group class="pay-methods-list" v-model="payWay">
-                <van-cell-group>
-
-                    <van-cell class="pay-methods-item"
-                              v-for="(v,i) in payMethods" :title="v.name" :key="i"
-                              clickable @click=" payWay = v.id">
-                        <template #icon>
-                            <img :src="v.img" alt="">
-                        </template>
-                        <template #right-icon>
-                            <van-radio :name="v.id"
-                                       checked-color="#BC0203"/>
-                        </template>
-                    </van-cell>
-
-                </van-cell-group>
-            </van-radio-group>-->
-
-
             <div class="save-btn lg-bg-red flexCol0 ai-center" @click="onSubmit">
                 <span>提交</span>
             </div>
@@ -75,10 +56,6 @@
 
           data:{},
           selected_vip:{},
-/*          payMethods: [
-              {id: 0, name: '微信支付', img: require('../../../assets/home/pay/icon_wx.png')},
-              {id: 1, name: '支付宝支付', img: require('../../../assets/home/pay/icon_zfb.png')},
-          ],*/
           payWay: 0,
       }
     },
@@ -96,24 +73,6 @@
                 await serviceApi.setUpLevel(params)
                 this.$toast('升级成功')
                 this.$router.push('/tab/mine')
-/*                let res = await fetch(`${apiRoot}/api/index/recharge?${qs.stringify(getParams(params))}`)
-
-                if (this.payWay===0){//微信
-                    res=await res.json()
-                    const url = encodeURIComponent(`${payRedirectUrl}/#/tab/mine`)
-                    window.location.href = res.data+"&redirect_url="+url;
-                }
-                else if (this.payWay===1){//支付宝
-                    res=await res.text()
-                    const div = document.createElement('div');
-                    div.innerHTML =res;
-                    document.body.appendChild(div);
-                    document.forms[0].submit();
-                }
-                else{
-                    this.$toast(res.desc) //支付成功
-                    this.$router.push('/tab/mine')
-                }*/
 
             } catch (e) {
                 global.showErrorTip(e.msg, this)

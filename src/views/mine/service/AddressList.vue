@@ -62,6 +62,7 @@
                     await serviceApi.deleteAddress({id:v.id,hasToken: true})
                     //this.$router.go(0)
                     this.refreshing=true
+                    this.selectAddress({})
                     this.$nextTick(()=>{
                         this.refreshing=false
                     })

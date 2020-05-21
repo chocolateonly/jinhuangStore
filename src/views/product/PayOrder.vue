@@ -75,7 +75,7 @@
                 </van-radio-group>
 
 
-                <FullButton title="确认支付" :onClick="onPay" _className="btn"/>
+                <PageBtn title="确认支付" :on-click="onPay" />
 
             </div>
         </div>
@@ -86,17 +86,17 @@
 <script>
     import Header from "../../components/Header";
     import TimeCountDown from "../../components/TimeCountDown";
-    import FullButton from "../../components/FullButton";
     import {apiRoot, getParams, serviceApi, payRedirectUrl} from "../../services/apis";
     import global from "../../components/global";
     import qs from "qs";
     import {mapActions, mapGetters} from 'vuex'
     import _ from 'lodash'
     import axios from 'axios'
+    import PageBtn from "../../components/PageBtn";
 
     export default {
         name: "PayOrder",
-        components: {FullButton, TimeCountDown, Header},
+        components: {PageBtn, TimeCountDown, Header},
         data() {
             return {
                 payMethods: [
@@ -129,6 +129,8 @@
                 }, 1000)
             },
             async onPay() {
+                if(!this.address.id) return this.$toast('请选择地址')
+
                 const params = {
                     hasToken: true,
                     order_id: this.$route.params.orderId,
@@ -168,7 +170,11 @@
                 try {
                     const res = await serviceApi.getOrderDetail(params)
                     this.oplist = res.data.oplist
-                 if (_.isEmpty(this.address))  this.selectAddress(res.data.receivingAddrs)
+                 if (_.isEmpty(this.address)&&res.data.receivingAddrs&&res.data.receivingAddrs.id)  {
+                     const address_res=await serviceApi.getAddressDetail({hasToken: true,id:res.data.receivingAddrs.id})
+                     const {sheng,shi,qu,address}=address_res.data
+                     this.selectAddress({...address_res.data,address:`${sheng}${shi}${qu} ${address}`})
+                 }
                 } catch (e) {
                     if (e.msg.includes('订单不存在')) this.$router.push('/myOrder/0')
                     global.showErrorTip(e.msg, this)
@@ -183,8 +189,12 @@
                     const res = await serviceApi.profile(params)
                     this.yue = res.data.balance
                     this.jindou = res.data.integral
-                    this.payMethods[2].name = `余额（${Number(Number(res.data.balance)-Number(res.data.clock_money)).toFixed(2)}元）`
-                    this.payMethods[3].name = `金豆（${res.data.integral}）`
+                    //fixme:加支付宝时
+/*                    this.payMethods[2].name = `余额（${Number(Number(res.data.balance)-Number(res.data.clock_money)).toFixed(2)}元）`
+                    this.payMethods[3].name = `金豆（${res.data.integral}）`*/
+
+                    this.payMethods[1].name = `余额（${Number(Number(res.data.balance)-Number(res.data.clock_money)).toFixed(2)}元）`
+                    this.payMethods[2].name = `金豆（${res.data.integral}）`
                 } catch (e) {
                     global.showErrorTip(e.msg, this)
                 }

@@ -278,7 +278,7 @@
                 display: inline-block;
                 margin-right: 20px;
                 margin-bottom: 20px;
-
+                cursor: pointer;
                 span {
                     font-size: 30px;
                 }
