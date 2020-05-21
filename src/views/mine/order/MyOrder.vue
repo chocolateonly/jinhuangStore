@@ -58,7 +58,7 @@
         this.$router.replace(`/myOrder/${i}`)
       },
       goBack() {
-        this.$router.go(-1)
+          this.$router.push('/tab/mine')
       },
         async cancelOrder(v){
 
