@@ -1,8 +1,8 @@
 import {Get} from "./index";
 import qs from 'qs'
 import {getSign, StorageKey} from "../utils";
-export const apiRoot='http://jinhuang.test.hbbeisheng.com' //'http://jinhuang.test.hbbeisheng.com' //http://www.jinhuang.com
-export const payRedirectUrl='http://jinhuang.test.hbbeisheng.com/wap'
+export const apiRoot='http://www.jinhuangsc.com' //'http://jinhuang.test.hbbeisheng.com' //http://www.jinhuang.com
+export const payRedirectUrl='http://www.jinhuangsc.com/wap'
 export const getParams= (body)=>{
   const timestamp = new Date().getTime().toString().substr(0,10)
   const {hasToken,...other}=body
