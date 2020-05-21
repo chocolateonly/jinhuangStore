@@ -281,7 +281,7 @@
                     border-radius: 20px;*/
                     color: #C91415;
                     span {
-                        font-size: 0.4rem;
+                        font-size: 0.3rem;
                         margin-left: 17px;
 /*                        display: inline-block;
                         width: 30px;
