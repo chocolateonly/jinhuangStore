@@ -105,6 +105,8 @@
             .logo_img{
                 width:182px;
                 height:182px;
+                border-radius: .2rem;
+                overflow: hidden;
             }
         }
 
