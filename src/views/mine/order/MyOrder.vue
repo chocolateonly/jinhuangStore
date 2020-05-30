@@ -115,6 +115,7 @@
             }
         },
       async getList(page) {
+          console.log(page)
        try {
            const params={
                hasToken:true,
@@ -122,7 +123,7 @@
                sta:this.activeTab
            }
            const res=await serviceApi.getMyOrderList(params)
-           return {total:res.data.count,list:res.data.list}
+           return {total:res.data.count,list:res.data.list,page:res.data.page}
        }catch (e) {
            global.showErrorTip(e.msg, this)
        }

@@ -73,7 +73,7 @@
         try {
          const res=await  serviceApi.getAllProducts(params)
             this.tabs=res.data.ptlist
-            return {total:res.data.count,list:res.data.data}
+            return {total:res.data.count,list:res.data.data,page:res.data.page}
         }catch (e) {
             global.showErrorTip(e.msg,this)
         }

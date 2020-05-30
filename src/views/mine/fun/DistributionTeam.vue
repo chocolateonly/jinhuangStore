@@ -78,7 +78,7 @@
                 try {
                     const res = await serviceApi.getDistrTeam(params)
                     this.data=res.data
-                    return {total:res.data.count,list:res.data.list}
+                    return {total:res.data.count,list:res.data.list,page:res.data.page}
                 } catch (e) {
                     global.showErrorTip(e.msg, this)
                 }

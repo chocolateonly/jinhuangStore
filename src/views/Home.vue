@@ -70,7 +70,7 @@
                         <span>热门产品</span>
                     </div>
                     <div class="header-right" @click="$router.push('/productionList/0')">
-                        更多
+                        更多商品
                     </div>
                 </div>
                 <!-- productions-->

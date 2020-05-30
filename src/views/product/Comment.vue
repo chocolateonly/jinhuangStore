@@ -44,7 +44,7 @@
 
                 try {
                     const res=await  serviceApi.getAllComments(params)
-                    return {total:res.data.count,list:res.data.data}
+                    return {total:res.data.count,list:res.data.data,page:res.data.page}
                 }catch (e) {
                     global.showErrorTip(e.msg,this)
                 }

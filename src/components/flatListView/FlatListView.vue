@@ -61,13 +61,12 @@
         }
 
         if (this.loading) {
-          const {total=0, list=[]} = await this.getList(this.page, this.pageSize)||{}
+          const {total=0, list=[],page=null} = await this.getList(this.page, this.pageSize)||{}  //total  总页数
           this.list.push(...list)
           this.total = total
           this.loading = false
           this.page++
-          console.log(this.page,this.list.length, Number(total))
-          if (this.list.length >= Number(total)) {
+          if (Number(total)<=Number(page)) {
             this.finished = true;
           }
 

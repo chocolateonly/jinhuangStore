@@ -78,7 +78,7 @@
               const res=await  serviceApi.getNewsList(params)
               this.tabs=res.data.aclist
               this.notice=res.data.notice
-              return {total:res.data.count,list:res.data.list}
+              return {total:res.data.count,list:res.data.list,page:res.data.page}
           }catch (e) {
               global.showErrorTip(e.msg,this)
           }
