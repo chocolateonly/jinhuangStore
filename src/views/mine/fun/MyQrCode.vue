@@ -1,6 +1,6 @@
 <template>
     <Layout title="我的推广码" :go-back="goBack">
-        <div class="main flexCol1" slot="content">
+        <div class="main flexCol1" slot="content" :style="`background: url(${data.bj_tu}) no-repeat;background-size: 100%;`">
             <van-password-input
                     class="code"
                     :value="data.invite_code"
@@ -72,7 +72,7 @@
 
             try {
                 const res = await serviceApi.getMyInviteCode(params)
-                this.data=res.data
+                this.data={...res.data,image:'../../../assets/me/qrcode_bg3.png'}
             } catch (e) {
                 global.showErrorTip(e.msg, this)
             }
@@ -83,8 +83,8 @@
 <style lang="less" scoped>
     .main {
         text-align: left;
-        background: url("../../../assets/me/qrcode_bg3.png") no-repeat;
-        background-size: 100%;
+/*        background: url("../../../assets/me/qrcode_bg3.png") no-repeat;
+        background-size: 100%;*/
     }
 .img-wrap{
     margin: 80px auto
