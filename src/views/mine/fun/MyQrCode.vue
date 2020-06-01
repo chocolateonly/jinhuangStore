@@ -83,7 +83,7 @@
 <style lang="less" scoped>
     .main {
         text-align: left;
-        background: url("../../../assets/me/qrcode_bg2.png") no-repeat;
+        background: url("../../../assets/me/qrcode_bg3.png") no-repeat;
         background-size: 100%;
     }
 .img-wrap{
